@@ -191,7 +191,8 @@ export class ExtensionOverlay extends LitElement {
 
     private renderEditor() {
         const editorControlsClasses = {
-            editorControls: true
+            editorControls: true,
+            editorControlsVisible: this.editorActive
         };
 
         const blurChange = this.updateRangeValue.bind(this, 'blur');
@@ -204,77 +205,75 @@ export class ExtensionOverlay extends LitElement {
         const sepiaChange = this.updateRangeValue.bind(this, 'sepia');
         return html`
             <div class="editor">
-                ${this.editorActive ? html`
-                    <div class="${classMap(editorControlsClasses)}">
-                        <sl-card>
+                <div class="${classMap(editorControlsClasses)}">
+                    <sl-card>
+                        <sl-range
+                            label="Blur"
+                            min="0"
+                            max="10"
+                            step="1"
+                            value="${this.filterBlur}"
+                            @sl-input="${blurChange}"></sl-range>
+                        <sl-range
+                            label="Brightness"
+                            min="0"
+                            max="3"
+                            step="0.1"
+                            value="${this.filterBrightness}"
+                            @sl-input="${brightnessChange}"></sl-range>
+                        <sl-range
+                            label="Contrast"
+                            min="0"
+                            max="3"
+                            step="0.1"
+                            value="${this.filterContrast}"
+                            @sl-input="${contrastChange}"></sl-range>
                             <sl-range
-                                label="Blur"
-                                min="0"
-                                max="10"
-                                step="1"
-                                value="${this.filterBlur}"
-                                @sl-input="${blurChange}"></sl-range>
-                            <sl-range
-                                label="Brightness"
-                                min="0"
-                                max="3"
-                                step="0.1"
-                                value="${this.filterBrightness}"
-                                @sl-input="${brightnessChange}"></sl-range>
-                            <sl-range
-                                label="Contrast"
-                                min="0"
-                                max="3"
-                                step="0.1"
-                                value="${this.filterContrast}"
-                                @sl-input="${contrastChange}"></sl-range>
-                             <sl-range
-                                label="Grayscale"
-                                min="0"
-                                max="1"
-                                step="0.01"
-                                value="${this.filterGrayscale}"
-                                @sl-input="${grayscaleChange}"></sl-range>
-                            <sl-range
-                                label="Hue Rotate"
-                                min="0"
-                                max="360"
-                                step="1"
-                                value="${this.filterHueRotate}"
-                                @sl-input="${hueRotateChange}"></sl-range>
-                            <sl-range
-                                label="Invert"
-                                min="0"
-                                max="1"
-                                step="0.01"
-                                value="${this.filterInvert}"
-                                @sl-input="${invertChange}"></sl-range>
-                            <sl-range
-                                label="Saturate"
-                                min="0"
-                                max="3"
-                                step="0.1"
-                                value="${this.filterSaturate}"
-                                @sl-input="${saturateChange}"></sl-range>
-                            <sl-range
-                                label="Sepia"
-                                min="0"
-                                max="1"
-                                step="0.01"
-                                value="${this.filterSepia}"
-                                @sl-input="${sepiaChange}"></sl-range>
-                            <div class="editorControlsFooter" slot="footer">
-                                <sl-switch
-                                    .disabled="${this.isAnimatingDivider}"
-                                    @sl-change="${this.toggleDivider}"
-                                    >Enable Slider</sl-switch>
-                                <sl-button
-                                    variant="default"
-                                    @click="${this.reset}">Reset</sl-button>
-                            </div>
-                        </sl-card>
-                    </div>
-                ` : nothing}
+                            label="Grayscale"
+                            min="0"
+                            max="1"
+                            step="0.01"
+                            value="${this.filterGrayscale}"
+                            @sl-input="${grayscaleChange}"></sl-range>
+                        <sl-range
+                            label="Hue Rotate"
+                            min="0"
+                            max="360"
+                            step="1"
+                            value="${this.filterHueRotate}"
+                            @sl-input="${hueRotateChange}"></sl-range>
+                        <sl-range
+                            label="Invert"
+                            min="0"
+                            max="1"
+                            step="0.01"
+                            value="${this.filterInvert}"
+                            @sl-input="${invertChange}"></sl-range>
+                        <sl-range
+                            label="Saturate"
+                            min="0"
+                            max="3"
+                            step="0.1"
+                            value="${this.filterSaturate}"
+                            @sl-input="${saturateChange}"></sl-range>
+                        <sl-range
+                            label="Sepia"
+                            min="0"
+                            max="1"
+                            step="0.01"
+                            value="${this.filterSepia}"
+                            @sl-input="${sepiaChange}"></sl-range>
+                        <div class="editorControlsFooter" slot="footer">
+                            <sl-switch
+                                .disabled="${this.isAnimatingDivider}"
+                                @sl-change="${this.toggleDivider}"
+                                >Enable Slider</sl-switch>
+                            <sl-button
+                                variant="default"
+                                @click="${this.reset}">Reset</sl-button>
+                        </div>
+                    </sl-card>
+                </div>
                 <div class="editorToggle">
                     <sl-button
                         variant="default"
