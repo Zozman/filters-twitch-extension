@@ -1,0 +1,917 @@
+{
+    "data": [
+        {
+            "id": "864149",
+            "name": "PokScizor",
+            "images": {
+                "url_1x": "https://static-cdn.jtvnw.net/emoticons/v2/864149/static/light/1.0",
+                "url_2x": "https://static-cdn.jtvnw.net/emoticons/v2/864149/static/light/2.0",
+                "url_4x": "https://static-cdn.jtvnw.net/emoticons/v2/864149/static/light/3.0"
+            },
+            "emote_type": "prime",
+            "emote_set_id": "19194",
+            "owner_id": "0",
+            "format": [
+                "static"
+            ],
+            "scale": [
+                "1.0",
+                "2.0",
+                "3.0"
+            ],
+            "theme_mode": [
+                "light",
+                "dark"
+            ]
+        },
+        {
+            "id": "864148",
+            "name": "PokEmpoleon",
+            "images": {
+                "url_1x": "https://static-cdn.jtvnw.net/emoticons/v2/864148/static/light/1.0",
+                "url_2x": "https://static-cdn.jtvnw.net/emoticons/v2/864148/static/light/2.0",
+                "url_4x": "https://static-cdn.jtvnw.net/emoticons/v2/864148/static/light/3.0"
+            },
+            "emote_type": "prime",
+            "emote_set_id": "19194",
+            "owner_id": "0",
+            "format": [
+                "static"
+            ],
+            "scale": [
+                "1.0",
+                "2.0",
+                "3.0"
+            ],
+            "theme_mode": [
+                "light",
+                "dark"
+            ]
+        },
+        {
+            "id": "864147",
+            "name": "PokDecidueye",
+            "images": {
+                "url_1x": "https://static-cdn.jtvnw.net/emoticons/v2/864147/static/light/1.0",
+                "url_2x": "https://static-cdn.jtvnw.net/emoticons/v2/864147/static/light/2.0",
+                "url_4x": "https://static-cdn.jtvnw.net/emoticons/v2/864147/static/light/3.0"
+            },
+            "emote_type": "prime",
+            "emote_set_id": "19194",
+            "owner_id": "0",
+            "format": [
+                "static"
+            ],
+            "scale": [
+                "1.0",
+                "2.0",
+                "3.0"
+            ],
+            "theme_mode": [
+                "light",
+                "dark"
+            ]
+        },
+        {
+            "id": "864145",
+            "name": "PokDarkrai",
+            "images": {
+                "url_1x": "https://static-cdn.jtvnw.net/emoticons/v2/864145/static/light/1.0",
+                "url_2x": "https://static-cdn.jtvnw.net/emoticons/v2/864145/static/light/2.0",
+                "url_4x": "https://static-cdn.jtvnw.net/emoticons/v2/864145/static/light/3.0"
+            },
+            "emote_type": "prime",
+            "emote_set_id": "19194",
+            "owner_id": "0",
+            "format": [
+                "static"
+            ],
+            "scale": [
+                "1.0",
+                "2.0",
+                "3.0"
+            ],
+            "theme_mode": [
+                "light",
+                "dark"
+            ]
+        },
+        {
+            "id": "864143",
+            "name": "PokBlastoise",
+            "images": {
+                "url_1x": "https://static-cdn.jtvnw.net/emoticons/v2/864143/static/light/1.0",
+                "url_2x": "https://static-cdn.jtvnw.net/emoticons/v2/864143/static/light/2.0",
+                "url_4x": "https://static-cdn.jtvnw.net/emoticons/v2/864143/static/light/3.0"
+            },
+            "emote_type": "prime",
+            "emote_set_id": "19194",
+            "owner_id": "0",
+            "format": [
+                "static"
+            ],
+            "scale": [
+                "1.0",
+                "2.0",
+                "3.0"
+            ],
+            "theme_mode": [
+                "light",
+                "dark"
+            ]
+        },
+        {
+            "id": "822146",
+            "name": "FortLlama",
+            "images": {
+                "url_1x": "https://static-cdn.jtvnw.net/emoticons/v2/822146/static/light/1.0",
+                "url_2x": "https://static-cdn.jtvnw.net/emoticons/v2/822146/static/light/2.0",
+                "url_4x": "https://static-cdn.jtvnw.net/emoticons/v2/822146/static/light/3.0"
+            },
+            "emote_type": "prime",
+            "emote_set_id": "19194",
+            "owner_id": "0",
+            "format": [
+                "static"
+            ],
+            "scale": [
+                "1.0",
+                "2.0",
+                "3.0"
+            ],
+            "theme_mode": [
+                "light",
+                "dark"
+            ]
+        },
+        {
+            "id": "822137",
+            "name": "FortHype",
+            "images": {
+                "url_1x": "https://static-cdn.jtvnw.net/emoticons/v2/822137/static/light/1.0",
+                "url_2x": "https://static-cdn.jtvnw.net/emoticons/v2/822137/static/light/2.0",
+                "url_4x": "https://static-cdn.jtvnw.net/emoticons/v2/822137/static/light/3.0"
+            },
+            "emote_type": "prime",
+            "emote_set_id": "19194",
+            "owner_id": "0",
+            "format": [
+                "static"
+            ],
+            "scale": [
+                "1.0",
+                "2.0",
+                "3.0"
+            ],
+            "theme_mode": [
+                "light",
+                "dark"
+            ]
+        },
+        {
+            "id": "822126",
+            "name": "FortBush",
+            "images": {
+                "url_1x": "https://static-cdn.jtvnw.net/emoticons/v2/822126/static/light/1.0",
+                "url_2x": "https://static-cdn.jtvnw.net/emoticons/v2/822126/static/light/2.0",
+                "url_4x": "https://static-cdn.jtvnw.net/emoticons/v2/822126/static/light/3.0"
+            },
+            "emote_type": "prime",
+            "emote_set_id": "19194",
+            "owner_id": "0",
+            "format": [
+                "static"
+            ],
+            "scale": [
+                "1.0",
+                "2.0",
+                "3.0"
+            ],
+            "theme_mode": [
+                "light",
+                "dark"
+            ]
+        },
+        {
+            "id": "822112",
+            "name": "FortOne",
+            "images": {
+                "url_1x": "https://static-cdn.jtvnw.net/emoticons/v2/822112/static/light/1.0",
+                "url_2x": "https://static-cdn.jtvnw.net/emoticons/v2/822112/static/light/2.0",
+                "url_4x": "https://static-cdn.jtvnw.net/emoticons/v2/822112/static/light/3.0"
+            },
+            "emote_type": "prime",
+            "emote_set_id": "19194",
+            "owner_id": "0",
+            "format": [
+                "static"
+            ],
+            "scale": [
+                "1.0",
+                "2.0",
+                "3.0"
+            ],
+            "theme_mode": [
+                "light",
+                "dark"
+            ]
+        },
+        {
+            "id": "743929",
+            "name": "PokShadowmew",
+            "images": {
+                "url_1x": "https://static-cdn.jtvnw.net/emoticons/v2/743929/static/light/1.0",
+                "url_2x": "https://static-cdn.jtvnw.net/emoticons/v2/743929/static/light/2.0",
+                "url_4x": "https://static-cdn.jtvnw.net/emoticons/v2/743929/static/light/3.0"
+            },
+            "emote_type": "prime",
+            "emote_set_id": "19194",
+            "owner_id": "0",
+            "format": [
+                "static"
+            ],
+            "scale": [
+                "1.0",
+                "2.0",
+                "3.0"
+            ],
+            "theme_mode": [
+                "light",
+                "dark"
+            ]
+        },
+        {
+            "id": "743922",
+            "name": "PokSceptile",
+            "images": {
+                "url_1x": "https://static-cdn.jtvnw.net/emoticons/v2/743922/static/light/1.0",
+                "url_2x": "https://static-cdn.jtvnw.net/emoticons/v2/743922/static/light/2.0",
+                "url_4x": "https://static-cdn.jtvnw.net/emoticons/v2/743922/static/light/3.0"
+            },
+            "emote_type": "prime",
+            "emote_set_id": "19194",
+            "owner_id": "0",
+            "format": [
+                "static"
+            ],
+            "scale": [
+                "1.0",
+                "2.0",
+                "3.0"
+            ],
+            "theme_mode": [
+                "light",
+                "dark"
+            ]
+        },
+        {
+            "id": "743918",
+            "name": "PokGarchomp",
+            "images": {
+                "url_1x": "https://static-cdn.jtvnw.net/emoticons/v2/743918/static/light/1.0",
+                "url_2x": "https://static-cdn.jtvnw.net/emoticons/v2/743918/static/light/2.0",
+                "url_4x": "https://static-cdn.jtvnw.net/emoticons/v2/743918/static/light/3.0"
+            },
+            "emote_type": "prime",
+            "emote_set_id": "19194",
+            "owner_id": "0",
+            "format": [
+                "static"
+            ],
+            "scale": [
+                "1.0",
+                "2.0",
+                "3.0"
+            ],
+            "theme_mode": [
+                "light",
+                "dark"
+            ]
+        },
+        {
+            "id": "743914",
+            "name": "PokChandelure",
+            "images": {
+                "url_1x": "https://static-cdn.jtvnw.net/emoticons/v2/743914/static/light/1.0",
+                "url_2x": "https://static-cdn.jtvnw.net/emoticons/v2/743914/static/light/2.0",
+                "url_4x": "https://static-cdn.jtvnw.net/emoticons/v2/743914/static/light/3.0"
+            },
+            "emote_type": "prime",
+            "emote_set_id": "19194",
+            "owner_id": "0",
+            "format": [
+                "static"
+            ],
+            "scale": [
+                "1.0",
+                "2.0",
+                "3.0"
+            ],
+            "theme_mode": [
+                "light",
+                "dark"
+            ]
+        },
+        {
+            "id": "743912",
+            "name": "PokBraixen",
+            "images": {
+                "url_1x": "https://static-cdn.jtvnw.net/emoticons/v2/743912/static/light/1.0",
+                "url_2x": "https://static-cdn.jtvnw.net/emoticons/v2/743912/static/light/2.0",
+                "url_4x": "https://static-cdn.jtvnw.net/emoticons/v2/743912/static/light/3.0"
+            },
+            "emote_type": "prime",
+            "emote_set_id": "19194",
+            "owner_id": "0",
+            "format": [
+                "static"
+            ],
+            "scale": [
+                "1.0",
+                "2.0",
+                "3.0"
+            ],
+            "theme_mode": [
+                "light",
+                "dark"
+            ]
+        },
+        {
+            "id": "743910",
+            "name": "PokAegislash",
+            "images": {
+                "url_1x": "https://static-cdn.jtvnw.net/emoticons/v2/743910/static/light/1.0",
+                "url_2x": "https://static-cdn.jtvnw.net/emoticons/v2/743910/static/light/2.0",
+                "url_4x": "https://static-cdn.jtvnw.net/emoticons/v2/743910/static/light/3.0"
+            },
+            "emote_type": "prime",
+            "emote_set_id": "19194",
+            "owner_id": "0",
+            "format": [
+                "static"
+            ],
+            "scale": [
+                "1.0",
+                "2.0",
+                "3.0"
+            ],
+            "theme_mode": [
+                "light",
+                "dark"
+            ]
+        },
+        {
+            "id": "743907",
+            "name": "PokWeavile",
+            "images": {
+                "url_1x": "https://static-cdn.jtvnw.net/emoticons/v2/743907/static/light/1.0",
+                "url_2x": "https://static-cdn.jtvnw.net/emoticons/v2/743907/static/light/2.0",
+                "url_4x": "https://static-cdn.jtvnw.net/emoticons/v2/743907/static/light/3.0"
+            },
+            "emote_type": "prime",
+            "emote_set_id": "19194",
+            "owner_id": "0",
+            "format": [
+                "static"
+            ],
+            "scale": [
+                "1.0",
+                "2.0",
+                "3.0"
+            ],
+            "theme_mode": [
+                "light",
+                "dark"
+            ]
+        },
+        {
+            "id": "743905",
+            "name": "PokSuicune",
+            "images": {
+                "url_1x": "https://static-cdn.jtvnw.net/emoticons/v2/743905/static/light/1.0",
+                "url_2x": "https://static-cdn.jtvnw.net/emoticons/v2/743905/static/light/2.0",
+                "url_4x": "https://static-cdn.jtvnw.net/emoticons/v2/743905/static/light/3.0"
+            },
+            "emote_type": "prime",
+            "emote_set_id": "19194",
+            "owner_id": "0",
+            "format": [
+                "static"
+            ],
+            "scale": [
+                "1.0",
+                "2.0",
+                "3.0"
+            ],
+            "theme_mode": [
+                "light",
+                "dark"
+            ]
+        },
+        {
+            "id": "743904",
+            "name": "PokPikachu",
+            "images": {
+                "url_1x": "https://static-cdn.jtvnw.net/emoticons/v2/743904/static/light/1.0",
+                "url_2x": "https://static-cdn.jtvnw.net/emoticons/v2/743904/static/light/2.0",
+                "url_4x": "https://static-cdn.jtvnw.net/emoticons/v2/743904/static/light/3.0"
+            },
+            "emote_type": "prime",
+            "emote_set_id": "19194",
+            "owner_id": "0",
+            "format": [
+                "static"
+            ],
+            "scale": [
+                "1.0",
+                "2.0",
+                "3.0"
+            ],
+            "theme_mode": [
+                "light",
+                "dark"
+            ]
+        },
+        {
+            "id": "743901",
+            "name": "PokMewtwo",
+            "images": {
+                "url_1x": "https://static-cdn.jtvnw.net/emoticons/v2/743901/static/light/1.0",
+                "url_2x": "https://static-cdn.jtvnw.net/emoticons/v2/743901/static/light/2.0",
+                "url_4x": "https://static-cdn.jtvnw.net/emoticons/v2/743901/static/light/3.0"
+            },
+            "emote_type": "prime",
+            "emote_set_id": "19194",
+            "owner_id": "0",
+            "format": [
+                "static"
+            ],
+            "scale": [
+                "1.0",
+                "2.0",
+                "3.0"
+            ],
+            "theme_mode": [
+                "light",
+                "dark"
+            ]
+        },
+        {
+            "id": "743899",
+            "name": "PokMaskedpika",
+            "images": {
+                "url_1x": "https://static-cdn.jtvnw.net/emoticons/v2/743899/static/light/1.0",
+                "url_2x": "https://static-cdn.jtvnw.net/emoticons/v2/743899/static/light/2.0",
+                "url_4x": "https://static-cdn.jtvnw.net/emoticons/v2/743899/static/light/3.0"
+            },
+            "emote_type": "prime",
+            "emote_set_id": "19194",
+            "owner_id": "0",
+            "format": [
+                "static"
+            ],
+            "scale": [
+                "1.0",
+                "2.0",
+                "3.0"
+            ],
+            "theme_mode": [
+                "light",
+                "dark"
+            ]
+        },
+        {
+            "id": "743895",
+            "name": "PokMachamp",
+            "images": {
+                "url_1x": "https://static-cdn.jtvnw.net/emoticons/v2/743895/static/light/1.0",
+                "url_2x": "https://static-cdn.jtvnw.net/emoticons/v2/743895/static/light/2.0",
+                "url_4x": "https://static-cdn.jtvnw.net/emoticons/v2/743895/static/light/3.0"
+            },
+            "emote_type": "prime",
+            "emote_set_id": "19194",
+            "owner_id": "0",
+            "format": [
+                "static"
+            ],
+            "scale": [
+                "1.0",
+                "2.0",
+                "3.0"
+            ],
+            "theme_mode": [
+                "light",
+                "dark"
+            ]
+        },
+        {
+            "id": "743892",
+            "name": "PokLucario",
+            "images": {
+                "url_1x": "https://static-cdn.jtvnw.net/emoticons/v2/743892/static/light/1.0",
+                "url_2x": "https://static-cdn.jtvnw.net/emoticons/v2/743892/static/light/2.0",
+                "url_4x": "https://static-cdn.jtvnw.net/emoticons/v2/743892/static/light/3.0"
+            },
+            "emote_type": "prime",
+            "emote_set_id": "19194",
+            "owner_id": "0",
+            "format": [
+                "static"
+            ],
+            "scale": [
+                "1.0",
+                "2.0",
+                "3.0"
+            ],
+            "theme_mode": [
+                "light",
+                "dark"
+            ]
+        },
+        {
+            "id": "743889",
+            "name": "PokCroagunk",
+            "images": {
+                "url_1x": "https://static-cdn.jtvnw.net/emoticons/v2/743889/static/light/1.0",
+                "url_2x": "https://static-cdn.jtvnw.net/emoticons/v2/743889/static/light/2.0",
+                "url_4x": "https://static-cdn.jtvnw.net/emoticons/v2/743889/static/light/3.0"
+            },
+            "emote_type": "prime",
+            "emote_set_id": "19194",
+            "owner_id": "0",
+            "format": [
+                "static"
+            ],
+            "scale": [
+                "1.0",
+                "2.0",
+                "3.0"
+            ],
+            "theme_mode": [
+                "light",
+                "dark"
+            ]
+        },
+        {
+            "id": "743886",
+            "name": "PokGengar",
+            "images": {
+                "url_1x": "https://static-cdn.jtvnw.net/emoticons/v2/743886/static/light/1.0",
+                "url_2x": "https://static-cdn.jtvnw.net/emoticons/v2/743886/static/light/2.0",
+                "url_4x": "https://static-cdn.jtvnw.net/emoticons/v2/743886/static/light/3.0"
+            },
+            "emote_type": "prime",
+            "emote_set_id": "19194",
+            "owner_id": "0",
+            "format": [
+                "static"
+            ],
+            "scale": [
+                "1.0",
+                "2.0",
+                "3.0"
+            ],
+            "theme_mode": [
+                "light",
+                "dark"
+            ]
+        },
+        {
+            "id": "743884",
+            "name": "PokGardevoir",
+            "images": {
+                "url_1x": "https://static-cdn.jtvnw.net/emoticons/v2/743884/static/light/1.0",
+                "url_2x": "https://static-cdn.jtvnw.net/emoticons/v2/743884/static/light/2.0",
+                "url_4x": "https://static-cdn.jtvnw.net/emoticons/v2/743884/static/light/3.0"
+            },
+            "emote_type": "prime",
+            "emote_set_id": "19194",
+            "owner_id": "0",
+            "format": [
+                "static"
+            ],
+            "scale": [
+                "1.0",
+                "2.0",
+                "3.0"
+            ],
+            "theme_mode": [
+                "light",
+                "dark"
+            ]
+        },
+        {
+            "id": "743875",
+            "name": "PokCharizard",
+            "images": {
+                "url_1x": "https://static-cdn.jtvnw.net/emoticons/v2/743875/static/light/1.0",
+                "url_2x": "https://static-cdn.jtvnw.net/emoticons/v2/743875/static/light/2.0",
+                "url_4x": "https://static-cdn.jtvnw.net/emoticons/v2/743875/static/light/3.0"
+            },
+            "emote_type": "prime",
+            "emote_set_id": "19194",
+            "owner_id": "0",
+            "format": [
+                "static"
+            ],
+            "scale": [
+                "1.0",
+                "2.0",
+                "3.0"
+            ],
+            "theme_mode": [
+                "light",
+                "dark"
+            ]
+        },
+        {
+            "id": "743872",
+            "name": "PokBlaziken",
+            "images": {
+                "url_1x": "https://static-cdn.jtvnw.net/emoticons/v2/743872/static/light/1.0",
+                "url_2x": "https://static-cdn.jtvnw.net/emoticons/v2/743872/static/light/2.0",
+                "url_4x": "https://static-cdn.jtvnw.net/emoticons/v2/743872/static/light/3.0"
+            },
+            "emote_type": "prime",
+            "emote_set_id": "19194",
+            "owner_id": "0",
+            "format": [
+                "static"
+            ],
+            "scale": [
+                "1.0",
+                "2.0",
+                "3.0"
+            ],
+            "theme_mode": [
+                "light",
+                "dark"
+            ]
+        },
+        {
+            "id": "426170",
+            "name": "PartyPopper",
+            "images": {
+                "url_1x": "https://static-cdn.jtvnw.net/emoticons/v2/426170/static/light/1.0",
+                "url_2x": "https://static-cdn.jtvnw.net/emoticons/v2/426170/static/light/2.0",
+                "url_4x": "https://static-cdn.jtvnw.net/emoticons/v2/426170/static/light/3.0"
+            },
+            "emote_type": "prime",
+            "emote_set_id": "19194",
+            "owner_id": "0",
+            "format": [
+                "static"
+            ],
+            "scale": [
+                "1.0",
+                "2.0",
+                "3.0"
+            ],
+            "theme_mode": [
+                "light",
+                "dark"
+            ]
+        },
+        {
+            "id": "426167",
+            "name": "MindManners",
+            "images": {
+                "url_1x": "https://static-cdn.jtvnw.net/emoticons/v2/426167/static/light/1.0",
+                "url_2x": "https://static-cdn.jtvnw.net/emoticons/v2/426167/static/light/2.0",
+                "url_4x": "https://static-cdn.jtvnw.net/emoticons/v2/426167/static/light/3.0"
+            },
+            "emote_type": "prime",
+            "emote_set_id": "19194",
+            "owner_id": "0",
+            "format": [
+                "static"
+            ],
+            "scale": [
+                "1.0",
+                "2.0",
+                "3.0"
+            ],
+            "theme_mode": [
+                "light",
+                "dark"
+            ]
+        },
+        {
+            "id": "426163",
+            "name": "BagOfMemes",
+            "images": {
+                "url_1x": "https://static-cdn.jtvnw.net/emoticons/v2/426163/static/light/1.0",
+                "url_2x": "https://static-cdn.jtvnw.net/emoticons/v2/426163/static/light/2.0",
+                "url_4x": "https://static-cdn.jtvnw.net/emoticons/v2/426163/static/light/3.0"
+            },
+            "emote_type": "prime",
+            "emote_set_id": "19194",
+            "owner_id": "0",
+            "format": [
+                "static"
+            ],
+            "scale": [
+                "1.0",
+                "2.0",
+                "3.0"
+            ],
+            "theme_mode": [
+                "light",
+                "dark"
+            ]
+        },
+        {
+            "id": "134253",
+            "name": "PrimeRlyTho",
+            "images": {
+                "url_1x": "https://static-cdn.jtvnw.net/emoticons/v2/134253/static/light/1.0",
+                "url_2x": "https://static-cdn.jtvnw.net/emoticons/v2/134253/static/light/2.0",
+                "url_4x": "https://static-cdn.jtvnw.net/emoticons/v2/134253/static/light/3.0"
+            },
+            "emote_type": "prime",
+            "emote_set_id": "19194",
+            "owner_id": "0",
+            "format": [
+                "static"
+            ],
+            "scale": [
+                "1.0",
+                "2.0",
+                "3.0"
+            ],
+            "theme_mode": [
+                "light",
+                "dark"
+            ]
+        },
+        {
+            "id": "134252",
+            "name": "PrimeUWot",
+            "images": {
+                "url_1x": "https://static-cdn.jtvnw.net/emoticons/v2/134252/static/light/1.0",
+                "url_2x": "https://static-cdn.jtvnw.net/emoticons/v2/134252/static/light/2.0",
+                "url_4x": "https://static-cdn.jtvnw.net/emoticons/v2/134252/static/light/3.0"
+            },
+            "emote_type": "prime",
+            "emote_set_id": "19194",
+            "owner_id": "0",
+            "format": [
+                "static"
+            ],
+            "scale": [
+                "1.0",
+                "2.0",
+                "3.0"
+            ],
+            "theme_mode": [
+                "light",
+                "dark"
+            ]
+        },
+        {
+            "id": "134251",
+            "name": "PrimeYouDontSay",
+            "images": {
+                "url_1x": "https://static-cdn.jtvnw.net/emoticons/v2/134251/static/light/1.0",
+                "url_2x": "https://static-cdn.jtvnw.net/emoticons/v2/134251/static/light/2.0",
+                "url_4x": "https://static-cdn.jtvnw.net/emoticons/v2/134251/static/light/3.0"
+            },
+            "emote_type": "prime",
+            "emote_set_id": "19194",
+            "owner_id": "0",
+            "format": [
+                "static"
+            ],
+            "scale": [
+                "1.0",
+                "2.0",
+                "3.0"
+            ],
+            "theme_mode": [
+                "light",
+                "dark"
+            ]
+        },
+        {
+            "id": "115848",
+            "name": "MiniK",
+            "images": {
+                "url_1x": "https://static-cdn.jtvnw.net/emoticons/v2/115848/static/light/1.0",
+                "url_2x": "https://static-cdn.jtvnw.net/emoticons/v2/115848/static/light/2.0",
+                "url_4x": "https://static-cdn.jtvnw.net/emoticons/v2/115848/static/light/3.0"
+            },
+            "emote_type": "prime",
+            "emote_set_id": "19194",
+            "owner_id": "0",
+            "format": [
+                "static"
+            ],
+            "scale": [
+                "1.0",
+                "2.0",
+                "3.0"
+            ],
+            "theme_mode": [
+                "light",
+                "dark"
+            ]
+        },
+        {
+            "id": "115847",
+            "name": "KappaHD",
+            "images": {
+                "url_1x": "https://static-cdn.jtvnw.net/emoticons/v2/115847/static/light/1.0",
+                "url_2x": "https://static-cdn.jtvnw.net/emoticons/v2/115847/static/light/2.0",
+                "url_4x": "https://static-cdn.jtvnw.net/emoticons/v2/115847/static/light/3.0"
+            },
+            "emote_type": "prime",
+            "emote_set_id": "19194",
+            "owner_id": "0",
+            "format": [
+                "static"
+            ],
+            "scale": [
+                "1.0",
+                "2.0",
+                "3.0"
+            ],
+            "theme_mode": [
+                "light",
+                "dark"
+            ]
+        },
+        {
+            "id": "115846",
+            "name": "ScaredyCat",
+            "images": {
+                "url_1x": "https://static-cdn.jtvnw.net/emoticons/v2/115846/static/light/1.0",
+                "url_2x": "https://static-cdn.jtvnw.net/emoticons/v2/115846/static/light/2.0",
+                "url_4x": "https://static-cdn.jtvnw.net/emoticons/v2/115846/static/light/3.0"
+            },
+            "emote_type": "prime",
+            "emote_set_id": "19194",
+            "owner_id": "0",
+            "format": [
+                "static"
+            ],
+            "scale": [
+                "1.0",
+                "2.0",
+                "3.0"
+            ],
+            "theme_mode": [
+                "light",
+                "dark"
+            ]
+        },
+        {
+            "id": "115845",
+            "name": "TableHere",
+            "images": {
+                "url_1x": "https://static-cdn.jtvnw.net/emoticons/v2/115845/static/light/1.0",
+                "url_2x": "https://static-cdn.jtvnw.net/emoticons/v2/115845/static/light/2.0",
+                "url_4x": "https://static-cdn.jtvnw.net/emoticons/v2/115845/static/light/3.0"
+            },
+            "emote_type": "prime",
+            "emote_set_id": "19194",
+            "owner_id": "0",
+            "format": [
+                "static"
+            ],
+            "scale": [
+                "1.0",
+                "2.0",
+                "3.0"
+            ],
+            "theme_mode": [
+                "light",
+                "dark"
+            ]
+        },
+        {
+            "id": "115844",
+            "name": "FlipThis",
+            "images": {
+                "url_1x": "https://static-cdn.jtvnw.net/emoticons/v2/115844/static/light/1.0",
+                "url_2x": "https://static-cdn.jtvnw.net/emoticons/v2/115844/static/light/2.0",
+                "url_4x": "https://static-cdn.jtvnw.net/emoticons/v2/115844/static/light/3.0"
+            },
+            "emote_type": "prime",
+            "emote_set_id": "19194",
+            "owner_id": "0",
+            "format": [
+                "static"
+            ],
+            "scale": [
+                "1.0",
+                "2.0",
+                "3.0"
+            ],
+            "theme_mode": [
+                "light",
+                "dark"
+            ]
+        }
+    ],
+    "template": "https://static-cdn.jtvnw.net/emoticons/v2/{{id}}/{{format}}/{{theme_mode}}/{{scale}}"
+}

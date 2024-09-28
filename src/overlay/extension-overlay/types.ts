@@ -24,3 +24,30 @@ export interface Filter {
     name: string,
     values: FilterData
 }
+
+interface TwitchEmoteImages {
+    url_1x: string;
+    url_2x: string;
+    url_4x: string;
+}
+
+export interface TwitchEmote {
+    id: string;
+    name: string;
+    images: TwitchEmoteImages,
+    tier: string;
+    emote_type: string;
+    emote_set_id: string;
+    format: Array<string> | string;
+    scale: Array<string> | string;
+    theme_mode: Array<string> | string;
+    template: string;
+}
+
+export interface EmoteMapItem {
+    id: string;
+    format: string;
+    scale: string;
+    theme_mode: string;
+    template: string;
+}

@@ -187,6 +187,14 @@ $editorToggleFromTop: 5rem;
         background-position: 0 0, 0 0, 10px 18px, 10px 18px, 0 0, 10px 18px;
     }
 
+    .filterEmotePreview {
+        width: 100px;
+        background-color: #e5e5f7;
+        opacity: 0.8;
+        background-image: radial-gradient(circle at center center, #6441A4, #e5e5f7), repeating-radial-gradient(circle at center center, #6441A4, #6441A4, 10px, transparent 20px, transparent 10px);
+        background-blend-mode: multiply;
+    }
+
     .editorControlsFooter {
         display: flex;
         justify-content: space-between;

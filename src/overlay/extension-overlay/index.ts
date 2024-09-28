@@ -3,15 +3,17 @@ import {customElement, state, query} from 'lit/decorators.js';
 import {styleMap} from 'lit-html/directives/style-map.js';
 import {classMap} from 'lit-html/directives/class-map.js';
 
-import {drag} from '../../shared/drag';
-import {clamp} from '../../shared/clamp';
+import {drag} from '../../utils/drag';
+import {clamp} from '../../utils/clamp';
+
+import { setupMockDevServer } from '../../mockServer';
 
 import { defaultFilterValues, filtersArray } from './filters';
 
-import type { TwitchExtensionContext } from '../../types/twitch';
+import type { TwitchExtensionAuth, TwitchExtensionContext } from '../../types/twitch';
 
 import style from './style.scss';
-import { Filter, FILTER_FIELDS, FilterData } from './types';
+import { EmoteMapItem, Filter, FILTER_FIELDS, FilterData, TwitchEmote } from './types';
 
 @customElement('extension-overlay')
 export class ExtensionOverlay extends LitElement {
@@ -77,6 +79,17 @@ export class ExtensionOverlay extends LitElement {
     private filterSearchTerm = '';
 
     /**
+     * Map of emotes to use in responses
+     */
+    @state()
+    private emoteMap:Map<string, EmoteMapItem> = new Map();
+
+    /**
+     * Auth object returned by window.Twitch.ext.onAuthorized
+    */
+    private auth!: TwitchExtensionAuth;
+
+    /**
      * Used for local development to show content for the left side
      */
     private isLocalhost = window.location.hostname === 'localhost';
@@ -86,12 +99,132 @@ export class ExtensionOverlay extends LitElement {
      */
     private testStreamChannel = 'qa_partner_sirhype';
 
+    /**
+     * List of emote sets to load into the emoteMap
+     */
+    private twitchEmoteSetsToLoad = [
+        // Twitch Turbo Set
+        '19194'
+    ];
+
+    /**
+     * Emote to use for filter examples if it exists in `this.emoteMap`
+     */
+    private filterExampleEmoteName = 'KappaHD';
+
     connectedCallback() {
         super.connectedCallback();
+        // Get the Twitch Auth info when we get it
+        window.Twitch.ext.onAuthorized((auth:TwitchExtensionAuth) => {
+            this.auth = auth;
+            this.getEmotes();
+        });
         // When the context changes, update the theme
         window.Twitch.ext.onContext((ctx:TwitchExtensionContext) => {
             this.theme = ctx.theme;
         });
+        // If locally testing, setup mock server and manually trigger emote calls
+        if (this.isLocalhost) {
+            setupMockDevServer();
+            this.getEmotes();
+        }
+    }
+
+    /**
+     * Generic handler to do API calls to the Twitch API using the Helix token
+     * @param url URL to perform the GET of
+     * @returns JSON object of the response
+     */
+    private doTwitchApiGet(url:string) {
+        return fetch(url, {
+            headers: {
+                Authorization: this.auth && this.auth.helixToken ? `Extension ${this.auth.helixToken}` : '',
+                'client-id': this.auth && this.auth.clientId ? this.auth.clientId : '',
+            }
+        }).then(e => e.json());
+    }
+
+    /**
+     * Get all the emote sets we care about
+     * @returns Emote data
+     */
+    private getEmotes() {
+        return Promise.all(this.twitchEmoteSetsToLoad.map(setId => {
+            if (setId === 'global') {
+                return this.getGlobalEmotes();
+            }
+            return this.getEmoteSet(setId);
+        }));
+    }
+
+    /**
+     * Gets a set of emotes from twitch based on set id
+     * @param setId The `emote_set_id` for the emote set (see https://dev.twitch.tv/docs/api/reference/#get-emote-sets)
+     * @returns Response object
+     */
+    private getEmoteSet(setId: string) {
+        return this.getEmotesFromUrl(`https://api.twitch.tv/helix/chat/emotes/set?emote_set_id=${setId}`);
+    }
+
+    /**
+     * Get the global set of Twitch emotes
+     */
+    private getGlobalEmotes() {
+        return this.getEmotesFromUrl('https://api.twitch.tv/helix/chat/emotes/global');
+    }
+
+    private getEmotesFromUrl(url: string) {
+        return this.doTwitchApiGet(url)
+            .then((res) => {
+                // If we got a response with data then add it to the emote map
+                if (res && res.data && res.data.length) {
+                    this.addEmotesToMap(res.data, res.template);
+                    return res;
+                }
+            });
+    }
+
+    /**
+     * Function to add emotes to the emote map
+     * @param input Array of emotes to add
+     * @param template Template of the emote HTML to use
+     */
+    addEmotesToMap(input:Array<TwitchEmote>, template:string) {
+        // Get what we need for each emote
+        input.forEach((item) => {
+        // Create our emote object
+        this.emoteMap.set(item.name, {
+            id: item.id,
+            format: item.format as string,
+            scale: item.scale as string,
+            theme_mode: item.theme_mode as string,
+            template
+        });
+        });
+    }
+
+     /**
+     * Compute the URL for an emote
+     * @param name Name of the emote to look up
+     * @param theme Current extension theme
+     * @returns HTML of the emote
+     */
+    private computeEmoteUrl(name:string, theme:string): string | boolean {
+        if (!this.emoteMap.has(name)) return false;
+        const emote = this.emoteMap.get(name) as EmoteMapItem;
+        const { id, theme_mode, scale, format, template } = emote;
+        // Get the best scale we have
+        const selectedScale = scale[scale.length - 1];
+        // Try to match the current theme
+        const selectedTheme = theme_mode.indexOf(theme) !== -1 ? theme : theme_mode[0];
+        // Get whatever format is at the bottom (animated emotes will list the animation at the bottom)
+        const selectedFormat = format[format.length - 1];
+        // Substitute the values into the template
+        return template
+            .replace('{{id}}', id)
+            .replace('{{format}}', selectedFormat)
+            .replace('{{theme_mode}}', selectedTheme)
+            .replace('{{scale}}', selectedScale);
     }
 
     private handleDrag(event: PointerEvent) {
@@ -305,6 +438,8 @@ export class ExtensionOverlay extends LitElement {
     }
 
     private renderFilter(filter:Filter) {
+        const filterEmoteUrl = this.computeEmoteUrl(this.filterExampleEmoteName, this.theme);
+
         const filterClasses = {
             filterCard: true,
             filterCardShown: filter.name.toLowerCase().indexOf(this.filterSearchTerm.toLowerCase()) !== -1,
@@ -330,7 +465,16 @@ export class ExtensionOverlay extends LitElement {
         const applyFilterBound = this.applyFilter.bind(this, filter.values);
         return html`
             <sl-card class="${classMap(filterClasses)}" @click="${applyFilterBound}">
-                <div class="filterPreview" style="${styleMap(filterStyle)}"></div>
+                ${filterEmoteUrl ? html`
+                    <img
+                        class="filterEmotePreview"
+                        style="${styleMap(filterStyle)}"
+                        src="${filterEmoteUrl}"
+                        alt="${this.filterExampleEmoteName} Twitch Emote With ${filter.name} Filter Applied"
+                    />
+                ` : html`
+                    <div class="filterPreview" style="${styleMap(filterStyle)}"></div>
+                `}
                 <div slot="footer">
                     ${filter.name}
                 </div>
