@@ -384,7 +384,7 @@ export class ExtensionOverlay extends LitElement {
             baseItem: true,
             overlayFrame: true,
             blockActions: this.isDragging
-        }
+        };
         return html`
             <iframe
                 class="${classMap(frameClasses)}"
