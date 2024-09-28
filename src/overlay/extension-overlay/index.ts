@@ -1,4 +1,4 @@
-import { html, LitElement, nothing } from 'lit';
+import { html, LitElement, nothing, TemplateResult } from 'lit';
 import {customElement, state, query} from 'lit/decorators.js';
 import {styleMap} from 'lit-html/directives/style-map.js';
 import {classMap} from 'lit-html/directives/class-map.js';
@@ -14,11 +14,15 @@ import type { TwitchExtensionAuth, TwitchExtensionContext } from '../../types/tw
 
 import style from './style.scss';
 import { EmoteMapItem, Filter, FILTER_FIELDS, FilterData, TwitchEmote } from './types';
+import { SlChangeEvent, SlInput, SlInputEvent, SlRadioGroup, SlRange } from '@shoelace-style/shoelace';
 
 @customElement('extension-overlay')
 export class ExtensionOverlay extends LitElement {
     static styles = style;
 
+    /**
+     * Current position of the filter slider
+     */
     @state()
     private dividerPosition = -10;
 
@@ -29,9 +33,15 @@ export class ExtensionOverlay extends LitElement {
     @state()
     private isDragging = false;
 
+    /**
+     * Marks if the editor is currently on screen
+     */
     @state()
     private editorActive = false;
 
+    /**
+     * Marks if the divider is currently on screen
+     */
     @state()
     private dividerActive = false;
 
@@ -41,8 +51,11 @@ export class ExtensionOverlay extends LitElement {
     @state()
     private filterSide: 'left' | 'right' = 'right';
 
+    /**
+     * Represents the base `<div>` element of the extension
+     */
     @query('.base')
-    private base!: HTMLElement;
+    private base!: HTMLDivElement;
 
     // ----------------------------- Filter values -----------------------------
 
@@ -73,19 +86,27 @@ export class ExtensionOverlay extends LitElement {
     // ----------------------------- End Filter Values -----------------------------
 
     /**
-     * Light or dark theme
+     * Indicates if the extension is in light or dark theme
+     * 
+     * Is determined by the theme the viewer is using in Twitch
      */
     @state()
     private theme = 'light';
 
+    /**
+     * Indicates if currently the divider is being added or removed via animation
+     */
     @state()
     private isAnimatingDivider = false;
 
+    /**
+     * Current search term for the filter search
+     */
     @state()
     private filterSearchTerm = '';
 
     /**
-     * Map of emotes to use in responses
+     * Map of emotes that can be used
      */
     @state()
     private emoteMap:Map<string, EmoteMapItem> = new Map();
@@ -106,7 +127,9 @@ export class ExtensionOverlay extends LitElement {
     private testStreamChannel = 'qa_partner_sirhype';
 
     /**
-     * List of emote sets to load into the emoteMap
+     * List of emote sets to load into `this.emoteMap`
+     * 
+     * Emote sets are indicated by either a string code or `global` for the global emote set
      */
     private twitchEmoteSetsToLoad = [
         // Twitch Turbo Set
@@ -115,6 +138,8 @@ export class ExtensionOverlay extends LitElement {
 
     /**
      * Emote to use for filter examples if it exists in `this.emoteMap`
+     * 
+     * `KappaHD` is from the Twitch Turbo emote set so this set must be loaded for us to use it
      */
     private filterExampleEmoteName = 'KappaHD';
 
@@ -141,7 +166,7 @@ export class ExtensionOverlay extends LitElement {
      * @param url URL to perform the GET of
      * @returns JSON object of the response
      */
-    private doTwitchApiGet(url:string) {
+    private doTwitchApiGet(url:string):Promise<any> {
         return fetch(url, {
             headers: {
                 Authorization: this.auth && this.auth.helixToken ? `Extension ${this.auth.helixToken}` : '',
@@ -154,8 +179,9 @@ export class ExtensionOverlay extends LitElement {
      * Get all the emote sets we care about
      * @returns Emote data
      */
-    private getEmotes() {
+    private getEmotes():Promise<any> {
         return Promise.all(this.twitchEmoteSetsToLoad.map(setId => {
+            // Global emotes have a different endpoint
             if (setId === 'global') {
                 return this.getGlobalEmotes();
             }
@@ -164,22 +190,27 @@ export class ExtensionOverlay extends LitElement {
     }
 
     /**
-     * Gets a set of emotes from twitch based on set id
+     * Gets a set of emotes from twitch based on set id and add them to `this.emoteMap`
      * @param setId The `emote_set_id` for the emote set (see https://dev.twitch.tv/docs/api/reference/#get-emote-sets)
      * @returns Response object
      */
-    private getEmoteSet(setId: string) {
+    private getEmoteSet(setId: string):Promise<any> {
         return this.getEmotesFromUrl(`https://api.twitch.tv/helix/chat/emotes/set?emote_set_id=${setId}`);
     }
 
     /**
-     * Get the global set of Twitch emotes
+     * Get the global set of Twitch emotes and add them to `this.emoteMap`
      */
-    private getGlobalEmotes() {
+    private getGlobalEmotes():Promise<any> {
         return this.getEmotesFromUrl('https://api.twitch.tv/helix/chat/emotes/global');
     }
 
-    private getEmotesFromUrl(url: string) {
+    /**
+     * Function to get emotes from a Twitch API endpoint and add them to `this.emoteMap`
+     * @param url 
+     * @returns 
+     */
+    private getEmotesFromUrl(url: string):Promise<any> {
         return this.doTwitchApiGet(url)
             .then((res) => {
                 // If we got a response with data then add it to the emote map
@@ -195,17 +226,17 @@ export class ExtensionOverlay extends LitElement {
      * @param input Array of emotes to add
      * @param template Template of the emote HTML to use
      */
-    addEmotesToMap(input:Array<TwitchEmote>, template:string) {
+    addEmotesToMap(input:Array<TwitchEmote>, template:string):void {
         // Get what we need for each emote
         input.forEach((item) => {
-        // Create our emote object
-        this.emoteMap.set(item.name, {
-            id: item.id,
-            format: item.format as string,
-            scale: item.scale as string,
-            theme_mode: item.theme_mode as string,
-            template
-        });
+            // Create our emote object
+            this.emoteMap.set(item.name, {
+                id: item.id,
+                format: item.format as string,
+                scale: item.scale as string,
+                theme_mode: item.theme_mode as string,
+                template
+            });
         });
     }
 
@@ -233,7 +264,11 @@ export class ExtensionOverlay extends LitElement {
             .replace('{{scale}}', selectedScale);
     }
 
-    private handleDrag(event: PointerEvent) {
+    /**
+     * Action handler for when the divider is being dragged
+     * @param event `PointerEvent` being performed by the mouse
+     */
+    private handleDrag(event: PointerEvent):void {
         const { width } = this.base.getBoundingClientRect();
     
         event.preventDefault();
@@ -250,26 +285,34 @@ export class ExtensionOverlay extends LitElement {
         });
     }
 
-    private toggleEditorControls() {
+    /**
+     * Toggle if the editor is active
+     */
+    private toggleEditorControls():void {
         this.editorActive = !this.editorActive;
     }
 
     /**
      * Toggle divider and animate it entering and exiting
      */
-    private toggleDivider() {
+    private toggleDivider():void {
+        // Save new state because we need to perform animations first
         const newDividerState = !this.dividerActive;
         this.isAnimatingDivider = true;
+        // If the divider is now active
         if (newDividerState) {
             this.dividerActive = newDividerState;
             setTimeout(() => {
+                // Always move the divider to mid-screen when activated
                 this.dividerPosition = 50;
                 setTimeout(() => {
                     this.isAnimatingDivider = false;
                 }, 500);
             }, 100);
+        // Else if the divider if now inactive
         } else {
             setTimeout(() => {
+                // Exit the divider so the filter takes up the whole screen
                 this.dividerPosition = this.filterSide === 'left'
                     ? 110
                     : -10;
@@ -281,12 +324,21 @@ export class ExtensionOverlay extends LitElement {
         }
     }
 
-    private toggleFilterSide(event:any) {
-        this.filterSide = event.target.value;
+    /**
+     * Function to change what side of the divider has the filter
+     * @param event Change event
+     */
+    private toggleFilterSide(event:SlChangeEvent):void {
+        this.filterSide = (event.target as SlRadioGroup).value as 'left' | 'right';
     }
 
-    private updateRangeValue(field:string, event:any) {
-        const value = event.target.value;
+    /**
+     * Function to update a value attached to a range input
+     * @param field `FILTER_FILED` being updated
+     * @param event Input event
+     */
+    private updateRangeValue(field:string, event:SlInputEvent):void {
+        const value = (event.target as SlRange).value;
         if (field === FILTER_FIELDS.BLUR) {
             this.filterBlur = value;
         }
@@ -313,12 +365,20 @@ export class ExtensionOverlay extends LitElement {
         }
     }
 
-    private updateFilterSearch(event:any) {
-        const value = event.target.value;
+    /**
+     * Function to update the filter search term
+     * @param event Input event
+     */
+    private updateFilterSearch(event:SlInputEvent):void {
+        const value = (event.target as SlInput).value;
         this.filterSearchTerm = value;
     }
 
-    private applyFilter(filter:FilterData) {
+    /**
+     * Function to apply a pre-defined filter from `FilterData`
+     * @param filter Filter Data to apply
+     */
+    private applyFilter(filter:FilterData):void {
         this.filterBlur = filter.blur;
         this.filterBrightness = filter.brightness;
         this.filterContrast = filter.contrast;
@@ -329,12 +389,19 @@ export class ExtensionOverlay extends LitElement {
         this.filterSepia = filter.sepia;
     }
 
-    private reset() {
+    /**
+     * Function to reset the filter by applying the default
+     */
+    private reset():void {
         this.applyFilter(defaultFilterValues);
         this.filterSearchTerm = '';
     }
 
-    private renderEditor() {
+    /**
+     * Renders the editor
+     * @returns Rendered template of the editor
+     */
+    private renderEditor():TemplateResult {
         const editorControlsClasses = {
             editorControls: true,
             editorControlsVisible: this.editorActive
@@ -463,7 +530,13 @@ export class ExtensionOverlay extends LitElement {
         `;
     }
 
-    private renderFilter(filter:Filter) {
+    /**
+     * Renders the card for an individual filter to select
+     * @param filter Metadata for the filter
+     * @returns Rendered filter card
+     */
+    private renderFilter(filter:Filter):TemplateResult {
+        // Attempt to get an emote URL to use
         const filterEmoteUrl = this.computeEmoteUrl(this.filterExampleEmoteName, this.theme);
 
         const filterClasses = {
@@ -508,7 +581,11 @@ export class ExtensionOverlay extends LitElement {
         `;
     }
 
-    private renderDivider() {
+    /**
+     * Function to render the draggable divider
+     * @returns Rendered template of the divider
+     */
+    private renderDivider():TemplateResult {
         const dividerClasses = {
             baseItem: true,
             divider: true,
@@ -549,7 +626,11 @@ export class ExtensionOverlay extends LitElement {
         `;
     }
 
-    private renderTestStreamFrame() {
+    /**
+     * Render a test iframe of a Twitch stream when locally testing
+     * @returns Rendered template of the iframe
+     */
+    private renderTestStreamFrame():TemplateResult {
         const frameClasses = {
             baseItem: true,
             overlayFrame: true,
@@ -568,6 +649,7 @@ export class ExtensionOverlay extends LitElement {
     }
     
     render() {
+        // Determine the divider clip by if the filter will be on the left or right
         const dividerClipPath = this.filterSide === 'left'
             ?  `polygon(0 0, ${this.dividerPosition}% 0, ${this.dividerPosition}% 100%, 0 100%)`
             : `polygon(${this.dividerPosition}% 0, 100% 0, 100% 100%, ${this.dividerPosition}% 100%)`;
@@ -585,7 +667,7 @@ export class ExtensionOverlay extends LitElement {
                                 invert(${this.filterInvert})
                                 saturate(${this.filterSaturate})
                                 sepia(${this.filterSepia})`,
-            // Only clip if divider is enabled
+            // Only clip if divider is enabled, else apply filter to entire view
             ...(this.dividerActive && {'clip-path': dividerClipPath})
         };
         const filterClasses = {
