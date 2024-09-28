@@ -380,9 +380,14 @@ export class ExtensionOverlay extends LitElement {
     }
 
     private renderTestStreamFrame() {
+        const frameClasses = {
+            baseItem: true,
+            overlayFrame: true,
+            blockActions: this.isDragging
+        }
         return html`
             <iframe
-                class="baseItem overlayFrame blockActions"
+                class="${classMap(frameClasses)}"
                 src="https://player.twitch.tv/?channel=${this.testStreamChannel}&parent=${window.location.hostname}"
                 height="100%"
                 width="100%"

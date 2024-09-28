@@ -102,6 +102,7 @@ $editorToggleFromTop: 5rem;
 
 .filter {
     z-index: 400;
+    pointer-events: none;
 }
 
 .editor {
