@@ -32,6 +32,11 @@ $handlePercentageFromTop: 15rem;
     translate: calc(var(--handle-size) / -2);
 }
 
+.dividerAnimating {
+    transition: clip-path 0.5s ease-in, left 0.5s ease-in;
+    pointer-events: none;
+}
+
 .dividerLine {
     margin-left: auto;
     margin-right: auto;
@@ -102,7 +107,7 @@ $handlePercentageFromTop: 15rem;
     position: absolute;
     z-index: 600;
     top: 5rem;
-    right: 3px;
+    right: 5px;
     display: flex;
 }
 

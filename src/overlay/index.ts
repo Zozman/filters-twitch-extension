@@ -9,9 +9,11 @@ import { setBasePath } from '@shoelace-style/shoelace/dist/utilities/base-path.j
 setBasePath('shoelace');
 
 import gripVertical from '../images/grip-vertical.svg';
+import mask from '../images/mask.svg';
 
 const systemIconMap: Map<string, any> = new Map([
-    ['grip-vertical', gripVertical]
+    ['grip-vertical', gripVertical],
+    ['mask', mask]
 ]);
 
 // Overriding this icon because the way it normally loads is not liked by Twitch

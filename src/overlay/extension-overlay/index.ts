@@ -15,7 +15,7 @@ export class ExtensionOverlay extends LitElement {
     static styles = style;
 
     @state()
-    private dividerPosition = 50;
+    private dividerPosition = -10;
 
     /**
      * Marks if we are currently dragging the divider
@@ -83,6 +83,9 @@ export class ExtensionOverlay extends LitElement {
     @state()
     private theme = 'light';
 
+    @state()
+    private isAnimatingDivider = false;
+
     /**
      * Used for local development to show content for the left side
      */
@@ -99,28 +102,6 @@ export class ExtensionOverlay extends LitElement {
         window.Twitch.ext.onContext((ctx:TwitchExtensionContext) => {
             this.theme = ctx.theme;
         });
-    }
-
-    updated(changedProperties:Map<string, any>) {
-        super.updated(changedProperties);
-        // Set theme details in DOM when theme changes
-        if (changedProperties.has("theme")) {
-            this.applyTheme(this.theme);
-        }
-    }
-
-    /**
-     * Function to apply the theme class to the body of the DOM
-     * @param targetTheme Theme to apply
-     */
-    private applyTheme(targetTheme:string) {
-        if (targetTheme === 'light') {
-            document.body.classList.add("sl-theme-light");
-            document.body.classList.remove("sl-theme-dark");
-        } else {
-            document.body.classList.add("sl-theme-dark");
-            document.body.classList.remove("sl-theme-light");
-        }
     }
 
     private handleDrag(event: PointerEvent) {
@@ -144,8 +125,29 @@ export class ExtensionOverlay extends LitElement {
         this.editorActive = !this.editorActive;
     }
 
+    /**
+     * Toggle divider and animate it entering and exiting
+     */
     private toggleDivider() {
-        this.dividerActive = !this.dividerActive;
+        const newDividerState = !this.dividerActive;
+        this.isAnimatingDivider = true;
+        if (newDividerState) {
+            this.dividerActive = newDividerState;
+            setTimeout(() => {
+                this.dividerPosition = 50;
+                setTimeout(() => {
+                    this.isAnimatingDivider = false;
+                }, 500);
+            }, 100);
+        } else {
+            setTimeout(() => {
+                this.dividerPosition = -10;
+                setTimeout(() => {
+                    this.isAnimatingDivider = false;
+                    this.dividerActive = newDividerState;
+                }, 500);
+            }, 100);
+        }
     }
 
     private updateRangeValue(field:string, event:any) {
@@ -188,6 +190,10 @@ export class ExtensionOverlay extends LitElement {
     }
 
     private renderEditor() {
+        const editorControlsClasses = {
+            editorControls: true
+        };
+
         const blurChange = this.updateRangeValue.bind(this, 'blur');
         const brightnessChange = this.updateRangeValue.bind(this, 'brightness');
         const contrastChange = this.updateRangeValue.bind(this, 'contrast');
@@ -199,7 +205,7 @@ export class ExtensionOverlay extends LitElement {
         return html`
             <div class="editor">
                 ${this.editorActive ? html`
-                    <div class="editorControls">
+                    <div class="${classMap(editorControlsClasses)}">
                         <sl-card>
                             <sl-range
                                 label="Blur"
@@ -259,6 +265,7 @@ export class ExtensionOverlay extends LitElement {
                                 @sl-input="${sepiaChange}"></sl-range>
                             <div class="editorControlsFooter" slot="footer">
                                 <sl-switch
+                                    .disabled="${this.isAnimatingDivider}"
                                     @sl-change="${this.toggleDivider}"
                                     >Enable Slider</sl-switch>
                                 <sl-button
@@ -274,7 +281,7 @@ export class ExtensionOverlay extends LitElement {
                         size="medium"
                         circle
                         @click="${this.toggleEditorControls}">
-                            <sl-icon library="system" name="grip-vertical" label="Settings"></sl-icon>
+                            <sl-icon library="system" name="mask" label="Settings"></sl-icon>
                     </sl-button>
                 </div>
             </div>
@@ -284,7 +291,8 @@ export class ExtensionOverlay extends LitElement {
     private renderDivider() {
         const dividerClasses = {
             baseItem: true,
-            divider: true
+            divider: true,
+            dividerAnimating: this.isAnimatingDivider
         };
         const dividerStyle = {
             left: `${this.dividerPosition}%`
@@ -355,7 +363,8 @@ export class ExtensionOverlay extends LitElement {
         const filterClasses = {
             baseItem: true,
             filter: true,
-            blockActions: this.isDragging
+            blockActions: this.isDragging,
+            dividerAnimating: this.isAnimatingDivider
         };
         return html`
             <div
