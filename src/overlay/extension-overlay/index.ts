@@ -13,7 +13,8 @@ import { defaultFilterValues, filtersArray } from './filters';
 import type { TwitchExtensionAuth, TwitchExtensionContext } from '../../types/twitch';
 
 import style from './style.scss';
-import { EmoteMapItem, Filter, FILTER_FIELDS, FilterData, TwitchEmote } from './types';
+
+import { EmoteMapItem, Filter, FILTER_FIELDS, FilterData, TWITCH_EMOTE_FORMATS, TWITCH_EMOTE_SCALE, TWITCH_EMOTE_THEMES, TwitchEmote } from './types';
 import { SlChangeEvent, SlInput, SlInputEvent, SlRadioGroup, SlRange } from '@shoelace-style/shoelace';
 
 @customElement('extension-overlay')
@@ -232,9 +233,9 @@ export class ExtensionOverlay extends LitElement {
             // Create our emote object
             this.emoteMap.set(item.name, {
                 id: item.id,
-                format: item.format as string,
-                scale: item.scale as string,
-                theme_mode: item.theme_mode as string,
+                format: item.format as Array<TWITCH_EMOTE_FORMATS>,
+                scale: item.scale as Array<TWITCH_EMOTE_SCALE>,
+                theme_mode: item.theme_mode as Array<TWITCH_EMOTE_THEMES>,
                 template
             });
         });
@@ -253,7 +254,7 @@ export class ExtensionOverlay extends LitElement {
         // Get the best scale we have
         const selectedScale = scale[scale.length - 1];
         // Try to match the current theme
-        const selectedTheme = theme_mode.indexOf(theme) !== -1 ? theme : theme_mode[0];
+        const selectedTheme = theme_mode.indexOf(theme as TWITCH_EMOTE_THEMES) !== -1 ? theme : theme_mode[0];
         // Get whatever format is at the bottom (animated emotes will list the animation at the bottom)
         const selectedFormat = format[format.length - 1];
         // Substitute the values into the template

@@ -1,5 +1,8 @@
 import { FilterData, Filter } from "./types";
 
+/**
+ * Values for the default filter (no filter applied)
+ */
 export const defaultFilterValues:FilterData = {
     blur: 0,
     brightness: 1,
@@ -11,11 +14,17 @@ export const defaultFilterValues:FilterData = {
     sepia: 0
 };
 
+/**
+ * Default filter definiton
+ */
 export const filterDefault:Filter = {
     name: 'Default',
     values: defaultFilterValues
 };
 
+/**
+ * Array of available filters to render in the Filter Selector
+ */
 export const filtersArray: Array<Filter> = [
     filterDefault,
     // From https://github.com/picturepan2/instagram.css/blob/master/dist/instagram.css#L16

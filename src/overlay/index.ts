@@ -1,3 +1,4 @@
+// Import used Shoelace componments
 import '@shoelace-style/shoelace/dist/components/icon/icon.js';
 import '@shoelace-style/shoelace/dist/components/button/button.js';
 import '@shoelace-style/shoelace/dist/components/card/card.js';
@@ -10,10 +11,15 @@ import '@shoelace-style/shoelace/dist/components/input/input.js';
 import '@shoelace-style/shoelace/dist/components/radio-group/radio-group.js';
 import '@shoelace-style/shoelace/dist/components/radio-button/radio-button.js';
 
+// Configure shoelace icon library
 import { registerIconLibrary } from '@shoelace-style/shoelace/dist/utilities/icon-library.js';
 import { setBasePath } from '@shoelace-style/shoelace/dist/utilities/base-path.js';
 setBasePath('shoelace');
 
+// Normally, Shoelace loads icons in its system library by using a sheet
+// Twitch Extensions do not like this and will block them
+// Therefore we will just copy the SVGs to the `images` directory and then override the system library using them
+// This will force Shoelace to load them via URL which Twitch Extensions are fine with
 import gripVertical from '../images/grip-vertical.svg';
 import mask from '../images/mask.svg';
 import chevronRight from '../images/chevron-right.svg'
@@ -28,8 +34,6 @@ const systemIconMap: Map<string, any> = new Map([
     ['search', search]
 ]);
 
-// Overriding this icon because the way it normally loads is not liked by Twitch Extensions
-// CSP Violation and all
 registerIconLibrary('system', {
     resolver: name => systemIconMap.get(name),
     mutator: svg => svg.setAttribute('fill', 'currentColor')

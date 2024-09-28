@@ -24,6 +24,7 @@ module.exports = (env, argv) => {
     },
     module: {
       rules: [
+        // Loading TypeScript
         {
           test: /\.ts?$/,
           use: "ts-loader",
@@ -47,6 +48,7 @@ module.exports = (env, argv) => {
             },
           ],
         },
+        // Loading images
         {
           test: /\.(png|svg|jpg|gif|ico|webp)$/,
           use: [
@@ -87,11 +89,13 @@ module.exports = (env, argv) => {
       }),
       new CopyWebpackPlugin({
         patterns: [
+          // Used to ensure Webcomponent compatibility for older borwsers
           {
             context: "node_modules/@webcomponents/webcomponentsjs",
             from: "webcomponents-loader.js",
             to: "webcomponents",
           },
+          // Copy theme css for Shoelace
           {
             context: 'node_modules/@shoelace-style/shoelace/dist/themes',
             from: '*.css',
