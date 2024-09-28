@@ -1,0 +1,130 @@
+$handlePercentageFromTop: 15rem;
+
+:host {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    --divider-line-width: 2px;
+    --handle-size: 2.5rem;
+    --divider-color: #6441A4;
+    --divider-handle-icon-color: #fff;
+}
+
+.base {
+    flex: 1;
+    display: relative;
+    color: var(--sl-color-neutral-900);
+    font: 16px var(--sl-font-sans);
+    font-weight: var(--sl-font-weight-normal);
+}
+
+.baseItem {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.divider {
+    z-index: 700;
+    height: 100%;
+    width: var(--handle-size);
+    translate: calc(var(--handle-size) / -2);
+}
+
+.dividerLine {
+    margin-left: auto;
+    margin-right: auto;
+    background-color: var(--divider-color);
+    width: var(--divider-line-width);
+    cursor: ew-resize;
+
+    &.dividerLineTop {
+        height: calc($handlePercentageFromTop - (var(--handle-size) / 2));
+    }
+
+    &.dividerLineBottom {
+        height: calc(calc(100% - $handlePercentageFromTop) - (var(--handle-size) / 2));
+    }
+}
+
+.dividerHandle {
+    z-index: 800;
+    width: var(--handle-size);
+    height: var(--handle-size);
+    background-color: var(--divider-color);
+    border-radius: 50%;
+    cursor: ew-resize;
+    display: flex;
+
+    sl-icon {
+        flex: 1;
+        margin: auto;
+        width: 1em;
+        height: 1em;
+        color: var(--divider-handle-icon-color);
+        transition: margin-left 0.5s;
+        transition: margin-right 0.5s;
+
+        &.leftSide {
+            margin-left: 0.8em;
+        }
+
+        &.rightSide {
+            margin-right: 0.8em;
+        }
+    }
+}
+
+.overlayFrame {
+    border: 0;
+    padding: 0;
+    margin: 0;
+    
+    &.blockActions {
+        pointer-events: none;
+    }
+}
+
+.blockActions {
+    pointer-events: none;
+}
+
+.left {
+    z-index: 400;
+}
+
+.filter {
+    z-index: 400;
+}
+
+.editor {
+    position: absolute;
+    z-index: 600;
+    top: 5rem;
+    right: 3px;
+    display: flex;
+}
+
+.editorControls {
+    margin-right: 1rem;
+
+    & sl-card {
+        width: 25rem;
+
+        sl-range {
+            &:not(:last-of-type) {
+                margin-bottom: 1rem;
+            }
+            &::part(form-control-label) {
+                margin-bottom: 0.5rem;
+            }
+        }
+    }
+
+    .editorControlsFooter {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+}
