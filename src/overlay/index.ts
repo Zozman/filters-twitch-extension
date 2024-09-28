@@ -7,6 +7,8 @@ import '@shoelace-style/shoelace/dist/components/details/details.js';
 import '@shoelace-style/shoelace/dist/components/dropdown/dropdown.js';
 import '@shoelace-style/shoelace/dist/components/menu-item/menu-item.js';
 import '@shoelace-style/shoelace/dist/components/input/input.js';
+import '@shoelace-style/shoelace/dist/components/radio-group/radio-group.js';
+import '@shoelace-style/shoelace/dist/components/radio-button/radio-button.js';
 
 import { registerIconLibrary } from '@shoelace-style/shoelace/dist/utilities/icon-library.js';
 import { setBasePath } from '@shoelace-style/shoelace/dist/utilities/base-path.js';

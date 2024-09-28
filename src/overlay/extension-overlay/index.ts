@@ -35,6 +35,12 @@ export class ExtensionOverlay extends LitElement {
     @state()
     private dividerActive = false;
 
+    /**
+     * When divider is active, what side of the divider is the filter applied
+     */
+    @state()
+    private filterSide: 'left' | 'right' = 'right';
+
     @query('.base')
     private base!: HTMLElement;
 
@@ -264,13 +270,19 @@ export class ExtensionOverlay extends LitElement {
             }, 100);
         } else {
             setTimeout(() => {
-                this.dividerPosition = -10;
+                this.dividerPosition = this.filterSide === 'left'
+                    ? 110
+                    : -10;
                 setTimeout(() => {
                     this.isAnimatingDivider = false;
                     this.dividerActive = newDividerState;
                 }, 500);
             }, 100);
         }
+    }
+
+    private toggleFilterSide(event:any) {
+        this.filterSide = event.target.value;
     }
 
     private updateRangeValue(field:string, event:any) {
@@ -417,7 +429,21 @@ export class ExtensionOverlay extends LitElement {
                             <sl-switch
                                 .disabled="${this.isAnimatingDivider}"
                                 @sl-change="${this.toggleDivider}"
-                                >Enable Slider</sl-switch>
+                                >Filter Slider</sl-switch>
+                            <sl-radio-group
+                                size="small"
+                                name="Filter Side"
+                                .value="${this.filterSide}"
+                                @sl-change="${this.toggleFilterSide}">
+                                    <sl-radio-button
+                                        pill
+                                        .disabled="${this.isAnimatingDivider || !this.dividerActive}"
+                                        value="left">Filter Left</sl-radio-button>
+                                    <sl-radio-button
+                                        pill
+                                        .disabled="${this.isAnimatingDivider || !this.dividerActive}"
+                                        value="right">Filter Right</sl-radio-button>
+                            </sl-radio-group>
                             <sl-button
                                 variant="default"
                                 @click="${this.reset}">Reset</sl-button>
@@ -542,6 +568,9 @@ export class ExtensionOverlay extends LitElement {
     }
     
     render() {
+        const dividerClipPath = this.filterSide === 'left'
+            ?  `polygon(0 0, ${this.dividerPosition}% 0, ${this.dividerPosition}% 100%, 0 100%)`
+            : `polygon(${this.dividerPosition}% 0, 100% 0, 100% 100%, ${this.dividerPosition}% 100%)`;
         const baseClasses = {
             base: true,
             dark: this.theme === 'dark',
@@ -557,7 +586,7 @@ export class ExtensionOverlay extends LitElement {
                                 saturate(${this.filterSaturate})
                                 sepia(${this.filterSepia})`,
             // Only clip if divider is enabled
-            ...(this.dividerActive && {'clip-path': `polygon(${this.dividerPosition}% 0, 100% 0, 100% 100%, ${this.dividerPosition}% 100%)`})
+            ...(this.dividerActive && {'clip-path': dividerClipPath})
         };
         const filterClasses = {
             baseItem: true,
