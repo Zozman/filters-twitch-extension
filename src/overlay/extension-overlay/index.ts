@@ -17,8 +17,11 @@ import style from './style.scss';
 import { EmoteMapItem, Filter, FILTER_FIELDS, FilterData, TWITCH_EMOTE_FORMATS, TWITCH_EMOTE_SCALE, TWITCH_EMOTE_THEMES, TwitchEmote } from './types';
 import { SlChangeEvent, SlInput, SlInputEvent, SlRadioGroup, SlRange } from '@shoelace-style/shoelace';
 
+/**
+ * Main component for the application
+ */
 @customElement('extension-overlay')
-export class ExtensionOverlay extends LitElement {
+export default class ExtensionOverlay extends LitElement {
     static styles = style;
 
     /**
@@ -60,27 +63,67 @@ export class ExtensionOverlay extends LitElement {
 
     // ----------------------------- Filter values -----------------------------
 
+    /**
+     * Blur value for the currently applied filter
+     * 
+     * https://developer.mozilla.org/en-US/docs/Web/CSS/filter-function/blur
+     */
     @state()
     private filterBlur = defaultFilterValues.blur;
 
+    /**
+     * Brightness value for the currently applied filter
+     * 
+     * https://developer.mozilla.org/en-US/docs/Web/CSS/filter-function/brightness
+     */
     @state()
     private filterBrightness = defaultFilterValues.brightness;
 
+    /**
+     * Contrast value for the currently applied filter
+     * 
+     * https://developer.mozilla.org/en-US/docs/Web/CSS/filter-function/contrast
+     */
     @state()
     private filterContrast = defaultFilterValues.contrast;
 
+    /**
+     * Grayscale value for the currently applied filter
+     * 
+     * https://developer.mozilla.org/en-US/docs/Web/CSS/filter-function/grayscale
+     */
     @state()
     private filterGrayscale = defaultFilterValues.grayscale;
 
+    /**
+     * Hue rotate value for the currently applied filter
+     * 
+     * https://developer.mozilla.org/en-US/docs/Web/CSS/filter-function/hue-rotate
+     */
     @state()
     private filterHueRotate = defaultFilterValues.hueRotate;
 
+    /**
+     * Invert value for the currently applied filter
+     * 
+     * https://developer.mozilla.org/en-US/docs/Web/CSS/filter-function/invert
+     */
     @state()
     private filterInvert = defaultFilterValues.invert;
 
+    /**
+     * Saturate value for the currently applied filter
+     * 
+     * https://developer.mozilla.org/en-US/docs/Web/CSS/filter-function/saturate
+     */
     @state()
     private filterSaturate = defaultFilterValues.saturate;
 
+    /**
+     * Sepia value for the currently applied filter
+     * 
+     * https://developer.mozilla.org/en-US/docs/Web/CSS/filter-function/sepia
+     */
     @state()
     private filterSepia = defaultFilterValues.sepia;
 
