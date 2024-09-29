@@ -27,7 +27,9 @@
         "ru",
         "th",
         "ja",
-        "ko"
+        "ko",
+        "zh-cn",
+        "zh-tw"
     ],
     "tsConfig": "./tsconfig.json",
     "output": {
