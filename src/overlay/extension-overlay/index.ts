@@ -187,7 +187,7 @@ export default class ExtensionOverlay extends LitElement {
      */
     private filterExampleEmoteName = 'KappaHD';
 
-    connectedCallback() {
+    connectedCallback():void {
         super.connectedCallback();
         // Get the Twitch Auth info when we get it
         window.Twitch.ext.onAuthorized((auth:TwitchExtensionAuth) => {
@@ -692,7 +692,7 @@ export default class ExtensionOverlay extends LitElement {
         `;
     }
     
-    render() {
+    render():TemplateResult {
         // Determine the divider clip by if the filter will be on the left or right
         const dividerClipPath = this.filterSide === FILTER_SIDE.LEFT
             ?  `polygon(0 0, ${this.dividerPosition}% 0, ${this.dividerPosition}% 100%, 0 100%)`
