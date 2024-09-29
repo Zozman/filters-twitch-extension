@@ -270,8 +270,8 @@ export default class ExtensionOverlay extends LitElement {
 
     /**
      * Function to get emotes from a Twitch API endpoint and add them to `this.emoteMap`
-     * @param url 
-     * @returns 
+     * @param url URL to make the API call on
+     * @returns The response from the API call
      */
     private getEmotesFromUrl(url: string):Promise<any> {
         return this.doTwitchApiGet(url)
