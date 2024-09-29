@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file target-language="sv" source-language="en" original="lit-localize-inputs" datatype="plaintext" date="2024-09-28T22:13:42Z">
+        <body>
+            <trans-unit id="s5d929ff1619ac0c9">
+                <source>Search</source>
+                <target>Söka</target>
+            </trans-unit>
+            <trans-unit id="se9eb6976f93dfb18">
+                <source>Customize</source>
+                <target>Anpassa</target>
+            </trans-unit>
+            <trans-unit id="secf3bca7c1691718">
+                <source>Blur</source>
+                <target>Fläck</target>
+            </trans-unit>
+            <trans-unit id="sf7ef7bd814fbaa8a">
+                <source>Brightness</source>
+                <target>Ljusstyrka</target>
+            </trans-unit>
+            <trans-unit id="sda9eb7b6b70799f3">
+                <source>Contrast</source>
+                <target>Kontrast</target>
+            </trans-unit>
+            <trans-unit id="s82caaf657b01a4d0">
+                <source>Grayscale</source>
+                <target>Gråskala</target>
+            </trans-unit>
+            <trans-unit id="s5c4aef4e5aa84518">
+                <source>Hue Rotate</source>
+                <target>Nyansrotera</target>
+            </trans-unit>
+            <trans-unit id="s93b38b71b79d98c1">
+                <source>Invert</source>
+                <target>Invertera</target>
+            </trans-unit>
+            <trans-unit id="s8a5c7b0f9d26a384">
+                <source>Saturate</source>
+                <target>Mätta</target>
+            </trans-unit>
+            <trans-unit id="scf92ea96f389a5e9">
+                <source>Sepia</source>
+                <target>Sepia</target>
+            </trans-unit>
+            <trans-unit id="s73f77bbec41c24cc">
+                <source>Filter Slider</source>
+                <target>Filterreglage</target>
+            </trans-unit>
+            <trans-unit id="sa43fa88ea2159d40">
+                <source>Filter Left</source>
+                <target>Filtrera vänster</target>
+            </trans-unit>
+            <trans-unit id="saf93ec81e566ad55">
+                <source>Filter Right</source>
+                <target>Filtrera rätt</target>
+            </trans-unit>
+            <trans-unit id="s255857544a9d5ec0">
+                <source>Reset</source>
+                <target>Återställa</target>
+            </trans-unit>
+            <trans-unit id="s9d8b8aa2b404c2c8">
+                <source>Settings</source>
+                <target>Inställningar</target>
+            </trans-unit>
+            <trans-unit id="sadf4fddccc26746d">
+                <source>
+                    <x id="0" equiv-text="${this.filterExampleEmoteName}"/> Twitch Emote With 
+                    <x id="1" equiv-text="${filter.name}"/> Filter Applied
+                </source>
+                <target>
+                    <x id="0" equiv-text="${this.filterExampleEmoteName}"/>Ryck från
+                    <x id="1" equiv-text="${filter.name}"/>Filter applicerad
+                </target>
+            </trans-unit>
+            <trans-unit id="sa8beb6b1182241ac">
+                <source>Filters</source>
+                <target>Filter</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

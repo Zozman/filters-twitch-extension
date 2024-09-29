@@ -2,9 +2,13 @@ import { html, LitElement, nothing, TemplateResult } from 'lit';
 import {customElement, state, query} from 'lit/decorators.js';
 import {styleMap} from 'lit-html/directives/style-map.js';
 import {classMap} from 'lit-html/directives/class-map.js';
+import {msg, str} from '@lit/localize';
 
 import {drag} from '../../utils/drag';
 import {clamp} from '../../utils/clamp';
+
+import { sourceLocale ,targetLocales } from '../../generated/locale-codes';
+import { setLocale } from '../../utils/localization';
 
 import { setupMockDevServer } from '../../mockServer';
 
@@ -156,6 +160,19 @@ export default class ExtensionOverlay extends LitElement {
     private emoteMap:Map<string, EmoteMapItem> = new Map();
 
     /**
+     * Parsed URL search parameters from the `window` provided by the Extension loader.
+     */
+    private urlParameters = new URLSearchParams(window.location.search);
+
+    /**
+     * Language value from the urlParameters.  If the provided language is a supported language by the extension, load its locale files.  Else load the source locale.
+     */
+    private language = this.urlParameters.has('language')
+        && targetLocales.indexOf(this.urlParameters.get('language') as any) !== -1 
+            ? this.urlParameters.get('language') as string
+            : sourceLocale;
+
+    /**
      * Auth object returned by window.Twitch.ext.onAuthorized
     */
     private auth!: TwitchExtensionAuth;
@@ -187,7 +204,9 @@ export default class ExtensionOverlay extends LitElement {
      */
     private filterExampleEmoteName = 'KappaHD';
 
-    connectedCallback():void {
+    async connectedCallback():Promise<void> {
+        // Set the locale
+        await setLocale(this.language);
         super.connectedCallback();
         // Get the Twitch Auth info when we get it
         window.Twitch.ext.onAuthorized((auth:TwitchExtensionAuth) => {
@@ -464,10 +483,10 @@ export default class ExtensionOverlay extends LitElement {
             <div class="editor">
                 <div class="${classMap(editorControlsClasses)}">
                     <sl-card>
-                        <sl-details summary="Filters" open>
+                        <sl-details summary="${msg('Filters')}" open>
                             <sl-input
                                 .value="${this.filterSearchTerm}"
-                                placeholder="Search"
+                                placeholder="${msg('Search')}"
                                 size="small"
                                 pill
                                 clearable
@@ -478,58 +497,58 @@ export default class ExtensionOverlay extends LitElement {
                                 ${filtersArray.map(filter => this.renderFilter(filter))}
                             </div>
                         </sl-details>
-                        <sl-details summary="Customize">
+                        <sl-details summary="${msg('Customize')}">
                             <sl-range
-                                label="Blur"
+                                label="${msg('Blur')}"
                                 min="0"
                                 max="10"
                                 step="1"
                                 value="${this.filterBlur}"
                                 @sl-input="${blurChange}"></sl-range>
                             <sl-range
-                                label="Brightness"
+                                label="${msg('Brightness')}"
                                 min="0"
                                 max="3"
                                 step="0.01"
                                 value="${this.filterBrightness}"
                                 @sl-input="${brightnessChange}"></sl-range>
                             <sl-range
-                                label="Contrast"
+                                label="${msg('Contrast')}"
                                 min="0"
                                 max="3"
                                 step="0.01"
                                 value="${this.filterContrast}"
                                 @sl-input="${contrastChange}"></sl-range>
                                 <sl-range
-                                label="Grayscale"
+                                label="${msg('Grayscale')}"
                                 min="0"
                                 max="1"
                                 step="0.01"
                                 value="${this.filterGrayscale}"
                                 @sl-input="${grayscaleChange}"></sl-range>
                             <sl-range
-                                label="Hue Rotate"
+                                label="${msg('Hue Rotate')}"
                                 min="-360"
                                 max="360"
                                 step="1"
                                 value="${this.filterHueRotate}"
                                 @sl-input="${hueRotateChange}"></sl-range>
                             <sl-range
-                                label="Invert"
+                                label="${msg('Invert')}"
                                 min="0"
                                 max="1"
                                 step="0.01"
                                 value="${this.filterInvert}"
                                 @sl-input="${invertChange}"></sl-range>
                             <sl-range
-                                label="Saturate"
+                                label="${msg('Saturate')}"
                                 min="0"
                                 max="3"
                                 step="0.01"
                                 value="${this.filterSaturate}"
                                 @sl-input="${saturateChange}"></sl-range>
                             <sl-range
-                                label="Sepia"
+                                label="${msg('Sepia')}"
                                 min="0"
                                 max="1"
                                 step="0.01"
@@ -540,7 +559,7 @@ export default class ExtensionOverlay extends LitElement {
                             <sl-switch
                                 .disabled="${this.isAnimatingDivider}"
                                 @sl-change="${this.toggleDivider}"
-                                >Filter Slider</sl-switch>
+                                >${msg('Filter Slider')}</sl-switch>
                             <sl-radio-group
                                 size="small"
                                 name="Filter Side"
@@ -549,15 +568,15 @@ export default class ExtensionOverlay extends LitElement {
                                     <sl-radio-button
                                         pill
                                         .disabled="${this.isAnimatingDivider || !this.dividerActive}"
-                                        value="left">Filter Left</sl-radio-button>
+                                        value="left">${msg('Filter Left')}</sl-radio-button>
                                     <sl-radio-button
                                         pill
                                         .disabled="${this.isAnimatingDivider || !this.dividerActive}"
-                                        value="right">Filter Right</sl-radio-button>
+                                        value="right">${msg('Filter Right')}</sl-radio-button>
                             </sl-radio-group>
                             <sl-button
                                 variant="default"
-                                @click="${this.reset}">Reset</sl-button>
+                                @click="${this.reset}">${msg('Reset')}</sl-button>
                         </div>
                     </sl-card>
                 </div>
@@ -567,7 +586,7 @@ export default class ExtensionOverlay extends LitElement {
                         size="medium"
                         circle
                         @click="${this.toggleEditorControls}">
-                            <sl-icon library="system" name="mask" label="Settings"></sl-icon>
+                            <sl-icon library="system" name="mask" label="${msg('Settings')}"></sl-icon>
                     </sl-button>
                 </div>
             </div>
@@ -613,7 +632,7 @@ export default class ExtensionOverlay extends LitElement {
                         class="filterEmotePreview"
                         style="${styleMap(filterStyle)}"
                         src="${filterEmoteUrl}"
-                        alt="${this.filterExampleEmoteName} Twitch Emote With ${filter.name} Filter Applied"
+                        alt="${msg(str`${this.filterExampleEmoteName} Twitch Emote With ${filter.name} Filter Applied`)}"
                     />
                 ` : html`
                     <div class="filterPreview" style="${styleMap(filterStyle)}"></div>
