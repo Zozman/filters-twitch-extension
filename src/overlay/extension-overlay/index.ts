@@ -168,9 +168,9 @@ export default class ExtensionOverlay extends LitElement {
      * Language value from the urlParameters.  If the provided language is a supported language by the extension, load its locale files.  Else load the source locale.
      */
     private language = this.urlParameters.has('language')
-        && targetLocales.indexOf(this.urlParameters.get('language') as any) !== -1 
-            ? this.urlParameters.get('language') as string
-            : sourceLocale;
+                        && targetLocales.indexOf(this.urlParameters.get('language') as any) !== -1 
+                        ? this.urlParameters.get('language') as string
+                        : sourceLocale;
 
     /**
      * Auth object returned by window.Twitch.ext.onAuthorized
