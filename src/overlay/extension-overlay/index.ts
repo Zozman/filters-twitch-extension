@@ -14,7 +14,7 @@ import type { TwitchExtensionAuth, TwitchExtensionContext } from '../../types/tw
 
 import style from './style.scss';
 
-import { EmoteMapItem, Filter, FILTER_FIELDS, FilterData, TWITCH_EMOTE_FORMATS, TWITCH_EMOTE_SCALE, TWITCH_EMOTE_THEMES, TwitchEmote } from './types';
+import { EmoteMapItem, Filter, FILTER_FIELDS, FILTER_SIDE, FilterData, TWITCH_EMOTE_FORMATS, TWITCH_EMOTE_SCALE, TWITCH_THEMES, TwitchEmote } from './types';
 import { SlChangeEvent, SlInput, SlInputEvent, SlRadioGroup, SlRange } from '@shoelace-style/shoelace';
 
 /**
@@ -53,7 +53,7 @@ export default class ExtensionOverlay extends LitElement {
      * When divider is active, what side of the divider is the filter applied
      */
     @state()
-    private filterSide: 'left' | 'right' = 'right';
+    private filterSide: FILTER_SIDE = FILTER_SIDE.RIGHT;
 
     /**
      * Represents the base `<div>` element of the extension
@@ -135,7 +135,7 @@ export default class ExtensionOverlay extends LitElement {
      * Is determined by the theme the viewer is using in Twitch
      */
     @state()
-    private theme = 'light';
+    private theme:TWITCH_THEMES = TWITCH_THEMES.LIGHT;
 
     /**
      * Indicates if currently the divider is being added or removed via animation
@@ -196,7 +196,7 @@ export default class ExtensionOverlay extends LitElement {
         });
         // When the context changes, update the theme
         window.Twitch.ext.onContext((ctx:TwitchExtensionContext) => {
-            this.theme = ctx.theme;
+            this.theme = ctx.theme as TWITCH_THEMES;
         });
         // If locally testing, setup mock server and manually trigger emote calls
         if (this.isLocalhost) {
@@ -278,7 +278,7 @@ export default class ExtensionOverlay extends LitElement {
                 id: item.id,
                 format: item.format as Array<TWITCH_EMOTE_FORMATS>,
                 scale: item.scale as Array<TWITCH_EMOTE_SCALE>,
-                theme_mode: item.theme_mode as Array<TWITCH_EMOTE_THEMES>,
+                theme_mode: item.theme_mode as Array<TWITCH_THEMES>,
                 template
             });
         });
@@ -297,7 +297,7 @@ export default class ExtensionOverlay extends LitElement {
         // Get the best scale we have
         const selectedScale = scale[scale.length - 1];
         // Try to match the current theme
-        const selectedTheme = theme_mode.indexOf(theme as TWITCH_EMOTE_THEMES) !== -1 ? theme : theme_mode[0];
+        const selectedTheme = theme_mode.indexOf(theme as TWITCH_THEMES) !== -1 ? theme : theme_mode[0];
         // Get whatever format is at the bottom (animated emotes will list the animation at the bottom)
         const selectedFormat = format[format.length - 1];
         // Substitute the values into the template
@@ -357,7 +357,7 @@ export default class ExtensionOverlay extends LitElement {
         } else {
             setTimeout(() => {
                 // Exit the divider so the filter takes up the whole screen
-                this.dividerPosition = this.filterSide === 'left'
+                this.dividerPosition = this.filterSide === FILTER_SIDE.LEFT
                     ? 110
                     : -10;
                 setTimeout(() => {
@@ -373,7 +373,7 @@ export default class ExtensionOverlay extends LitElement {
      * @param event Change event
      */
     private toggleFilterSide(event:SlChangeEvent):void {
-        this.filterSide = (event.target as SlRadioGroup).value as 'left' | 'right';
+        this.filterSide = (event.target as SlRadioGroup).value as FILTER_SIDE;
     }
 
     /**
@@ -694,13 +694,13 @@ export default class ExtensionOverlay extends LitElement {
     
     render() {
         // Determine the divider clip by if the filter will be on the left or right
-        const dividerClipPath = this.filterSide === 'left'
+        const dividerClipPath = this.filterSide === FILTER_SIDE.LEFT
             ?  `polygon(0 0, ${this.dividerPosition}% 0, ${this.dividerPosition}% 100%, 0 100%)`
             : `polygon(${this.dividerPosition}% 0, 100% 0, 100% 100%, ${this.dividerPosition}% 100%)`;
         const baseClasses = {
             base: true,
-            dark: this.theme === 'dark',
-            light: this.theme === 'light'
+            dark: this.theme === TWITCH_THEMES.DARK,
+            light: this.theme === TWITCH_THEMES.LIGHT
         };
         const filterStyle = {
             'backdrop-filter': `blur(${this.filterBlur}px)

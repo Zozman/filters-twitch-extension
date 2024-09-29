@@ -1,4 +1,18 @@
 /**
+ * Enum representing what side the filter is on when the divider is enabled
+ */
+export enum FILTER_SIDE {
+    /**
+     * Filter is on the left side
+     */
+    LEFT = 'left',
+    /**
+     * Filter is on the right side
+     */
+    RIGHT = 'right'
+}
+
+/**
  * Emum representing the fields that make up a FilterData object
  */
 export enum FILTER_FIELDS {
@@ -151,11 +165,11 @@ export enum TWITCH_EMOTE_SCALE {
 }
 
 /**
- * The background themes that the emote is available in.
+ * The themes supported by Twitch
  * 
  * See https://dev.twitch.tv/docs/api/reference/#get-emote-sets -> `Response Body` -> `theme_mode` for reference.
  */
-export enum TWITCH_EMOTE_THEMES {
+export enum TWITCH_THEMES {
     LIGHT = 'light',
     DARK = 'dark'
 }
@@ -203,7 +217,7 @@ export interface TwitchEmote {
     /**
      * The background themes that the emote is available in.
      */
-    theme_mode: Array<TWITCH_EMOTE_THEMES> | TWITCH_EMOTE_THEMES;
+    theme_mode: Array<TWITCH_THEMES> | TWITCH_THEMES;
     /**
      * A templated URL. Use the values from the id, format, scale, and theme_mode fields to replace the like-named placeholder strings in the templated URL to create a CDN (content delivery network) URL that you use to fetch the emote.
      */
@@ -229,7 +243,7 @@ export interface EmoteMapItem {
     /**
      * The background themes that the emote is available in.
      */
-    theme_mode: Array<TWITCH_EMOTE_THEMES>;
+    theme_mode: Array<TWITCH_THEMES>;
     /**
      * A templated URL for the image.
      */
