@@ -6,5 +6,8 @@ import {sourceLocale, targetLocales} from '../generated/locale-codes';
 export const {getLocale, setLocale} = configureLocalization({
   sourceLocale,
   targetLocales,
-  loadLocale: (locale: string) => import(`../generated/locales/${locale}`),
+  loadLocale: (locale: string) => import(
+    /* webpackChunkName: "locale-[request]" */
+    `../generated/locales/${locale}`
+  ),
 });
