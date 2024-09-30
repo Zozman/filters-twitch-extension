@@ -598,7 +598,7 @@ export default class ExtensionOverlay extends LitElement {
                         size="medium"
                         circle
                         @click="${this.toggleEditorControls}">
-                            <sl-icon library="system" name="mask" label="${msg('Settings')}"></sl-icon>
+                            <sl-icon library="system" name="sliders" label="${msg('Settings')}"></sl-icon>
                     </sl-button>
                 </div>
             </div>
