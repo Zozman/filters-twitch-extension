@@ -3,6 +3,7 @@ import {customElement, state, query} from 'lit/decorators.js';
 import {styleMap} from 'lit-html/directives/style-map.js';
 import {classMap} from 'lit-html/directives/class-map.js';
 import {msg, str} from '@lit/localize';
+import {Task} from '@lit/task';
 
 import {drag} from '../../utils/drag';
 import {clamp} from '../../utils/clamp';
@@ -26,7 +27,37 @@ import { SlChangeEvent, SlInput, SlInputEvent, SlRadioGroup, SlRange } from '@sh
  */
 @customElement('extension-overlay')
 export default class ExtensionOverlay extends LitElement {
+    // ----------------------------- Static Values -----------------------------
     static styles = style;
+
+    /**
+     * Used for local development to show content for the left side
+     */
+    static isLocalhost = window.location.hostname === 'localhost';
+
+    /**
+     * Test stream channel to show in the overlay
+     */
+    static testStreamChannel = 'qa_partner_sirhype';
+
+    /**
+     * List of emote sets to load into `this.emoteMap`
+     * 
+     * Emote sets are indicated by either a string code or `global` for the global emote set
+     */
+    static twitchEmoteSetsToLoad = [
+        // Twitch Turbo Set
+        '19194'
+    ];
+
+    /**
+     * Emote to use for filter examples if it exists in `this.emoteMap`
+     * 
+     * `KappaHD` is from the Twitch Turbo emote set so this set must be loaded for us to use it
+     */
+    static filterExampleEmoteName = 'KappaHD';
+
+    // ----------------------------- State Variables -----------------------------
 
     /**
      * Current position of the filter slider
@@ -58,12 +89,6 @@ export default class ExtensionOverlay extends LitElement {
      */
     @state()
     private filterSide: FILTER_SIDE = FILTER_SIDE.RIGHT;
-
-    /**
-     * Represents the base `<div>` element of the extension
-     */
-    @query('.base')
-    private base!: HTMLDivElement;
 
     // ----------------------------- Filter values -----------------------------
 
@@ -160,6 +185,21 @@ export default class ExtensionOverlay extends LitElement {
     private emoteMap:Map<string, EmoteMapItem> = new Map();
 
     /**
+     * Async task to load the correct locale bundle before rendering anything
+     */
+    @state()
+    private loadLocaleTask = new Task(this, {
+        task: ([language]) => setLocale(language),
+        args: () => [this.language]
+    });
+
+    /**
+     * Represents the base `<div>` element of the extension
+     */
+    @query('.base')
+    private base!: HTMLDivElement;
+
+    /**
      * Parsed URL search parameters from the `window` provided by the Extension loader.
      */
     private urlParameters = new URLSearchParams(window.location.search);
@@ -173,40 +213,11 @@ export default class ExtensionOverlay extends LitElement {
                         : sourceLocale;
 
     /**
-     * Auth object returned by window.Twitch.ext.onAuthorized
+     * Auth object returned by window.Twitch.ext.onAuthorized that is used to authenticate Twitch API calls
     */
     private auth!: TwitchExtensionAuth;
 
-    /**
-     * Used for local development to show content for the left side
-     */
-    private isLocalhost = window.location.hostname === 'localhost';
-
-    /**
-     * Test stream channel to show in the overlay
-     */
-    private testStreamChannel = 'qa_partner_sirhype';
-
-    /**
-     * List of emote sets to load into `this.emoteMap`
-     * 
-     * Emote sets are indicated by either a string code or `global` for the global emote set
-     */
-    private twitchEmoteSetsToLoad = [
-        // Twitch Turbo Set
-        '19194'
-    ];
-
-    /**
-     * Emote to use for filter examples if it exists in `this.emoteMap`
-     * 
-     * `KappaHD` is from the Twitch Turbo emote set so this set must be loaded for us to use it
-     */
-    private filterExampleEmoteName = 'KappaHD';
-
-    async connectedCallback():Promise<void> {
-        // Set the locale
-        await setLocale(this.language);
+    connectedCallback():void {
         super.connectedCallback();
         // Get the Twitch Auth info when we get it
         window.Twitch.ext.onAuthorized((auth:TwitchExtensionAuth) => {
@@ -218,7 +229,7 @@ export default class ExtensionOverlay extends LitElement {
             this.theme = ctx.theme as TWITCH_THEMES;
         });
         // If locally testing, setup mock server and manually trigger emote calls
-        if (this.isLocalhost) {
+        if (ExtensionOverlay.isLocalhost) {
             setupMockDevServer();
             this.getEmotes();
         }
@@ -243,7 +254,7 @@ export default class ExtensionOverlay extends LitElement {
      * @returns Emote data
      */
     private getEmotes():Promise<any> {
-        return Promise.all(this.twitchEmoteSetsToLoad.map(setId => {
+        return Promise.all(ExtensionOverlay.twitchEmoteSetsToLoad.map(setId => {
             // Global emotes have a different endpoint
             if (setId === 'global') {
                 return this.getGlobalEmotes();
@@ -612,7 +623,7 @@ export default class ExtensionOverlay extends LitElement {
      */
     private renderFilter(filter:Filter):TemplateResult {
         // Attempt to get an emote URL to use
-        const filterEmoteUrl = this.computeEmoteUrl(this.filterExampleEmoteName, this.theme);
+        const filterEmoteUrl = this.computeEmoteUrl(ExtensionOverlay.filterExampleEmoteName, this.theme);
 
         const filterClasses = {
             filterCard: true,
@@ -644,7 +655,7 @@ export default class ExtensionOverlay extends LitElement {
                         class="filterEmotePreview"
                         style="${styleMap(filterStyle)}"
                         src="${filterEmoteUrl}"
-                        alt="${msg(str`${this.filterExampleEmoteName} Twitch Emote With ${filter.name} Filter Applied`)}"
+                        alt="${msg(str`${ExtensionOverlay.filterExampleEmoteName} Twitch Emote With ${filter.name} Filter Applied`)}"
                     />
                 ` : html`
                     <div class="filterPreview" style="${styleMap(filterStyle)}"></div>
@@ -714,7 +725,7 @@ export default class ExtensionOverlay extends LitElement {
         return html`
             <iframe
                 class="${classMap(frameClasses)}"
-                src="https://player.twitch.tv/?channel=${this.testStreamChannel}&parent=${window.location.hostname}"
+                src="https://player.twitch.tv/?channel=${ExtensionOverlay.testStreamChannel}&parent=${window.location.hostname}"
                 height="100%"
                 width="100%"
                 autoplay="true"
@@ -751,14 +762,19 @@ export default class ExtensionOverlay extends LitElement {
             blockActions: this.isDragging,
             dividerAnimating: this.isAnimatingDivider
         };
+        // Don't render the component until locales are loaded
         return html`
-            <div
-                class="${classMap(baseClasses)}">
-                    ${this.renderEditor()}
-                    ${this.dividerActive ? this.renderDivider() : nothing}
-                    <div class="${classMap(filterClasses)}" style="${styleMap(filterStyle)}"></div>
-                    ${this.isLocalhost ? this.renderTestStreamFrame() : nothing}
-            </div>
+            ${this.loadLocaleTask.render({
+                complete: () => html`
+                    <div
+                        class="${classMap(baseClasses)}">
+                            ${this.renderEditor()}
+                            ${this.dividerActive ? this.renderDivider() : nothing}
+                            <div class="${classMap(filterClasses)}" style="${styleMap(filterStyle)}"></div>
+                            ${ExtensionOverlay.isLocalhost ? this.renderTestStreamFrame() : nothing}
+                    </div>
+                `
+            })}
         `;
     }
 }
