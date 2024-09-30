@@ -1,4 +1,4 @@
-$handlePercentageFromTop: 15rem;
+$handlePercentageFromTop: 10rem;
 $editorToggleFromTop: 5rem;
 
 :host {
@@ -111,6 +111,10 @@ $editorToggleFromTop: 5rem;
     top: $editorToggleFromTop;
     right: 5px;
     display: flex;
+}
+
+.editorToggle {
+    z-index: 1000;
 }
 
 .editorControls {
