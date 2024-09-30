@@ -332,17 +332,29 @@ export default class ExtensionOverlay extends LitElement {
      * @param event `PointerEvent` being performed by the mouse
      */
     private handleDrag(event: PointerEvent):void {
+        this.isDragging = true;
         const { width } = this.base.getBoundingClientRect();
     
         event.preventDefault();
     
         drag(this.base, {
           onMove: x => {
-            this.isDragging = true;
-            this.dividerPosition = parseFloat(clamp((x / width) * 100, 0, 100).toFixed(2));
+            if (this.isDragging) {
+                this.dividerPosition = parseFloat(clamp((x / width) * 100, 0, 100).toFixed(2));
+            }
           },
           onStop: () => {
             this.isDragging = false;
+          },
+          onLeave: () => {
+            this.isDragging = false;
+            // If the mouse is moving too fast, then the divider can not make it to stage left or right when the mouse goes there.
+            // Therefore the following logic will drag it to the correct position in these instances
+            if (this.dividerPosition <= 5) {
+                this.dividerPosition = 0;
+            } else if (this.dividerPosition >= 95) {
+                this.dividerPosition = 100;
+            }
           },
           initialEvent: event
         });
