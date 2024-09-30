@@ -1,5 +1,5 @@
 {
-  "name": "streamfilter",
+  "name": "filters-twitch-extension",
   "version": "1.0.0",
   "description": "Twitch Extension for adding filters to streams.",
   "main": "index.js",
