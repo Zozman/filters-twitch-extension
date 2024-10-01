@@ -153,8 +153,11 @@ $editorToggleFromTop: 5rem;
 
     & > sl-card {
         width: 35rem;
-        max-height: calc(100vh - $editorToggleFromTop - 5rem);
-        overflow: auto;
+        
+        &::part(base) {
+            max-height: calc(100vh - $editorToggleFromTop - 5rem);
+            overflow: auto;
+        }
 
         sl-range {
             &:not(:last-of-type) {
