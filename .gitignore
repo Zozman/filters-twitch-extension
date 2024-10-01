@@ -1,3 +1,4 @@
 dist
 node_modules
 filters-twitch-extension-*.zip
+*~lock~*

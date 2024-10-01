@@ -26,6 +26,7 @@ import chevronRight from '../images/chevron-right.svg'
 import xCircleFill from '../images/x-circle-fill.svg';
 import search from '../images/search.svg';
 import sliders from '../images/sliders.svg';
+import filters from '../images/filters.svg';
 
 const systemIconMap: Map<string, any> = new Map([
     ['grip-vertical', gripVertical],
@@ -33,7 +34,8 @@ const systemIconMap: Map<string, any> = new Map([
     ['chevron-right', chevronRight],
     ['x-circle-fill', xCircleFill],
     ['search', search],
-    ['sliders', sliders]
+    ['sliders', sliders],
+    ['filters', filters]
 ]);
 
 registerIconLibrary('system', {
