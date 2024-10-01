@@ -123,12 +123,14 @@ $editorToggleFromTop: 5rem;
 
 .editorHolderSafeY {
     flex: 1;
+    height: 100%;
     display: flex;
     position: relative;
 }
 
 .editorHolderSafe {
     flex: 1;
+    height: 100%;
     position: relative;
 }
 
