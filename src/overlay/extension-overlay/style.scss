@@ -105,23 +105,47 @@ $editorToggleFromTop: 5rem;
     pointer-events: none;
 }
 
-.editor {
+.editorHolder {
     position: absolute;
-    z-index: 600;
-    top: $editorToggleFromTop;
-    right: 5px;
+    width: 100%;
+    height: 100%;
     display: flex;
+    flex-direction: column;
+}
+
+.editorHolderUnsafeY {
+    height: 5rem;
+}
+
+.editorHolderUnsafeX {
+    width: 2rem;
+}
+
+.editorHolderSafeY {
+    flex: 1;
+    display: flex;
+    position: relative;
+}
+
+.editorHolderSafe {
+    flex: 1;
+    position: relative;
 }
 
 .editorToggle {
     z-index: 1000;
+    position: absolute;
+}
+
+.editorToggleDragging {
+    cursor: move;
 }
 
 .editorControls {
-    margin-right: 1rem;
+    position: absolute;
+    z-index: 600;
     transform: scale(0);
-    transform-origin: top right;
-    transition: all 0.2s ease-in;
+    transition: transform 0.2s ease-in;
 
     &.editorControlsVisible {
         transform: scale(1);

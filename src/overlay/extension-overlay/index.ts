@@ -20,7 +20,7 @@ import type { TwitchExtensionAuth, TwitchExtensionContext } from '../../types/tw
 import style from './style.scss';
 
 import { EmoteMapItem, Filter, FILTER_FIELDS, FILTER_SIDE, FilterData, TWITCH_EMOTE_FORMATS, TWITCH_EMOTE_SCALE, TWITCH_THEMES, TwitchEmote } from './types';
-import { SlChangeEvent, SlInput, SlInputEvent, SlRadioGroup, SlRange } from '@shoelace-style/shoelace';
+import { SlButton, SlChangeEvent, SlInput, SlInputEvent, SlRadioGroup, SlRange } from '@shoelace-style/shoelace';
 
 /**
  * Main component for the application
@@ -89,6 +89,24 @@ export default class ExtensionOverlay extends LitElement {
      */
     @state()
     private filterSide: FILTER_SIDE = FILTER_SIDE.RIGHT;
+
+    /**
+     * X position of the toggle button
+     */
+    @state()
+    private editorTogglePositionX = 100;
+
+    /**
+     * Y position of the toggle button
+     */
+    @state()
+    private editorTogglePositionY = 0;
+
+    /**
+     * Indicates if we are currently dragging the editor toggle
+     */
+    @state()
+    private isDraggingEditorToggle = false;
 
     // ----------------------------- Filter values -----------------------------
 
@@ -198,6 +216,12 @@ export default class ExtensionOverlay extends LitElement {
      */
     @query('.base')
     private base!: HTMLDivElement;
+
+    /**
+     * Represents the `<div> where the editor toggle can be dragged in the DOM
+     */
+    @query('.editorHolderSafe')
+    private editorToggleDragArea!: HTMLDivElement;
 
     /**
      * Parsed URL search parameters from the `window` provided by the Extension loader.
@@ -372,10 +396,43 @@ export default class ExtensionOverlay extends LitElement {
     }
 
     /**
-     * Toggle if the editor is active
+     * Action handler for when the editor toggle is being dragged
+     * @param event `PointerEvent` being performed by the mouse
      */
-    private toggleEditorControls():void {
-        this.editorActive = !this.editorActive;
+    private handleEditorButtonDrag(event: PointerEvent):void {
+        this.isDraggingEditorToggle = true;
+        const { width, height } = this.editorToggleDragArea.getBoundingClientRect();
+    
+        event.preventDefault();
+
+        // Save how much we drag to help determine if we should do a toggle when the event ends
+        let deltaX = 0
+        let deltaY = 0;
+
+        drag(this.editorToggleDragArea, {
+            onMove: (x, y) => {
+              if (this.isDraggingEditorToggle) {
+                  const potentialX = parseFloat(clamp((x / width) * 100, 0, 100).toFixed(2));
+                  const potentialY = parseFloat(clamp((y / height) * 100, 0, 100).toFixed(2));
+                  // Save the delta for use in `onStop`
+                  deltaX += Math.abs(this.editorTogglePositionX - potentialX);
+                  deltaY += Math.abs(this.editorTogglePositionY - potentialY);
+                  this.editorTogglePositionX = potentialX;
+                  this.editorTogglePositionY = potentialY;
+              }
+            },
+            onStop: () => {
+                this.isDraggingEditorToggle = false;
+                // If we did not move the button, then do a toggle
+                if (deltaX === 0 && deltaX === 0) {
+                        this.editorActive = !this.editorActive;
+                }
+            },
+            onLeave: () => {
+                this.isDraggingEditorToggle = false;
+            },
+            initialEvent: event
+          });
     }
 
     /**
@@ -493,6 +550,25 @@ export default class ExtensionOverlay extends LitElement {
             editorControlsVisible: this.editorActive
         };
 
+        const editorToggleClasses = {
+            editorToggle: true,
+            editorToggleDragging: this.isDraggingEditorToggle
+        };
+
+        const editorToggleStyles = {
+            left: `calc(${this.editorTogglePositionX}% - 20px)`,
+            top: `calc(${this.editorTogglePositionY}% - 20px)`
+        };
+
+        const editorStyles = {
+            'transform-origin': `${this.editorTogglePositionX <= 50 ? 'left' : 'right'} ${this.editorTogglePositionY <= 50 ? 'top' : 'bottom'}`,
+            left: this.editorTogglePositionX <= 50
+                ? `calc(${this.editorTogglePositionX}% + 2rem)`
+                : `calc(${this.editorTogglePositionX}% - 36rem - 20px)`,
+            ...(this.editorTogglePositionY <= 50 && {top: `calc(${this.editorTogglePositionY}%)`}),
+            ...(this.editorTogglePositionY > 50 && {bottom: `calc(100% - ${this.editorTogglePositionY}%)`})
+        };
+
         const blurChange = this.updateRangeValue.bind(this, FILTER_FIELDS.BLUR);
         const brightnessChange = this.updateRangeValue.bind(this, FILTER_FIELDS.BRIGHTNESS);
         const contrastChange = this.updateRangeValue.bind(this, FILTER_FIELDS.CONTRAST);
@@ -503,115 +579,124 @@ export default class ExtensionOverlay extends LitElement {
         const sepiaChange = this.updateRangeValue.bind(this, FILTER_FIELDS.SEPIA);
 
         return html`
-            <div class="editor">
-                <div class="${classMap(editorControlsClasses)}">
-                    <sl-card>
-                        <sl-details summary="${msg('Filters')}" open>
-                            <sl-input
-                                .value="${this.filterSearchTerm}"
-                                placeholder="${msg('Search')}"
-                                size="small"
-                                pill
-                                clearable
-                                @sl-input="${this.updateFilterSearch}">
-                                    <sl-icon name="search" library="system" slot="prefix"></sl-icon>
-                            </sl-input>
-                            <div class="editorFiltersHolder">
-                                ${filtersArray.map(filter => this.renderFilter(filter))}
-                            </div>
-                        </sl-details>
-                        <sl-details summary="${msg('Customize')}">
-                            <sl-range
-                                label="${msg('Blur')}"
-                                min="0"
-                                max="10"
-                                step="1"
-                                value="${this.filterBlur}"
-                                @sl-input="${blurChange}"></sl-range>
-                            <sl-range
-                                label="${msg('Brightness')}"
-                                min="0"
-                                max="3"
-                                step="0.01"
-                                value="${this.filterBrightness}"
-                                @sl-input="${brightnessChange}"></sl-range>
-                            <sl-range
-                                label="${msg('Contrast')}"
-                                min="0"
-                                max="3"
-                                step="0.01"
-                                value="${this.filterContrast}"
-                                @sl-input="${contrastChange}"></sl-range>
-                                <sl-range
-                                label="${msg('Grayscale')}"
-                                min="0"
-                                max="1"
-                                step="0.01"
-                                value="${this.filterGrayscale}"
-                                @sl-input="${grayscaleChange}"></sl-range>
-                            <sl-range
-                                label="${msg('Hue Rotate')}"
-                                min="-360"
-                                max="360"
-                                step="1"
-                                value="${this.filterHueRotate}"
-                                @sl-input="${hueRotateChange}"></sl-range>
-                            <sl-range
-                                label="${msg('Invert')}"
-                                min="0"
-                                max="1"
-                                step="0.01"
-                                value="${this.filterInvert}"
-                                @sl-input="${invertChange}"></sl-range>
-                            <sl-range
-                                label="${msg('Saturate')}"
-                                min="0"
-                                max="3"
-                                step="0.01"
-                                value="${this.filterSaturate}"
-                                @sl-input="${saturateChange}"></sl-range>
-                            <sl-range
-                                label="${msg('Sepia')}"
-                                min="0"
-                                max="1"
-                                step="0.01"
-                                value="${this.filterSepia}"
-                                @sl-input="${sepiaChange}"></sl-range>
-                        </sl-details>
-                        <div class="editorControlsFooter" slot="footer">
-                            <sl-switch
-                                .disabled="${this.isAnimatingDivider}"
-                                @sl-change="${this.toggleDivider}"
-                                >${msg('Filter Slider')}</sl-switch>
-                            <sl-radio-group
-                                size="small"
-                                name="Filter Side"
-                                .value="${this.filterSide}"
-                                @sl-change="${this.toggleFilterSide}">
-                                    <sl-radio-button
+            <div class="editorHolder">
+                <div class="editorHolderUnsafeY"></div>
+                <div class="editorHolderSafeY">
+                    <div class="editorHolderUnsafeX"></div>
+                    <div class="editorHolderSafe">
+                        <sl-button
+                            class="${classMap(editorToggleClasses)}"
+                            style="${styleMap(editorToggleStyles)}"
+                            variant="default"
+                            size="medium"
+                            circle
+                            @mousedown="${this.handleEditorButtonDrag}"
+                            @touchstart="${this.handleEditorButtonDrag}">
+                                <sl-icon library="system" name="filters" label="${msg('Settings')}"></sl-icon>
+                        </sl-button>
+                        <div class="${classMap(editorControlsClasses)}" style="${styleMap(editorStyles)}">
+                            <sl-card>
+                                <sl-details summary="${msg('Filters')}" open>
+                                    <sl-input
+                                        .value="${this.filterSearchTerm}"
+                                        placeholder="${msg('Search')}"
+                                        size="small"
                                         pill
-                                        .disabled="${this.isAnimatingDivider || !this.dividerActive}"
-                                        value="left">${msg('Filter Left')}</sl-radio-button>
-                                    <sl-radio-button
-                                        pill
-                                        .disabled="${this.isAnimatingDivider || !this.dividerActive}"
-                                        value="right">${msg('Filter Right')}</sl-radio-button>
-                            </sl-radio-group>
-                            <sl-button
-                                variant="default"
-                                @click="${this.reset}">${msg('Reset')}</sl-button>
+                                        clearable
+                                        @sl-input="${this.updateFilterSearch}">
+                                            <sl-icon name="search" library="system" slot="prefix"></sl-icon>
+                                    </sl-input>
+                                    <div class="editorFiltersHolder">
+                                        ${filtersArray.map(filter => this.renderFilter(filter))}
+                                    </div>
+                                </sl-details>
+                                <sl-details summary="${msg('Customize')}">
+                                    <sl-range
+                                        label="${msg('Blur')}"
+                                        min="0"
+                                        max="10"
+                                        step="1"
+                                        value="${this.filterBlur}"
+                                        @sl-input="${blurChange}"></sl-range>
+                                    <sl-range
+                                        label="${msg('Brightness')}"
+                                        min="0"
+                                        max="3"
+                                        step="0.01"
+                                        value="${this.filterBrightness}"
+                                        @sl-input="${brightnessChange}"></sl-range>
+                                    <sl-range
+                                        label="${msg('Contrast')}"
+                                        min="0"
+                                        max="3"
+                                        step="0.01"
+                                        value="${this.filterContrast}"
+                                        @sl-input="${contrastChange}"></sl-range>
+                                        <sl-range
+                                        label="${msg('Grayscale')}"
+                                        min="0"
+                                        max="1"
+                                        step="0.01"
+                                        value="${this.filterGrayscale}"
+                                        @sl-input="${grayscaleChange}"></sl-range>
+                                    <sl-range
+                                        label="${msg('Hue Rotate')}"
+                                        min="-360"
+                                        max="360"
+                                        step="1"
+                                        value="${this.filterHueRotate}"
+                                        @sl-input="${hueRotateChange}"></sl-range>
+                                    <sl-range
+                                        label="${msg('Invert')}"
+                                        min="0"
+                                        max="1"
+                                        step="0.01"
+                                        value="${this.filterInvert}"
+                                        @sl-input="${invertChange}"></sl-range>
+                                    <sl-range
+                                        label="${msg('Saturate')}"
+                                        min="0"
+                                        max="3"
+                                        step="0.01"
+                                        value="${this.filterSaturate}"
+                                        @sl-input="${saturateChange}"></sl-range>
+                                    <sl-range
+                                        label="${msg('Sepia')}"
+                                        min="0"
+                                        max="1"
+                                        step="0.01"
+                                        value="${this.filterSepia}"
+                                        @sl-input="${sepiaChange}"></sl-range>
+                                </sl-details>
+                                <div class="editorControlsFooter" slot="footer">
+                                    <sl-switch
+                                        .disabled="${this.isAnimatingDivider}"
+                                        @sl-change="${this.toggleDivider}"
+                                        >${msg('Filter Slider')}</sl-switch>
+                                    <sl-radio-group
+                                        size="small"
+                                        name="Filter Side"
+                                        .value="${this.filterSide}"
+                                        @sl-change="${this.toggleFilterSide}">
+                                            <sl-radio-button
+                                                pill
+                                                .disabled="${this.isAnimatingDivider || !this.dividerActive}"
+                                                value="left">${msg('Filter Left')}</sl-radio-button>
+                                            <sl-radio-button
+                                                pill
+                                                .disabled="${this.isAnimatingDivider || !this.dividerActive}"
+                                                value="right">${msg('Filter Right')}</sl-radio-button>
+                                    </sl-radio-group>
+                                    <sl-button
+                                        variant="default"
+                                        @click="${this.reset}">${msg('Reset')}</sl-button>
+                                </div>
+                            </sl-card>
                         </div>
-                    </sl-card>
+                    </div>
+                    <div class="editorHolderUnsafeX"></div>
                 </div>
-                <div class="editorToggle">
-                    <sl-button
-                        variant="default"
-                        size="medium"
-                        circle
-                        @click="${this.toggleEditorControls}">
-                            <sl-icon library="system" name="filters" label="${msg('Settings')}"></sl-icon>
-                    </sl-button>
-                </div>
+                <div class="editorHolderUnsafeY"></div>
             </div>
         `;
     }
@@ -720,7 +805,7 @@ export default class ExtensionOverlay extends LitElement {
         const frameClasses = {
             baseItem: true,
             overlayFrame: true,
-            blockActions: this.isDragging
+            blockActions: this.isDragging || this.isDraggingEditorToggle
         };
         return html`
             <iframe
@@ -759,7 +844,7 @@ export default class ExtensionOverlay extends LitElement {
         const filterClasses = {
             baseItem: true,
             filter: true,
-            blockActions: this.isDragging,
+            blockActions: this.isDragging || this.isDraggingEditorToggle,
             dividerAnimating: this.isAnimatingDivider
         };
         // Don't render the component until locales are loaded
