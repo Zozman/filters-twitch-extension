@@ -561,6 +561,9 @@ export default class ExtensionOverlay extends LitElement {
         };
 
         const editorStyles = {
+            '--editorPercentageAdjustment': this.editorTogglePositionY <= 50
+                ? `${this.editorTogglePositionY / 100}`
+                : `${(100 - this.editorTogglePositionY) / 100}`,
             'transform-origin': `${this.editorTogglePositionX <= 50 ? 'left' : 'right'} ${this.editorTogglePositionY <= 50 ? 'top' : 'bottom'}`,
             left: this.editorTogglePositionX <= 50
                 ? `calc(${this.editorTogglePositionX}% + 2rem)`
