@@ -41,6 +41,11 @@ export default class ExtensionOverlay extends LitElement {
     static testStreamChannel = 'qa_partner_sirhype';
 
     /**
+     * Parsed URL search parameters from the `window` provided by the Extension loader.
+     */
+    static urlParameters = new URLSearchParams(window.location.search);
+
+    /**
      * List of emote sets to load into `this.emoteMap`
      * 
      * Emote sets are indicated by either a string code or `global` for the global emote set
@@ -180,9 +185,11 @@ export default class ExtensionOverlay extends LitElement {
      * Indicates if the extension is in light or dark theme
      * 
      * Is determined by the theme the viewer is using in Twitch
-     */
+    */
     @state()
-    private theme:TWITCH_THEMES = TWITCH_THEMES.LIGHT;
+    private theme = ExtensionOverlay.urlParameters.has('theme')
+                        ? ExtensionOverlay.urlParameters.get('theme') as TWITCH_THEMES
+                        : TWITCH_THEMES.LIGHT;
 
     /**
      * Indicates if currently the divider is being added or removed via animation
@@ -231,9 +238,9 @@ export default class ExtensionOverlay extends LitElement {
     /**
      * Language value from the urlParameters.  If the provided language is a supported language by the extension, load its locale files.  Else load the source locale.
      */
-    private language = this.urlParameters.has('language')
-                        && targetLocales.indexOf(this.urlParameters.get('language') as any) !== -1 
-                        ? this.urlParameters.get('language') as string
+    private language = ExtensionOverlay.urlParameters.has('language')
+                        && targetLocales.indexOf(ExtensionOverlay.urlParameters.get('language') as any) !== -1 
+                        ? ExtensionOverlay.urlParameters.get('language') as string
                         : sourceLocale;
 
     /**
@@ -256,6 +263,29 @@ export default class ExtensionOverlay extends LitElement {
         if (ExtensionOverlay.isLocalhost) {
             setupMockDevServer();
             this.getEmotes();
+        }
+    }
+
+    // After a property has updated
+    updated(changedProperties:Map<string, any>) {
+        super.updated(changedProperties);
+        // Set theme details in DOM when theme changes
+        if (changedProperties.has("theme")) {
+            this.applyTheme(this.theme);
+        }
+    }
+
+    /**
+     * Function to apply the theme class to the body of the DOM
+     * @param targetTheme Theme to apply
+     */
+    applyTheme(targetTheme:string) {
+        if (targetTheme === 'light') {
+            document.body.classList.add("sl-theme-light");
+            document.body.classList.remove("sl-theme-dark");
+        } else {
+            document.body.classList.add("sl-theme-dark");
+            document.body.classList.remove("sl-theme-light");
         }
     }
 
@@ -532,6 +562,10 @@ export default class ExtensionOverlay extends LitElement {
         this.filterSepia = filter.sepia;
     }
 
+    private onThemeToggleClick():void {
+        this.theme = this.theme === TWITCH_THEMES.LIGHT ? TWITCH_THEMES.DARK : TWITCH_THEMES.LIGHT;
+    }
+
     /**
      * Function to reset the filter by applying the default
      */
@@ -599,6 +633,13 @@ export default class ExtensionOverlay extends LitElement {
                         </sl-button>
                         <div class="${classMap(editorControlsClasses)}" style="${styleMap(editorStyles)}">
                             <sl-card>
+                                <div slot="header">
+                                    <sl-icon-button
+                                        name="${this.theme === TWITCH_THEMES.LIGHT ? 'sun' : 'moon'}"
+                                        library="system"
+                                        label="${msg('Toggle Theme')}"
+                                        @click="${this.onThemeToggleClick}"></sl-icon-button>
+                                </div>
                                 <sl-details summary="${msg('Filters')}" open>
                                     <sl-input
                                         .value="${this.filterSearchTerm}"

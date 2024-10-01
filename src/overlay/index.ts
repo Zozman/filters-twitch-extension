@@ -10,6 +10,7 @@ import '@shoelace-style/shoelace/dist/components/menu-item/menu-item.js';
 import '@shoelace-style/shoelace/dist/components/input/input.js';
 import '@shoelace-style/shoelace/dist/components/radio-group/radio-group.js';
 import '@shoelace-style/shoelace/dist/components/radio-button/radio-button.js';
+import '@shoelace-style/shoelace/dist/components/icon-button/icon-button.js';
 
 // Configure shoelace icon library
 import { registerIconLibrary } from '@shoelace-style/shoelace/dist/utilities/icon-library.js';
@@ -25,6 +26,8 @@ import mask from '../images/mask.svg';
 import chevronRight from '../images/chevron-right.svg'
 import xCircleFill from '../images/x-circle-fill.svg';
 import search from '../images/search.svg';
+import sun from '../images/sun.svg';
+import moon from '../images/moon.svg';
 import sliders from '../images/sliders.svg';
 import filters from '../images/filters.svg';
 import effects from '../images/effects.svg';
@@ -35,6 +38,8 @@ const systemIconMap: Map<string, any> = new Map([
     ['chevron-right', chevronRight],
     ['x-circle-fill', xCircleFill],
     ['search', search],
+    ['sun', sun],
+    ['moon', moon],
     ['sliders', sliders],
     ['filters', filters],
     ['effects', effects]
