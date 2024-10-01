@@ -27,6 +27,7 @@ import xCircleFill from '../images/x-circle-fill.svg';
 import search from '../images/search.svg';
 import sliders from '../images/sliders.svg';
 import filters from '../images/filters.svg';
+import effects from '../images/effects.svg';
 
 const systemIconMap: Map<string, any> = new Map([
     ['grip-vertical', gripVertical],
@@ -35,7 +36,8 @@ const systemIconMap: Map<string, any> = new Map([
     ['x-circle-fill', xCircleFill],
     ['search', search],
     ['sliders', sliders],
-    ['filters', filters]
+    ['filters', filters],
+    ['effects', effects]
 ]);
 
 registerIconLibrary('system', {

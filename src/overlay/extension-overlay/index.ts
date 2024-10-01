@@ -592,7 +592,7 @@ export default class ExtensionOverlay extends LitElement {
                             circle
                             @mousedown="${this.handleEditorButtonDrag}"
                             @touchstart="${this.handleEditorButtonDrag}">
-                                <sl-icon library="system" name="filters" label="${msg('Settings')}"></sl-icon>
+                                <sl-icon library="system" name="effects" label="${msg('Settings')}"></sl-icon>
                         </sl-button>
                         <div class="${classMap(editorControlsClasses)}" style="${styleMap(editorStyles)}">
                             <sl-card>
