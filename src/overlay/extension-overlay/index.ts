@@ -246,6 +246,13 @@ export default class ExtensionOverlay extends LitElement {
     */
     private auth!: TwitchExtensionAuth;
 
+    /**
+     * Indicates if the user has overridden the theme using the theme toggle.
+     * 
+     * If so, we don't want to override it with what's coming from the `window.Twitch.ext.onAuthorized` event.
+     */
+    private hasOverriddenTheme = false;
+
     connectedCallback():void {
         super.connectedCallback();
         // Get the Twitch Auth info when we get it
@@ -255,7 +262,9 @@ export default class ExtensionOverlay extends LitElement {
         });
         // When the context changes, update the theme
         window.Twitch.ext.onContext((ctx:TwitchExtensionContext) => {
-            this.theme = ctx.theme as TWITCH_THEMES;
+            if (!this.hasOverriddenTheme) {
+                this.theme = ctx.theme as TWITCH_THEMES;
+            }
         });
         // If locally testing, setup mock server and manually trigger emote calls
         if (ExtensionOverlay.isLocalhost) {
@@ -567,7 +576,11 @@ export default class ExtensionOverlay extends LitElement {
         this.filterSepia = filter.sepia;
     }
 
+    /**
+     * Action handler for the theme toggle
+     */
     private onThemeToggleClick():void {
+        this.hasOverriddenTheme = true;
         this.theme = this.theme === TWITCH_THEMES.LIGHT ? TWITCH_THEMES.DARK : TWITCH_THEMES.LIGHT;
     }
 
