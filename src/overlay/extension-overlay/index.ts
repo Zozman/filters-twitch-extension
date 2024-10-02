@@ -11,8 +11,6 @@ import {clamp} from '../../utils/clamp';
 import { sourceLocale ,targetLocales } from '../../generated/locale-codes';
 import { setLocale } from '../../utils/localization';
 
-import { setupMockDevServer } from '../../mockServer';
-
 import { defaultFilterValues, filtersArray } from './filters';
 
 import type { TwitchExtensionAuth, TwitchExtensionContext } from '../../types/twitch';
@@ -266,10 +264,15 @@ export default class ExtensionOverlay extends LitElement {
                 this.theme = ctx.theme as TWITCH_THEMES;
             }
         });
-        // If locally testing, setup mock server and manually trigger emote calls
+        // If locally testing, load and setup mock server and manually trigger emote calls
         if (ExtensionOverlay.isLocalhost) {
-            setupMockDevServer();
-            this.getEmotes();
+            import(
+                /* webpackChunkName: "mock-server" */
+                '../../mockServer'
+            ).then(({setupMockDevServer}) => {
+                setupMockDevServer();
+                this.getEmotes();
+            });
         }
     }
 
