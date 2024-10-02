@@ -20,7 +20,7 @@ import type { TwitchExtensionAuth, TwitchExtensionContext } from '../../types/tw
 import style from './style.scss';
 
 import { EmoteMapItem, Filter, FILTER_FIELDS, FILTER_SIDE, FilterData, TWITCH_EMOTE_FORMATS, TWITCH_EMOTE_SCALE, TWITCH_THEMES, TwitchEmote } from './types';
-import { SlButton, SlChangeEvent, SlInput, SlInputEvent, SlRadioGroup, SlRange } from '@shoelace-style/shoelace';
+import { SlCard, SlChangeEvent, SlInput, SlInputEvent, SlRadioGroup, SlRange } from '@shoelace-style/shoelace';
 
 /**
  * Main component for the application
@@ -230,10 +230,8 @@ export default class ExtensionOverlay extends LitElement {
     @query('.editorHolderSafe')
     private editorToggleDragArea!: HTMLDivElement;
 
-    /**
-     * Parsed URL search parameters from the `window` provided by the Extension loader.
-     */
-    private urlParameters = new URLSearchParams(window.location.search);
+    @query('.editorCard')
+    private editorCard!: SlCard;
 
     /**
      * Language value from the urlParameters.  If the provided language is a supported language by the extension, load its locale files.  Else load the source locale.
@@ -456,6 +454,13 @@ export default class ExtensionOverlay extends LitElement {
                 // If we did not move the button, then do a toggle
                 if (deltaX === 0 && deltaX === 0) {
                         this.editorActive = !this.editorActive;
+                        // After hiding the editor, scroll it back to the default
+                        const cardBody = this.editorCard?.shadowRoot?.querySelector('slot[part="body"]');
+                        if (!this.editorActive && cardBody ) {
+                            setTimeout(() => {
+                                cardBody.scrollTop = 0;
+                            }, 150);
+                        }
                 }
             },
             onLeave: () => {
@@ -595,15 +600,12 @@ export default class ExtensionOverlay extends LitElement {
         };
 
         const editorStyles = {
-            '--editorPercentageAdjustment': this.editorTogglePositionY <= 50
-                ? `${this.editorTogglePositionY / 100}`
-                : `${(100 - this.editorTogglePositionY) / 100}`,
-            'transform-origin': `${this.editorTogglePositionX <= 50 ? 'left' : 'right'} ${this.editorTogglePositionY <= 50 ? 'top' : 'bottom'}`,
+            'transform-origin': `${this.editorTogglePositionX <= 50 ? 'left' : 'right'} ${this.editorTogglePositionY}%`,
             left: this.editorTogglePositionX <= 50
                 ? `calc(${this.editorTogglePositionX}% + 2rem)`
                 : `calc(${this.editorTogglePositionX}% - 36rem - 20px)`,
-            ...(this.editorTogglePositionY <= 50 && {top: `calc(${this.editorTogglePositionY}%)`}),
-            ...(this.editorTogglePositionY > 50 && {bottom: `calc(100% - ${this.editorTogglePositionY}%)`})
+            ...(this.editorTogglePositionY <= 50 && {top: `0`}),
+            ...(this.editorTogglePositionY > 50 && {bottom: `0`})
         };
 
         const blurChange = this.updateRangeValue.bind(this, FILTER_FIELDS.BLUR);
@@ -632,7 +634,7 @@ export default class ExtensionOverlay extends LitElement {
                                 <sl-icon library="system" name="effects" label="${msg('Settings')}"></sl-icon>
                         </sl-button>
                         <div class="${classMap(editorControlsClasses)}" style="${styleMap(editorStyles)}">
-                            <sl-card>
+                            <sl-card class="editorCard">
                                 <div slot="header">
                                     <sl-icon-button
                                         name="${this.theme === TWITCH_THEMES.LIGHT ? 'sun' : 'moon'}"
