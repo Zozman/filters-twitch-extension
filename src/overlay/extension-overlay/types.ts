@@ -17,7 +17,7 @@ export enum FILTER_SIDE {
  * 
  * https://developer.mozilla.org/en-US/docs/Web/CSS/mix-blend-mode
  */
-export enum BLEND_MODE {
+export enum MIX_BLEND_MODE {
     NORMAL = 'normal',
     MULTIPLY = 'multiply',
     SCREEN = 'screen',
@@ -91,13 +91,13 @@ export enum FILTER_FIELDS {
      */
     SEPIA = 'sepia',
     /**
-     * Tint color to apply to the element.
+     * Background color to apply to the element's filter.
      * 
      * Can be either an empty string or a valid RGBA color value.
      * 
      * Used in `background-color` CSS fields.
      */
-    TINT = 'tint',
+    BACKGROUND = 'background',
     /**
      * Opacity of the filter.
      * 
@@ -109,7 +109,7 @@ export enum FILTER_FIELDS {
      * 
      * Used in `mix-blend-mode` CSS fields
      */
-    BLEND_MODE = 'blend-mode'
+    MIX_BLEND_MODE = 'mix-blend-mode'
 }
 
 /**
@@ -124,9 +124,9 @@ export interface FilterData {
     [FILTER_FIELDS.INVERT]: number,
     [FILTER_FIELDS.SATURATE]: number,
     [FILTER_FIELDS.SEPIA]: number,
-    [FILTER_FIELDS.TINT]: string,
+    [FILTER_FIELDS.BACKGROUND]: string,
     [FILTER_FIELDS.OPACITY]: number,
-    [FILTER_FIELDS.BLEND_MODE]: BLEND_MODE
+    [FILTER_FIELDS.MIX_BLEND_MODE]: MIX_BLEND_MODE
 }
 
 /**

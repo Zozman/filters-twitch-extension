@@ -18,7 +18,7 @@ import type { TwitchExtensionAuth, TwitchExtensionContext } from '../../types/tw
 
 import style from './style.scss';
 
-import { BLEND_MODE, EmoteMapItem, Filter, FILTER_FIELDS, FILTER_SIDE, FilterData, TWITCH_EMOTE_FORMATS, TWITCH_EMOTE_SCALE, TWITCH_THEMES, TwitchEmote } from './types';
+import { MIX_BLEND_MODE, EmoteMapItem, Filter, FILTER_FIELDS, FILTER_SIDE, FilterData, TWITCH_EMOTE_FORMATS, TWITCH_EMOTE_SCALE, TWITCH_THEMES, TwitchEmote } from './types';
 import { SlCard, SlChangeEvent, SlInput, SlInputEvent, SlRadioGroup } from '@shoelace-style/shoelace';
 
 /**
@@ -179,12 +179,12 @@ export default class ExtensionOverlay extends LitElement {
     private filterSepia = defaultFilterValues[FILTER_FIELDS.SEPIA];
 
     /**
-     * Falue for the tint color for the currently applied filter.
+     * Value for the background color for the currently applied filter.
      * 
      * Can be either an empty string or a valid rgba color
      */
     @state()
-    private filterTint = defaultFilterValues[FILTER_FIELDS.TINT];
+    private filterBackground = defaultFilterValues[FILTER_FIELDS.BACKGROUND];
 
     /**
      * Opacity of the tint color for the currently applied filter
@@ -193,12 +193,12 @@ export default class ExtensionOverlay extends LitElement {
     private filterOpacity = defaultFilterValues[FILTER_FIELDS.OPACITY];
 
     /**
-     * Blend mode for the currently applied filter
+     * Mix blend mode for the currently applied filter
      * 
      * https://developer.mozilla.org/en-US/docs/Web/CSS/mix-blend-mode
      */
     @state()
-    private filterBlendMode = defaultFilterValues[FILTER_FIELDS.BLEND_MODE];
+    private filterMixBlendMode = defaultFilterValues[FILTER_FIELDS.MIX_BLEND_MODE];
 
     // ----------------------------- End Filter Values -----------------------------
 
@@ -567,9 +567,9 @@ export default class ExtensionOverlay extends LitElement {
         this.filterInvert = parseFloat(formValues[FILTER_FIELDS.INVERT]) || defaultFilterValues[FILTER_FIELDS.INVERT];
         this.filterSaturate = parseFloat(formValues[FILTER_FIELDS.SATURATE]) || defaultFilterValues[FILTER_FIELDS.SATURATE];
         this.filterSepia = parseFloat(formValues[FILTER_FIELDS.SEPIA]) || defaultFilterValues[FILTER_FIELDS.SEPIA];
-        this.filterTint = formValues[FILTER_FIELDS.TINT] || defaultFilterValues[FILTER_FIELDS.TINT];
+        this.filterBackground = formValues[FILTER_FIELDS.BACKGROUND] || defaultFilterValues[FILTER_FIELDS.BACKGROUND];
         this.filterOpacity = parseFloat(formValues[FILTER_FIELDS.OPACITY]) || defaultFilterValues[FILTER_FIELDS.OPACITY];
-        this.filterBlendMode = formValues[FILTER_FIELDS.BLEND_MODE] as BLEND_MODE || defaultFilterValues[FILTER_FIELDS.BLEND_MODE];
+        this.filterMixBlendMode = formValues[FILTER_FIELDS.MIX_BLEND_MODE] as MIX_BLEND_MODE || defaultFilterValues[FILTER_FIELDS.MIX_BLEND_MODE];
     }
 
     /**
@@ -594,9 +594,9 @@ export default class ExtensionOverlay extends LitElement {
         this.filterInvert = filter[FILTER_FIELDS.INVERT];
         this.filterSaturate = filter[FILTER_FIELDS.SATURATE];
         this.filterSepia = filter[FILTER_FIELDS.SEPIA];
-        this.filterTint = filter[FILTER_FIELDS.TINT];
+        this.filterBackground = filter[FILTER_FIELDS.BACKGROUND];
         this.filterOpacity = filter[FILTER_FIELDS.OPACITY];
-        this.filterBlendMode = filter[FILTER_FIELDS.BLEND_MODE];
+        this.filterMixBlendMode = filter[FILTER_FIELDS.MIX_BLEND_MODE];
     }
 
     /**
@@ -616,10 +616,10 @@ export default class ExtensionOverlay extends LitElement {
     }
 
     /**
-     * Clears the tint field
+     * Clears the background field
      */
-    private clearTint():void {
-        this.filterTint = '';
+    private clearBackground():void {
+        this.filterBackground = '';
     }
 
     /**
@@ -757,21 +757,21 @@ export default class ExtensionOverlay extends LitElement {
                                             value="${this.filterSepia}"
                                             @sl-input="${this.updateFilterData}"></sl-range>
                                         <div class="formRow">
-                                            <label for="tint">${msg('Tint')}</label>
+                                            <label for="${FILTER_FIELDS.BACKGROUND}">${msg('Background')}</label>
                                             <sl-color-picker
-                                                .value="${this.filterTint}"
+                                                .value="${this.filterBackground}"
                                                 size="small"
                                                 format="rgb"
-                                                name="${FILTER_FIELDS.TINT}"
+                                                name="${FILTER_FIELDS.BACKGROUND}"
                                                 no-format-toggle
                                                 label="${msg('Tint Selector')}"
                                                 @sl-input="${this.updateFilterData}"></sl-color-picker>
-                                        ${this.filterTint != '' ? html`
+                                        ${this.filterBackground != '' ? html`
                                             <sl-icon-button
                                                 library="system"
                                                 name="x-circle-fill"
-                                                label="${msg('Clear Tint')}"
-                                                @click="${this.clearTint}"}"><sl-icon-button>
+                                                label="${msg('Clear Background')}"
+                                                @click="${this.clearBackground}"}"><sl-icon-button>
                                         ` : nothing}
                                         </div>
                                         <sl-range
@@ -784,28 +784,28 @@ export default class ExtensionOverlay extends LitElement {
                                             @sl-input="${this.updateFilterData}">
                                         </sl-range>
                                         <sl-select
-                                            name="${FILTER_FIELDS.BLEND_MODE}"
-                                            value="${this.filterBlendMode}"
-                                            label="${msg('Blend Mode')}"
+                                            name="${FILTER_FIELDS.MIX_BLEND_MODE}"
+                                            value="${this.filterMixBlendMode}"
+                                            label="${msg('Mix Blend Mode')}"
                                             @sl-input="${this.updateFilterData}">
-                                                <sl-option value="${BLEND_MODE.NORMAL}">${msg('Normal')}</sl-option>
-                                                <sl-option value="${BLEND_MODE.MULTIPLY}">${msg('Multiply')}</sl-option>
-                                                <sl-option value="${BLEND_MODE.SCREEN}">${msg('Screen')}</sl-option>
-                                                <sl-option value="${BLEND_MODE.OVERLAY}">${msg('Overlay')}</sl-option>
-                                                <sl-option value="${BLEND_MODE.DARKEN}">${msg('Darken')}</sl-option>
-                                                <sl-option value="${BLEND_MODE.LIGHTEN}">${msg('Lighten')}</sl-option>
-                                                <sl-option value="${BLEND_MODE.COLOR_DODGE}">${msg('Color Dodge')}</sl-option>
-                                                <sl-option value="${BLEND_MODE.COLOR_BURN}">${msg('Color Burn')}</sl-option>
-                                                <sl-option value="${BLEND_MODE.HARD_LIGHT}">${msg('Hard Light')}</sl-option>
-                                                <sl-option value="${BLEND_MODE.SOFT_LIGHT}">${msg('Soft Light')}</sl-option>
-                                                <sl-option value="${BLEND_MODE.DIFFERENCE}">${msg('Difference')}</sl-option>
-                                                <sl-option value="${BLEND_MODE.EXCLUSION}">${msg('Exclusion')}</sl-option>
-                                                <sl-option value="${BLEND_MODE.HUE}">${msg('Hue')}</sl-option>
-                                                <sl-option value="${BLEND_MODE.SATURATION}">${msg('Saturation')}</sl-option>
-                                                <sl-option value="${BLEND_MODE.COLOR}">${msg('Color')}</sl-option>
-                                                <sl-option value="${BLEND_MODE.LUMINOSITY}">${msg('Luminosity')}</sl-option>
-                                                <sl-option value="${BLEND_MODE.PLUS_DARKER}">${msg('Plus Darker')}</sl-option>
-                                                <sl-option value="${BLEND_MODE.PLUS_LIGHTER}">${msg('Plus Lighter')}</sl-option>
+                                                <sl-option value="${MIX_BLEND_MODE.NORMAL}">${msg('Normal')}</sl-option>
+                                                <sl-option value="${MIX_BLEND_MODE.MULTIPLY}">${msg('Multiply')}</sl-option>
+                                                <sl-option value="${MIX_BLEND_MODE.SCREEN}">${msg('Screen')}</sl-option>
+                                                <sl-option value="${MIX_BLEND_MODE.OVERLAY}">${msg('Overlay')}</sl-option>
+                                                <sl-option value="${MIX_BLEND_MODE.DARKEN}">${msg('Darken')}</sl-option>
+                                                <sl-option value="${MIX_BLEND_MODE.LIGHTEN}">${msg('Lighten')}</sl-option>
+                                                <sl-option value="${MIX_BLEND_MODE.COLOR_DODGE}">${msg('Color Dodge')}</sl-option>
+                                                <sl-option value="${MIX_BLEND_MODE.COLOR_BURN}">${msg('Color Burn')}</sl-option>
+                                                <sl-option value="${MIX_BLEND_MODE.HARD_LIGHT}">${msg('Hard Light')}</sl-option>
+                                                <sl-option value="${MIX_BLEND_MODE.SOFT_LIGHT}">${msg('Soft Light')}</sl-option>
+                                                <sl-option value="${MIX_BLEND_MODE.DIFFERENCE}">${msg('Difference')}</sl-option>
+                                                <sl-option value="${MIX_BLEND_MODE.EXCLUSION}">${msg('Exclusion')}</sl-option>
+                                                <sl-option value="${MIX_BLEND_MODE.HUE}">${msg('Hue')}</sl-option>
+                                                <sl-option value="${MIX_BLEND_MODE.SATURATION}">${msg('Saturation')}</sl-option>
+                                                <sl-option value="${MIX_BLEND_MODE.COLOR}">${msg('Color')}</sl-option>
+                                                <sl-option value="${MIX_BLEND_MODE.LUMINOSITY}">${msg('Luminosity')}</sl-option>
+                                                <sl-option value="${MIX_BLEND_MODE.PLUS_DARKER}">${msg('Plus Darker')}</sl-option>
+                                                <sl-option value="${MIX_BLEND_MODE.PLUS_LIGHTER}">${msg('Plus Lighter')}</sl-option>
                                         </sl-select>
                                     </form>
                                 </sl-details>
@@ -862,9 +862,9 @@ export default class ExtensionOverlay extends LitElement {
                 && this.filterInvert === filter.values[FILTER_FIELDS.INVERT]
                 && this.filterSaturate === filter.values[FILTER_FIELDS.SATURATE]
                 && this.filterSepia === filter.values[FILTER_FIELDS.SEPIA]
-                && this.filterTint === filter.values[FILTER_FIELDS.TINT]
+                && this.filterBackground === filter.values[FILTER_FIELDS.BACKGROUND]
                 && this.filterOpacity === filter.values[FILTER_FIELDS.OPACITY]
-                && this.filterBlendMode === filter.values[FILTER_FIELDS.BLEND_MODE]
+                && this.filterMixBlendMode === filter.values[FILTER_FIELDS.MIX_BLEND_MODE]
         };
         const filterStyle = {
             filter: `${FILTER_FIELDS.BLUR}(${filter.values[FILTER_FIELDS.BLUR]}px)
@@ -875,9 +875,9 @@ export default class ExtensionOverlay extends LitElement {
                      ${FILTER_FIELDS.INVERT}(${filter.values[FILTER_FIELDS.INVERT]})
                      ${FILTER_FIELDS.SATURATE}(${filter.values[FILTER_FIELDS.SATURATE]})
                      ${FILTER_FIELDS.SEPIA}(${filter.values[FILTER_FIELDS.SEPIA]})`,
-            '--filter-tint': filter.values[FILTER_FIELDS.TINT] || 'transparent',
-            '--filter-tint-opacity': filter.values[FILTER_FIELDS.OPACITY],
-            '--filter-blend-mode': filter.values[FILTER_FIELDS.BLEND_MODE]
+            '--filter-background': filter.values[FILTER_FIELDS.BACKGROUND] || 'transparent',
+            '--filter-opacity': filter.values[FILTER_FIELDS.OPACITY],
+            '--filter-mix-blend-mode': filter.values[FILTER_FIELDS.MIX_BLEND_MODE]
         };
         const applyFilterBound = this.applyFilter.bind(this, filter.values);
         return html`
@@ -988,9 +988,9 @@ export default class ExtensionOverlay extends LitElement {
                                 ${FILTER_FIELDS.INVERT}(${this.filterInvert})
                                 ${FILTER_FIELDS.SATURATE}(${this.filterSaturate})
                                 ${FILTER_FIELDS.SEPIA}(${this.filterSepia})`,
-            '--filter-tint': this.filterTint || 'transparent',
-            '--filter-tint-opacity': this.filterOpacity,
-            '--filter-blend-mode': this.filterBlendMode,
+            '--filter-background': this.filterBackground || 'transparent',
+            '--filter-opacity': this.filterOpacity,
+            '--filter-mix-blend-mode': this.filterMixBlendMode,
             // Only clip if divider is enabled, else apply filter to entire view
             ...(this.dividerActive && {'clip-path': dividerClipPath})
         };
