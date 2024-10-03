@@ -11,7 +11,7 @@
     --editor-unsafe-y-size: 5rem;
     --filter-tint: transparent;
     --filter-tint-opacity: 0;
-    --filter-tint-blend-mode: normal;
+    --filter-blend-mode: normal;
 }
 
 .base {
@@ -105,7 +105,7 @@
 .filter {
     z-index: 400;
     pointer-events: none;
-    mix-blend-mode: var(--filter-tint-blend-mode);
+    mix-blend-mode: var(--filter-blend-mode);
 
     &::before {
         display: block;
@@ -210,6 +210,15 @@
         overflow: auto;
     }
 
+    .formRow {
+        display: flex;
+        align-items: center;
+
+        & sl-color-picker {
+            margin-left: 0.5rem;
+        }
+    }
+
     .filterCard {
         cursor: pointer;
         display: none;
@@ -247,7 +256,7 @@
         background: var(--filter-tint);
         opacity: var(--filter-tint-opacity);
         content: "";
-        mix-blend-mode: var(--filter-tint-blend-mode);
+        mix-blend-mode: var(--filter-blend-mode);
     }
 
     .filterPreviewNoEmote {

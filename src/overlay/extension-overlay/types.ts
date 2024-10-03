@@ -13,6 +13,32 @@ export enum FILTER_SIDE {
 }
 
 /**
+ * Enum representing blend modes used by `mix-blend-mode`
+ * 
+ * https://developer.mozilla.org/en-US/docs/Web/CSS/mix-blend-mode
+ */
+export enum BLEND_MODE {
+    NORMAL = 'normal',
+    MULTIPLY = 'multiply',
+    SCREEN = 'screen',
+    OVERLAY = 'overlay',
+    DARKEN = 'darken',
+    LIGHTEN = 'lighten',
+    COLOR_DODGE = 'color-dodge',
+    COLOR_BURN = 'color-burn',
+    HARD_LIGHT = 'hard-light',
+    SOFT_LIGHT = 'soft-light',
+    DIFFERENCE = 'difference',
+    EXCLUSION = 'exclusion',
+    HUE = 'hue',
+    SATURATION = 'saturation',
+    COLOR = 'color',
+    LUMINOSITY = 'luminosity',
+    PLUS_DARKER = 'plus-darker',
+    PLUS_LIGHTER = 'plus-lighter'
+};
+
+/**
  * Emum representing the fields that make up a FilterData object
  */
 export enum FILTER_FIELDS {
@@ -69,12 +95,15 @@ export enum FILTER_FIELDS {
      * 
      * Can be either an empty string or a valid RGBA color value.
      */
-    TINT_COLOR = 'tintColor',
+    TINT = 'tint',
     /**
-     * Opacity of the tint color.
+     * Opacity of the filter.
      */
-    TINT_OPACITY = 'tintOpacity',
-    TINT_BLEND_MODE = 'tintBlendMode'
+    OPACITY = 'opacity',
+    /**
+     * Blend mode used by the filter
+     */
+    BLEND_MODE = 'blendMode'
 }
 
 /**
@@ -89,9 +118,9 @@ export interface FilterData {
     [FILTER_FIELDS.INVERT]: number,
     [FILTER_FIELDS.SATURATE]: number,
     [FILTER_FIELDS.SEPIA]: number,
-    [FILTER_FIELDS.TINT_COLOR]: string,
-    [FILTER_FIELDS.TINT_OPACITY]: number,
-    [FILTER_FIELDS.TINT_BLEND_MODE]: string
+    [FILTER_FIELDS.TINT]: string,
+    [FILTER_FIELDS.OPACITY]: number,
+    [FILTER_FIELDS.BLEND_MODE]: BLEND_MODE
 }
 
 /**

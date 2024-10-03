@@ -1,20 +1,20 @@
-import { FilterData, Filter } from "./types";
+import { FilterData, Filter, BLEND_MODE, FILTER_FIELDS } from "./types";
 
 /**
  * Values for the default filter (no filter applied)
  */
 export const defaultFilterValues:FilterData = {
-    blur: 0,
-    brightness: 1,
-    contrast: 1,
-    grayscale: 0,
-    hueRotate: 0,
-    invert: 0,
-    saturate: 1,
-    sepia: 0,
-    tintColor: '',
-    tintOpacity: 0,
-    tintBlendMode: 'normal'
+    [FILTER_FIELDS.BLUR]: 0,
+    [FILTER_FIELDS.BRIGHTNESS]: 1,
+    [FILTER_FIELDS.CONTRAST]: 1,
+    [FILTER_FIELDS.GRAYSCALE]: 0,
+    [FILTER_FIELDS.HUE_ROTATE]: 0,
+    [FILTER_FIELDS.INVERT]: 0,
+    [FILTER_FIELDS.SATURATE]: 1,
+    [FILTER_FIELDS.SEPIA]: 0,
+    [FILTER_FIELDS.TINT]: '',
+    [FILTER_FIELDS.OPACITY]: 0,
+    [FILTER_FIELDS.BLEND_MODE]: BLEND_MODE.NORMAL
 };
 
 /**
@@ -36,11 +36,9 @@ export const filtersArray: Array<Filter> = [
         values: {
             ...defaultFilterValues,
             ...{
-                sepia: 0.5,
-                hueRotate: -30,
-                saturate: 1.4,
-                tintColor: 'rgb(125, 105, 24)',
-                tintOpacity: 0.1
+                [FILTER_FIELDS.SEPIA]: 0.5,
+                [FILTER_FIELDS.HUE_ROTATE]: -30,
+                [FILTER_FIELDS.SATURATE]: 1.4
             }
         }
     },
@@ -50,11 +48,12 @@ export const filtersArray: Array<Filter> = [
         values: {
             ...defaultFilterValues,
             ...{
-                sepia: 0.2,
-                brightness: 1.15,
-                saturate: 1.4,
-                tintColor: 'rgb(125, 105, 24)',
-                tintOpacity: 0.1
+                [FILTER_FIELDS.SEPIA]: 0.2,
+                [FILTER_FIELDS.BRIGHTNESS]: 1.15,
+                [FILTER_FIELDS.SATURATE]: 1.4,
+                [FILTER_FIELDS.TINT]: 'rgb(125, 105, 24)',
+                [FILTER_FIELDS.OPACITY]: 0.1,
+                [FILTER_FIELDS.BLEND_MODE]: BLEND_MODE.MULTIPLY
             }
         }
     },
@@ -64,12 +63,12 @@ export const filtersArray: Array<Filter> = [
         values: {
             ...defaultFilterValues,
             ...{
-                sepia: 0.35,
-                contrast: 1.1,
-                brightness: 1.2,
-                saturate: 1.3,
-                tintColor: 'rgb(125, 105, 24)',
-                tintOpacity: 0.2
+                [FILTER_FIELDS.SEPIA]: 0.35,
+                [FILTER_FIELDS.CONTRAST]: 1.1,
+                [FILTER_FIELDS.BRIGHTNESS]: 1.2,
+                [FILTER_FIELDS.SATURATE]: 1.3,
+                [FILTER_FIELDS.TINT]: 'rgb(125, 105, 24)',
+                [FILTER_FIELDS.OPACITY]: 0.2
             }
         }
     },
@@ -79,9 +78,9 @@ export const filtersArray: Array<Filter> = [
         values: {
             ...defaultFilterValues,
             ...{
-                sepia: 0.5,
-                contrast: 1.2,
-                saturate: 1.8
+                [FILTER_FIELDS.SEPIA]: 0.5,
+                [FILTER_FIELDS.CONTRAST]: 1.2,
+                [FILTER_FIELDS.SATURATE]: 1.8
             }
         }
     },
@@ -91,11 +90,11 @@ export const filtersArray: Array<Filter> = [
         values: {
             ...defaultFilterValues,
             ...{
-                sepia: 0.4,
-                contrast: 1.25,
-                brightness: 1.1,
-                saturate: 0.9,
-                hueRotate: -2
+                [FILTER_FIELDS.SEPIA]: 0.4,
+                [FILTER_FIELDS.CONTRAST]: 1.25,
+                [FILTER_FIELDS.BRIGHTNESS]: 1.1,
+                [FILTER_FIELDS.SATURATE]: 0.9,
+                [FILTER_FIELDS.HUE_ROTATE]: -2
             }
         }
     },
@@ -105,10 +104,10 @@ export const filtersArray: Array<Filter> = [
         values: {
             ...defaultFilterValues,
             ...{
-                sepia: 0.25,
-                contrast: 1.25,
-                brightness: 1.25,
-                hueRotate: 5
+                [FILTER_FIELDS.SEPIA]: 0.25,
+                [FILTER_FIELDS.CONTRAST]: 1.25,
+                [FILTER_FIELDS.BRIGHTNESS]: 1.25,
+                [FILTER_FIELDS.HUE_ROTATE]: 5
             }
         }
     },
@@ -118,11 +117,11 @@ export const filtersArray: Array<Filter> = [
         values: {
             ...defaultFilterValues,
             ...{
-                sepia: 0.25,
-                contrast: 1.25,
-                brightness: 1.25,
-                saturate: 1.35,
-                hueRotate: -5
+                [FILTER_FIELDS.SEPIA]: 0.25,
+                [FILTER_FIELDS.CONTRAST]: 1.25,
+                [FILTER_FIELDS.BRIGHTNESS]: 1.25,
+                [FILTER_FIELDS.SATURATE]: 1.35,
+                [FILTER_FIELDS.HUE_ROTATE]: -5
             }
         }
     },
@@ -132,10 +131,10 @@ export const filtersArray: Array<Filter> = [
         values: {
             ...defaultFilterValues,
             ...{
-                sepia: 0.15,
-                contrast: 1.25,
-                brightness: 1.25,
-                hueRotate: 5
+                [FILTER_FIELDS.SEPIA]: 0.15,
+                [FILTER_FIELDS.CONTRAST]: 1.25,
+                [FILTER_FIELDS.BRIGHTNESS]: 1.25,
+                [FILTER_FIELDS.HUE_ROTATE]: 5
             }
         }
     },
@@ -145,11 +144,11 @@ export const filtersArray: Array<Filter> = [
         values: {
             ...defaultFilterValues,
             ...{
-                sepia: 0.5,
-                contrast: 1.25,
-                brightness: 1.15,
-                saturate: 0.9,
-                hueRotate: -2
+                [FILTER_FIELDS.SEPIA]: 0.5,
+                [FILTER_FIELDS.CONTRAST]: 1.25,
+                [FILTER_FIELDS.BRIGHTNESS]: 1.15,
+                [FILTER_FIELDS.SATURATE]: 0.9,
+                [FILTER_FIELDS.HUE_ROTATE]: -2
             }
         }
     },
@@ -159,9 +158,9 @@ export const filtersArray: Array<Filter> = [
         values: {
             ...defaultFilterValues,
             ...{
-                sepia: 0.35,
-                saturate: 1.1,
-                contrast: 1.5
+                [FILTER_FIELDS.SEPIA]: 0.35,
+                [FILTER_FIELDS.SATURATE]: 1.1,
+                [FILTER_FIELDS.CONTRAST]: 1.5
             }
         }
     },
@@ -171,11 +170,11 @@ export const filtersArray: Array<Filter> = [
         values: {
             ...defaultFilterValues,
             ...{
-                sepia: 0.25,
-                contrast: 1.25,
-                brightness: 1.15,
-                saturate: 0.9,
-                hueRotate: -5
+                [FILTER_FIELDS.SEPIA]: 0.25,
+                [FILTER_FIELDS.CONTRAST]: 1.25,
+                [FILTER_FIELDS.BRIGHTNESS]: 1.15,
+                [FILTER_FIELDS.SATURATE]: 0.9,
+                [FILTER_FIELDS.HUE_ROTATE]: -5
             }
         }
     },
@@ -185,8 +184,8 @@ export const filtersArray: Array<Filter> = [
         values: {
             ...defaultFilterValues,
             ...{
-                contrast: 1.1,
-                brightness: 1.1
+                [FILTER_FIELDS.CONTRAST]: 1.1,
+                [FILTER_FIELDS.BRIGHTNESS]: 1.1
             }
         }
     },
@@ -196,11 +195,11 @@ export const filtersArray: Array<Filter> = [
         values: {
             ...defaultFilterValues,
             ...{
-                sepia: 0.25,
-                contrast: 1.15,
-                brightness: 1.2,
-                saturate: 1.35,
-                hueRotate: -5
+                [FILTER_FIELDS.SEPIA]: 0.25,
+                [FILTER_FIELDS.CONTRAST]: 1.15,
+                [FILTER_FIELDS.BRIGHTNESS]: 1.2,
+                [FILTER_FIELDS.SATURATE]: 1.35,
+                [FILTER_FIELDS.HUE_ROTATE]: -5
             }
         }
     },
@@ -210,11 +209,11 @@ export const filtersArray: Array<Filter> = [
         values: {
             ...defaultFilterValues,
             ...{
-                sepia: 0.4,
-                contrast: 1.5,
-                brightness: 1.2,
-                saturate: 1.4,
-                hueRotate: -10
+                [FILTER_FIELDS.SEPIA]: 0.4,
+                [FILTER_FIELDS.CONTRAST]: 1.5,
+                [FILTER_FIELDS.BRIGHTNESS]: 1.2,
+                [FILTER_FIELDS.SATURATE]: 1.4,
+                [FILTER_FIELDS.HUE_ROTATE]: -10
             }
         }
     },
@@ -224,10 +223,10 @@ export const filtersArray: Array<Filter> = [
         values: {
             ...defaultFilterValues,
             ...{
-                sepia: 0.5,
-                contrast: 1.05,
-                brightness: 1.05,
-                saturate: 1.35
+                [FILTER_FIELDS.SEPIA]: 0.5,
+                [FILTER_FIELDS.CONTRAST]: 1.05,
+                [FILTER_FIELDS.BRIGHTNESS]: 1.05,
+                [FILTER_FIELDS.SATURATE]: 1.35
             }
         }
     },
@@ -237,11 +236,11 @@ export const filtersArray: Array<Filter> = [
         values: {
             ...defaultFilterValues,
             ...{
-                sepia: 0.25,
-                contrast: 1.2,
-                brightness: 1.2,
-                saturate: 1.05,
-                hueRotate: -15
+                [FILTER_FIELDS.SEPIA]: 0.25,
+                [FILTER_FIELDS.CONTRAST]: 1.2,
+                [FILTER_FIELDS.BRIGHTNESS]: 1.2,
+                [FILTER_FIELDS.SATURATE]: 1.05,
+                [FILTER_FIELDS.HUE_ROTATE]: -15
             }
         }
     },
@@ -251,9 +250,9 @@ export const filtersArray: Array<Filter> = [
         values: {
             ...defaultFilterValues,
             ...{
-                brightness: 1.25,
-                contrast: 0.85,
-                grayscale: 1
+                [FILTER_FIELDS.BRIGHTNESS]: 1.25,
+                [FILTER_FIELDS.CONTRAST]: 0.85,
+                [FILTER_FIELDS.GRAYSCALE]: 1
             }
         }
     },
@@ -263,10 +262,10 @@ export const filtersArray: Array<Filter> = [
         values: {
             ...defaultFilterValues,
             ...{
-                sepia: 0.35,
-                contrast: 1.15,
-                brightness: 1.15,
-                saturate: 1.8
+                [FILTER_FIELDS.SEPIA]: 0.35,
+                [FILTER_FIELDS.CONTRAST]: 1.15,
+                [FILTER_FIELDS.BRIGHTNESS]: 1.15,
+                [FILTER_FIELDS.SATURATE]: 1.8
             }
         }
     },
@@ -276,10 +275,10 @@ export const filtersArray: Array<Filter> = [
         values: {
             ...defaultFilterValues,
             ...{
-                sepia: 0.15,
-                contrast: 1.5,
-                brightness: 1.1,
-                hueRotate: -10
+                [FILTER_FIELDS.SEPIA]: 0.15,
+                [FILTER_FIELDS.CONTRAST]: 1.5,
+                [FILTER_FIELDS.BRIGHTNESS]: 1.1,
+                [FILTER_FIELDS.HUE_ROTATE]: -10
             }
         }
     },
@@ -289,10 +288,10 @@ export const filtersArray: Array<Filter> = [
         values: {
             ...defaultFilterValues,
             ...{
-                sepia: 0.25,
-                contrast: 1.2,
-                brightness: 1.3,
-                saturate: 1.25
+                [FILTER_FIELDS.SEPIA]: 0.25,
+                [FILTER_FIELDS.CONTRAST]: 1.2,
+                [FILTER_FIELDS.BRIGHTNESS]: 1.3,
+                [FILTER_FIELDS.SATURATE]: 1.25
             }
         }
     },
@@ -302,8 +301,8 @@ export const filtersArray: Array<Filter> = [
         values: {
             ...defaultFilterValues,
             ...{
-                saturate: 1.1,
-                contrast: 1.5
+                [FILTER_FIELDS.SATURATE]: 1.1,
+                [FILTER_FIELDS.CONTRAST]: 1.5
             }
         }
     },
@@ -313,10 +312,10 @@ export const filtersArray: Array<Filter> = [
         values: {
             ...defaultFilterValues,
             ...{
-                sepia: 0.25,
-                contrast: 1.05,
-                brightness: 1.05,
-                saturate: 2
+                [FILTER_FIELDS.SEPIA]: 0.25,
+                [FILTER_FIELDS.CONTRAST]: 1.05,
+                [FILTER_FIELDS.BRIGHTNESS]: 1.05,
+                [FILTER_FIELDS.SATURATE]: 2
             }
         }
     },
@@ -326,13 +325,13 @@ export const filtersArray: Array<Filter> = [
         values: {
             ...defaultFilterValues,
             ...{
-                sepia: 0.35,
-                contrast: 1.05,
-                brightness: 1.05,
-                saturate: 1.75,
-                tintColor: 'rgb(158, 175, 30)',
-                tintOpacity: 0.25,
-                tintBlendMode: 'darken'
+                [FILTER_FIELDS.SEPIA]: 0.35,
+                [FILTER_FIELDS.CONTRAST]: 1.05,
+                [FILTER_FIELDS.BRIGHTNESS]: 1.05,
+                [FILTER_FIELDS.SATURATE]: 1.75,
+                [FILTER_FIELDS.TINT]: 'rgb(158, 175, 30)',
+                [FILTER_FIELDS.OPACITY]: 0.25,
+                [FILTER_FIELDS.BLEND_MODE]: BLEND_MODE.DARKEN
             }
         }
     },
@@ -342,9 +341,9 @@ export const filtersArray: Array<Filter> = [
         values: {
             ...defaultFilterValues,
             ...{
-                contrast: 1.1,
-                brightness: 1.15,
-                saturate: 1.1
+                [FILTER_FIELDS.CONTRAST]: 1.1,
+                [FILTER_FIELDS.BRIGHTNESS]: 1.15,
+                [FILTER_FIELDS.SATURATE]: 1.1
             }
         }
     },
@@ -354,10 +353,10 @@ export const filtersArray: Array<Filter> = [
         values: {
             ...defaultFilterValues,
             ...{
-                brightness: 1.4,
-                contrast: 0.95,
-                saturate: 0,
-                sepia: 0.35
+                [FILTER_FIELDS.BRIGHTNESS]: 1.4,
+                [FILTER_FIELDS.CONTRAST]: 0.95,
+                [FILTER_FIELDS.SATURATE]: 0,
+                [FILTER_FIELDS.SEPIA]: 0.35
             }
         }
     },
@@ -367,10 +366,10 @@ export const filtersArray: Array<Filter> = [
         values: {
             ...defaultFilterValues,
             ...{
-                sepia: 0.25,
-                contrast: 1.5,
-                brightness: 0.9,
-                hueRotate: -15
+                [FILTER_FIELDS.SEPIA]: 0.25,
+                [FILTER_FIELDS.CONTRAST]: 1.5,
+                [FILTER_FIELDS.BRIGHTNESS]: 0.9,
+                [FILTER_FIELDS.HUE_ROTATE]: -15
             }
         }
     },
@@ -380,9 +379,9 @@ export const filtersArray: Array<Filter> = [
         values: {
             ...defaultFilterValues,
             ...{
-                contrast: 1.1,
-                brightness: 1.25,
-                saturate: 1.1
+                [FILTER_FIELDS.CONTRAST]: 1.1,
+                [FILTER_FIELDS.BRIGHTNESS]: 1.25,
+                [FILTER_FIELDS.SATURATE]: 1.1
             }
         }
     },
@@ -392,8 +391,8 @@ export const filtersArray: Array<Filter> = [
         values: {
             ...defaultFilterValues,
             ...{
-                sepia: 0.15,
-                brightness: 1.2
+                [FILTER_FIELDS.SEPIA]: 0.15,
+                [FILTER_FIELDS.BRIGHTNESS]: 1.2
             }
         }
     },
@@ -403,10 +402,10 @@ export const filtersArray: Array<Filter> = [
         values: {
             ...defaultFilterValues,
             ...{
-                sepia: 0.75,
-                contrast: 0.75,
-                brightness: 1.25,
-                saturate: 1.4
+                [FILTER_FIELDS.SEPIA]: 0.75,
+                [FILTER_FIELDS.CONTRAST]: 0.75,
+                [FILTER_FIELDS.BRIGHTNESS]: 1.25,
+                [FILTER_FIELDS.SATURATE]: 1.4
             }
         }
     },
@@ -416,10 +415,10 @@ export const filtersArray: Array<Filter> = [
         values: {
             ...defaultFilterValues,
             ...{
-                sepia: 0.25,
-                contrast: 1.25,
-                brightness: 1.2,
-                saturate: 0.9
+                [FILTER_FIELDS.SEPIA]: 0.25,
+                [FILTER_FIELDS.CONTRAST]: 1.25,
+                [FILTER_FIELDS.BRIGHTNESS]: 1.2,
+                [FILTER_FIELDS.SATURATE]: 0.9
             }
         }
     },
@@ -429,10 +428,10 @@ export const filtersArray: Array<Filter> = [
         values: {
             ...defaultFilterValues,
             ...{
-                sepia: 0.25,
-                contrast: 1.5,
-                brightness: 0.9,
-                hueRotate: -15
+                [FILTER_FIELDS.SEPIA]: 0.25,
+                [FILTER_FIELDS.CONTRAST]: 1.5,
+                [FILTER_FIELDS.BRIGHTNESS]: 0.9,
+                [FILTER_FIELDS.HUE_ROTATE]: -15
             }
         }
     },
@@ -442,10 +441,10 @@ export const filtersArray: Array<Filter> = [
         values: {
             ...defaultFilterValues,
             ...{
-                sepia: 0.15,
-                contrast: 1.25,
-                brightness: 1.25,
-                saturate: 1.2
+                [FILTER_FIELDS.SEPIA]: 0.15,
+                [FILTER_FIELDS.CONTRAST]: 1.25,
+                [FILTER_FIELDS.BRIGHTNESS]: 1.25,
+                [FILTER_FIELDS.SATURATE]: 1.2
             }
         }
     },
@@ -455,9 +454,9 @@ export const filtersArray: Array<Filter> = [
         values: {
             ...defaultFilterValues,
             ...{
-                sepia: 0.35,
-                contrast: 1.25,
-                saturate: 1.25
+                [FILTER_FIELDS.SEPIA]: 0.35,
+                [FILTER_FIELDS.CONTRAST]: 1.25,
+                [FILTER_FIELDS.SATURATE]: 1.25
             }
         }
     },
@@ -467,10 +466,10 @@ export const filtersArray: Array<Filter> = [
         values: {
             ...defaultFilterValues,
             ...{
-                sepia: 0.35,
-                contrast: 1.25,
-                brightness: 1.1,
-                saturate: 1.25
+                [FILTER_FIELDS.SEPIA]: 0.35,
+                [FILTER_FIELDS.CONTRAST]: 1.25,
+                [FILTER_FIELDS.BRIGHTNESS]: 1.1,
+                [FILTER_FIELDS.SATURATE]: 1.25
             }
         }
     },
@@ -480,11 +479,11 @@ export const filtersArray: Array<Filter> = [
         values: {
             ...defaultFilterValues,
             ...{
-                sepia: 0.4,
-                contrast: 1.2,
-                brightness: 0.9,
-                saturate: 1.4,
-                hueRotate: -10
+                [FILTER_FIELDS.SEPIA]: 0.4,
+                [FILTER_FIELDS.CONTRAST]: 1.2,
+                [FILTER_FIELDS.BRIGHTNESS]: 0.9,
+                [FILTER_FIELDS.SATURATE]: 1.4,
+                [FILTER_FIELDS.HUE_ROTATE]: -10
             }
         }
     },
@@ -494,10 +493,10 @@ export const filtersArray: Array<Filter> = [
         values: {
             ...defaultFilterValues,
             ...{
-                sepia: 0.25,
-                contrast: 1.5,
-                brightness: 0.95,
-                hueRotate: -15
+                [FILTER_FIELDS.SEPIA]: 0.25,
+                [FILTER_FIELDS.CONTRAST]: 1.5,
+                [FILTER_FIELDS.BRIGHTNESS]: 0.95,
+                [FILTER_FIELDS.HUE_ROTATE]: -15
             }
         }
     },
@@ -507,9 +506,9 @@ export const filtersArray: Array<Filter> = [
         values: {
             ...defaultFilterValues,
             ...{
-                sepia: 0.25,
-                contrast: 1.1,
-                brightness: 1.1
+                [FILTER_FIELDS.SEPIA]: 0.25,
+                [FILTER_FIELDS.CONTRAST]: 1.1,
+                [FILTER_FIELDS.BRIGHTNESS]: 1.1
             }
         }
     },
@@ -519,10 +518,10 @@ export const filtersArray: Array<Filter> = [
         values: {
             ...defaultFilterValues,
             ...{
-                sepia: 0.35,
-                contrast: 1.15,
-                brightness: 1.2,
-                saturate: 1.3
+                [FILTER_FIELDS.SEPIA]: 0.35,
+                [FILTER_FIELDS.CONTRAST]: 1.15,
+                [FILTER_FIELDS.BRIGHTNESS]: 1.2,
+                [FILTER_FIELDS.SATURATE]: 1.3
             }
         }
     },
@@ -532,10 +531,10 @@ export const filtersArray: Array<Filter> = [
         values: {
             ...defaultFilterValues,
             ...{
-                sepia: 0.35,
-                contrast: 0.8,
-                brightness: 1.25,
-                saturate: 1.4
+                [FILTER_FIELDS.SEPIA]: 0.35,
+                [FILTER_FIELDS.CONTRAST]: 0.8,
+                [FILTER_FIELDS.BRIGHTNESS]: 1.25,
+                [FILTER_FIELDS.SATURATE]: 1.4
             }
         }
     },
@@ -545,10 +544,10 @@ export const filtersArray: Array<Filter> = [
         values: {
             ...defaultFilterValues,
             ...{
-                brightness: 1.2,
-                contrast: 0.85,
-                saturate: 0.05,
-                sepia: 0.2
+                [FILTER_FIELDS.BRIGHTNESS]: 1.2,
+                [FILTER_FIELDS.CONTRAST]: 0.85,
+                [FILTER_FIELDS.SATURATE]: 0.05,
+                [FILTER_FIELDS.SEPIA]: 0.2
             }
         }
     },
@@ -558,11 +557,11 @@ export const filtersArray: Array<Filter> = [
         values: {
             ...defaultFilterValues,
             ...{
-                sepia: 0.45,
-                contrast: 1.25,
-                brightness: 1.75,
-                saturate: 1.3,
-                hueRotate: -5
+                [FILTER_FIELDS.SEPIA]: 0.45,
+                [FILTER_FIELDS.CONTRAST]: 1.25,
+                [FILTER_FIELDS.BRIGHTNESS]: 1.75,
+                [FILTER_FIELDS.SATURATE]: 1.3,
+                [FILTER_FIELDS.HUE_ROTATE]: -5
             }
         }
     }

@@ -24,28 +24,30 @@ setBasePath('shoelace');
 // Twitch Extensions do not like this and will block them
 // Therefore we will just copy the SVGs to the `images` directory and then override the system library using them
 // This will force Shoelace to load them via URL which Twitch Extensions are fine with
-import gripVertical from '../images/grip-vertical.svg';
-import mask from '../images/mask.svg';
-import chevronRight from '../images/chevron-right.svg'
-import xCircleFill from '../images/x-circle-fill.svg';
-import search from '../images/search.svg';
-import sun from '../images/sun.svg';
-import moon from '../images/moon.svg';
-import sliders from '../images/sliders.svg';
+import gripVertical from '../../node_modules/@shoelace-style/shoelace/dist/assets/icons/grip-vertical.svg';
+import mask from '../../node_modules/@shoelace-style/shoelace/dist/assets/icons/mask.svg';
+import chevronDown from '../../node_modules/@shoelace-style/shoelace/dist/assets/icons/chevron-down.svg'
+import chevronRight from '../../node_modules/@shoelace-style/shoelace/dist/assets/icons/chevron-right.svg'
+import xCircleFill from '../../node_modules/@shoelace-style/shoelace/dist/assets/icons/x-circle-fill.svg';
+import search from '../../node_modules/@shoelace-style/shoelace/dist/assets/icons/search.svg';
+import sun from '../../node_modules/@shoelace-style/shoelace/dist/assets/icons/sun.svg';
+import moon from '../../node_modules/@shoelace-style/shoelace/dist/assets/icons/moon.svg';
+import eyedropper from '../../node_modules/@shoelace-style/shoelace/dist/assets/icons/eyedropper.svg'
+
+// Non-shoelace icon but we will add it to the system library as well for convienence
 import filters from '../images/filters.svg';
-import effects from '../images/effects.svg';
 
 const systemIconMap: Map<string, any> = new Map([
     ['grip-vertical', gripVertical],
     ['mask', mask],
+    ['chevron-down', chevronDown],
     ['chevron-right', chevronRight],
     ['x-circle-fill', xCircleFill],
     ['search', search],
     ['sun', sun],
     ['moon', moon],
-    ['sliders', sliders],
     ['filters', filters],
-    ['effects', effects]
+    ['eyedropper', eyedropper]
 ]);
 
 registerIconLibrary('system', {
