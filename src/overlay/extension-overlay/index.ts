@@ -771,7 +771,7 @@ export default class ExtensionOverlay extends LitElement {
                                                 library="system"
                                                 name="x-circle-fill"
                                                 label="${msg('Clear Background')}"
-                                                @click="${this.clearBackground}"}"><sl-icon-button>
+                                                @click="${this.clearBackground}"></sl-icon-button>
                                         ` : nothing}
                                         </div>
                                         <sl-range
