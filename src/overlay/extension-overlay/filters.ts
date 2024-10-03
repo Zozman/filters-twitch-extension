@@ -68,7 +68,8 @@ export const filtersArray: Array<Filter> = [
                 [FILTER_FIELDS.BRIGHTNESS]: 1.2,
                 [FILTER_FIELDS.SATURATE]: 1.3,
                 [FILTER_FIELDS.TINT]: 'rgb(125, 105, 24)',
-                [FILTER_FIELDS.OPACITY]: 0.2
+                [FILTER_FIELDS.OPACITY]: 0.2,
+                [FILTER_FIELDS.BLEND_MODE]: BLEND_MODE.OVERLAY
             }
         }
     },
@@ -80,7 +81,10 @@ export const filtersArray: Array<Filter> = [
             ...{
                 [FILTER_FIELDS.SEPIA]: 0.5,
                 [FILTER_FIELDS.CONTRAST]: 1.2,
-                [FILTER_FIELDS.SATURATE]: 1.8
+                [FILTER_FIELDS.SATURATE]: 1.8,
+                [FILTER_FIELDS.TINT]: 'rgb(125, 105, 24)',
+                [FILTER_FIELDS.OPACITY]: 0.35,
+                [FILTER_FIELDS.BLEND_MODE]: BLEND_MODE.LIGHTEN
             }
         }
     },
@@ -107,7 +111,10 @@ export const filtersArray: Array<Filter> = [
                 [FILTER_FIELDS.SEPIA]: 0.25,
                 [FILTER_FIELDS.CONTRAST]: 1.25,
                 [FILTER_FIELDS.BRIGHTNESS]: 1.25,
-                [FILTER_FIELDS.HUE_ROTATE]: 5
+                [FILTER_FIELDS.HUE_ROTATE]: 5,
+                [FILTER_FIELDS.TINT]: 'rgb(127, 187, 227)',
+                [FILTER_FIELDS.OPACITY]: 0.2,
+                [FILTER_FIELDS.BLEND_MODE]: BLEND_MODE.OVERLAY
             }
         }
     },
@@ -121,7 +128,10 @@ export const filtersArray: Array<Filter> = [
                 [FILTER_FIELDS.CONTRAST]: 1.25,
                 [FILTER_FIELDS.BRIGHTNESS]: 1.25,
                 [FILTER_FIELDS.SATURATE]: 1.35,
-                [FILTER_FIELDS.HUE_ROTATE]: -5
+                [FILTER_FIELDS.HUE_ROTATE]: -5,
+                [FILTER_FIELDS.TINT]: 'rgb(125, 105, 24)',
+                [FILTER_FIELDS.OPACITY]: 0.25,
+                [FILTER_FIELDS.BLEND_MODE]: BLEND_MODE.DARKEN
             }
         }
     },
@@ -134,7 +144,10 @@ export const filtersArray: Array<Filter> = [
                 [FILTER_FIELDS.SEPIA]: 0.15,
                 [FILTER_FIELDS.CONTRAST]: 1.25,
                 [FILTER_FIELDS.BRIGHTNESS]: 1.25,
-                [FILTER_FIELDS.HUE_ROTATE]: 5
+                [FILTER_FIELDS.HUE_ROTATE]: 5,
+                [FILTER_FIELDS.TINT]: 'rgb(127, 187, 227)',
+                [FILTER_FIELDS.OPACITY]: 0.4,
+                [FILTER_FIELDS.BLEND_MODE]: BLEND_MODE.OVERLAY
             }
         }
     },
@@ -148,7 +161,10 @@ export const filtersArray: Array<Filter> = [
                 [FILTER_FIELDS.CONTRAST]: 1.25,
                 [FILTER_FIELDS.BRIGHTNESS]: 1.15,
                 [FILTER_FIELDS.SATURATE]: 0.9,
-                [FILTER_FIELDS.HUE_ROTATE]: -2
+                [FILTER_FIELDS.HUE_ROTATE]: -2,
+                [FILTER_FIELDS.TINT]: 'rgb(125, 105, 24)',
+                [FILTER_FIELDS.OPACITY]: 0.2,
+                [FILTER_FIELDS.BLEND_MODE]: BLEND_MODE.MULTIPLY
             }
         }
     },
@@ -164,20 +180,6 @@ export const filtersArray: Array<Filter> = [
             }
         }
     },
-    // From https://github.com/picturepan2/instagram.css/blob/master/dist/instagram.css#L108
-    {
-        name: 'Earlybird',
-        values: {
-            ...defaultFilterValues,
-            ...{
-                [FILTER_FIELDS.SEPIA]: 0.25,
-                [FILTER_FIELDS.CONTRAST]: 1.25,
-                [FILTER_FIELDS.BRIGHTNESS]: 1.15,
-                [FILTER_FIELDS.SATURATE]: 0.9,
-                [FILTER_FIELDS.HUE_ROTATE]: -5
-            }
-        }
-    },
     // From https://github.com/picturepan2/instagram.css/blob/master/dist/instagram.css#L122
     {
         name: 'Gingham',
@@ -185,7 +187,9 @@ export const filtersArray: Array<Filter> = [
             ...defaultFilterValues,
             ...{
                 [FILTER_FIELDS.CONTRAST]: 1.1,
-                [FILTER_FIELDS.BRIGHTNESS]: 1.1
+                [FILTER_FIELDS.BRIGHTNESS]: 1.1,
+                [FILTER_FIELDS.TINT]: 'rgb(230, 230, 230)',
+                [FILTER_FIELDS.BLEND_MODE]: BLEND_MODE.SOFT_LIGHT
             }
         }
     },
@@ -199,21 +203,10 @@ export const filtersArray: Array<Filter> = [
                 [FILTER_FIELDS.CONTRAST]: 1.15,
                 [FILTER_FIELDS.BRIGHTNESS]: 1.2,
                 [FILTER_FIELDS.SATURATE]: 1.35,
-                [FILTER_FIELDS.HUE_ROTATE]: -5
-            }
-        }
-    },
-    // From https://github.com/picturepan2/instagram.css/blob/master/dist/instagram.css#L144
-    {
-        name: 'Hefe',
-        values: {
-            ...defaultFilterValues,
-            ...{
-                [FILTER_FIELDS.SEPIA]: 0.4,
-                [FILTER_FIELDS.CONTRAST]: 1.5,
-                [FILTER_FIELDS.BRIGHTNESS]: 1.2,
-                [FILTER_FIELDS.SATURATE]: 1.4,
-                [FILTER_FIELDS.HUE_ROTATE]: -10
+                [FILTER_FIELDS.HUE_ROTATE]: -5,
+                [FILTER_FIELDS.TINT]: 'rgb(125, 105, 24)',
+                [FILTER_FIELDS.OPACITY]: 0.15,
+                [FILTER_FIELDS.BLEND_MODE]: BLEND_MODE.DARKEN
             }
         }
     },
@@ -226,21 +219,10 @@ export const filtersArray: Array<Filter> = [
                 [FILTER_FIELDS.SEPIA]: 0.5,
                 [FILTER_FIELDS.CONTRAST]: 1.05,
                 [FILTER_FIELDS.BRIGHTNESS]: 1.05,
-                [FILTER_FIELDS.SATURATE]: 1.35
-            }
-        }
-    },
-    // From https://github.com/picturepan2/instagram.css/blob/master/dist/instagram.css#L169
-    {
-        name: 'Hudson',
-        values: {
-            ...defaultFilterValues,
-            ...{
-                [FILTER_FIELDS.SEPIA]: 0.25,
-                [FILTER_FIELDS.CONTRAST]: 1.2,
-                [FILTER_FIELDS.BRIGHTNESS]: 1.2,
-                [FILTER_FIELDS.SATURATE]: 1.05,
-                [FILTER_FIELDS.HUE_ROTATE]: -15
+                [FILTER_FIELDS.SATURATE]: 1.35,
+                [FILTER_FIELDS.TINT]: 'rgb(158, 175, 30)',
+                [FILTER_FIELDS.OPACITY]: 0.25,
+                [FILTER_FIELDS.BLEND_MODE]: BLEND_MODE.OVERLAY
             }
         }
     },
@@ -265,20 +247,10 @@ export const filtersArray: Array<Filter> = [
                 [FILTER_FIELDS.SEPIA]: 0.35,
                 [FILTER_FIELDS.CONTRAST]: 1.15,
                 [FILTER_FIELDS.BRIGHTNESS]: 1.15,
-                [FILTER_FIELDS.SATURATE]: 1.8
-            }
-        }
-    },
-    // From https://github.com/picturepan2/instagram.css/blob/master/dist/instagram.css#L199
-    {
-        name: 'Kelvin',
-        values: {
-            ...defaultFilterValues,
-            ...{
-                [FILTER_FIELDS.SEPIA]: 0.15,
-                [FILTER_FIELDS.CONTRAST]: 1.5,
-                [FILTER_FIELDS.BRIGHTNESS]: 1.1,
-                [FILTER_FIELDS.HUE_ROTATE]: -10
+                [FILTER_FIELDS.SATURATE]: 1.8,
+                [FILTER_FIELDS.TINT]: 'rgb(127, 187, 227)',
+                [FILTER_FIELDS.OPACITY]: 0.2,
+                [FILTER_FIELDS.BLEND_MODE]: BLEND_MODE.OVERLAY
             }
         }
     },
@@ -315,7 +287,10 @@ export const filtersArray: Array<Filter> = [
                 [FILTER_FIELDS.SEPIA]: 0.25,
                 [FILTER_FIELDS.CONTRAST]: 1.05,
                 [FILTER_FIELDS.BRIGHTNESS]: 1.05,
-                [FILTER_FIELDS.SATURATE]: 2
+                [FILTER_FIELDS.SATURATE]: 2,
+                [FILTER_FIELDS.TINT]: 'rgb(125, 105, 24)',
+                [FILTER_FIELDS.OPACITY]: 0.1,
+                [FILTER_FIELDS.BLEND_MODE]: BLEND_MODE.OVERLAY
             }
         }
     },
@@ -335,18 +310,6 @@ export const filtersArray: Array<Filter> = [
             }
         }
     },
-    // From https://github.com/picturepan2/instagram.css/blob/master/dist/instagram.css#L245
-    {
-        name: 'Mayfair',
-        values: {
-            ...defaultFilterValues,
-            ...{
-                [FILTER_FIELDS.CONTRAST]: 1.1,
-                [FILTER_FIELDS.BRIGHTNESS]: 1.15,
-                [FILTER_FIELDS.SATURATE]: 1.1
-            }
-        }
-    },
     // From https://github.com/picturepan2/instagram.css/blob/master/dist/instagram.css#L259
     {
         name: 'Moon',
@@ -360,42 +323,6 @@ export const filtersArray: Array<Filter> = [
             }
         }
     },
-    // From https://github.com/picturepan2/instagram.css/blob/master/dist/instagram.css#L264
-    {
-        name: 'Nashville',
-        values: {
-            ...defaultFilterValues,
-            ...{
-                [FILTER_FIELDS.SEPIA]: 0.25,
-                [FILTER_FIELDS.CONTRAST]: 1.5,
-                [FILTER_FIELDS.BRIGHTNESS]: 0.9,
-                [FILTER_FIELDS.HUE_ROTATE]: -15
-            }
-        }
-    },
-    // From https://github.com/picturepan2/instagram.css/blob/master/dist/instagram.css#L278
-    {
-        name: 'Perpetua',
-        values: {
-            ...defaultFilterValues,
-            ...{
-                [FILTER_FIELDS.CONTRAST]: 1.1,
-                [FILTER_FIELDS.BRIGHTNESS]: 1.25,
-                [FILTER_FIELDS.SATURATE]: 1.1
-            }
-        }
-    },
-    // From https://github.com/picturepan2/instagram.css/blob/master/dist/instagram.css#L293
-    {
-        name: 'Poprocket',
-        values: {
-            ...defaultFilterValues,
-            ...{
-                [FILTER_FIELDS.SEPIA]: 0.15,
-                [FILTER_FIELDS.BRIGHTNESS]: 1.2
-            }
-        }
-    },
     // From https://github.com/picturepan2/instagram.css/blob/master/dist/instagram.css#L307
     {
         name: 'Reyes',
@@ -406,32 +333,6 @@ export const filtersArray: Array<Filter> = [
                 [FILTER_FIELDS.CONTRAST]: 0.75,
                 [FILTER_FIELDS.BRIGHTNESS]: 1.25,
                 [FILTER_FIELDS.SATURATE]: 1.4
-            }
-        }
-    },
-    // From https://github.com/picturepan2/instagram.css/blob/master/dist/instagram.css#L312
-    {
-        name: 'Rise',
-        values: {
-            ...defaultFilterValues,
-            ...{
-                [FILTER_FIELDS.SEPIA]: 0.25,
-                [FILTER_FIELDS.CONTRAST]: 1.25,
-                [FILTER_FIELDS.BRIGHTNESS]: 1.2,
-                [FILTER_FIELDS.SATURATE]: 0.9
-            }
-        }
-    },
-    // From https://github.com/picturepan2/instagram.css/blob/master/dist/instagram.css#L326
-    {
-        name: 'Sierra',
-        values: {
-            ...defaultFilterValues,
-            ...{
-                [FILTER_FIELDS.SEPIA]: 0.25,
-                [FILTER_FIELDS.CONTRAST]: 1.5,
-                [FILTER_FIELDS.BRIGHTNESS]: 0.9,
-                [FILTER_FIELDS.HUE_ROTATE]: -15
             }
         }
     },
@@ -456,7 +357,10 @@ export const filtersArray: Array<Filter> = [
             ...{
                 [FILTER_FIELDS.SEPIA]: 0.35,
                 [FILTER_FIELDS.CONTRAST]: 1.25,
-                [FILTER_FIELDS.SATURATE]: 1.25
+                [FILTER_FIELDS.SATURATE]: 1.25,
+                [FILTER_FIELDS.TINT]: 'rgb(125, 105, 24)',
+                [FILTER_FIELDS.OPACITY]: 0.2,
+                [FILTER_FIELDS.BLEND_MODE]: BLEND_MODE.DARKEN
             }
         }
     },
@@ -469,34 +373,10 @@ export const filtersArray: Array<Filter> = [
                 [FILTER_FIELDS.SEPIA]: 0.35,
                 [FILTER_FIELDS.CONTRAST]: 1.25,
                 [FILTER_FIELDS.BRIGHTNESS]: 1.1,
-                [FILTER_FIELDS.SATURATE]: 1.25
-            }
-        }
-    },
-    // From https://github.com/picturepan2/instagram.css/blob/master/dist/instagram.css#L367
-    {
-        name: 'Sutro',
-        values: {
-            ...defaultFilterValues,
-            ...{
-                [FILTER_FIELDS.SEPIA]: 0.4,
-                [FILTER_FIELDS.CONTRAST]: 1.2,
-                [FILTER_FIELDS.BRIGHTNESS]: 0.9,
-                [FILTER_FIELDS.SATURATE]: 1.4,
-                [FILTER_FIELDS.HUE_ROTATE]: -10
-            }
-        }
-    },
-    // From https://github.com/picturepan2/instagram.css/blob/master/dist/instagram.css#L381
-    {
-        name: 'Toaster',
-        values: {
-            ...defaultFilterValues,
-            ...{
-                [FILTER_FIELDS.SEPIA]: 0.25,
-                [FILTER_FIELDS.CONTRAST]: 1.5,
-                [FILTER_FIELDS.BRIGHTNESS]: 0.95,
-                [FILTER_FIELDS.HUE_ROTATE]: -15
+                [FILTER_FIELDS.SATURATE]: 1.25,
+                [FILTER_FIELDS.TINT]: 'rgb(125, 105, 24)',
+                [FILTER_FIELDS.OPACITY]: 0.45,
+                [FILTER_FIELDS.BLEND_MODE]: BLEND_MODE.LIGHTEN
             }
         }
     },
@@ -508,7 +388,10 @@ export const filtersArray: Array<Filter> = [
             ...{
                 [FILTER_FIELDS.SEPIA]: 0.25,
                 [FILTER_FIELDS.CONTRAST]: 1.1,
-                [FILTER_FIELDS.BRIGHTNESS]: 1.1
+                [FILTER_FIELDS.BRIGHTNESS]: 1.1,
+                [FILTER_FIELDS.TINT]: 'rgb(230, 193, 61)',
+                [FILTER_FIELDS.OPACITY]: 0.1,
+                [FILTER_FIELDS.BLEND_MODE]: BLEND_MODE.LIGHTEN
             }
         }
     },
@@ -521,7 +404,10 @@ export const filtersArray: Array<Filter> = [
                 [FILTER_FIELDS.SEPIA]: 0.35,
                 [FILTER_FIELDS.CONTRAST]: 1.15,
                 [FILTER_FIELDS.BRIGHTNESS]: 1.2,
-                [FILTER_FIELDS.SATURATE]: 1.3
+                [FILTER_FIELDS.SATURATE]: 1.3,
+                [FILTER_FIELDS.TINT]: 'rgb(125, 105, 24)',
+                [FILTER_FIELDS.OPACITY]: 0.25,
+                [FILTER_FIELDS.BLEND_MODE]: BLEND_MODE.OVERLAY
             }
         }
     },
@@ -534,7 +420,10 @@ export const filtersArray: Array<Filter> = [
                 [FILTER_FIELDS.SEPIA]: 0.35,
                 [FILTER_FIELDS.CONTRAST]: 0.8,
                 [FILTER_FIELDS.BRIGHTNESS]: 1.25,
-                [FILTER_FIELDS.SATURATE]: 1.4
+                [FILTER_FIELDS.SATURATE]: 1.4,
+                [FILTER_FIELDS.TINT]: 'rgb(229, 240, 128)',
+                [FILTER_FIELDS.OPACITY]: 0.5,
+                [FILTER_FIELDS.BLEND_MODE]: BLEND_MODE.DARKEN
             }
         }
     },
@@ -548,20 +437,6 @@ export const filtersArray: Array<Filter> = [
                 [FILTER_FIELDS.CONTRAST]: 0.85,
                 [FILTER_FIELDS.SATURATE]: 0.05,
                 [FILTER_FIELDS.SEPIA]: 0.2
-            }
-        }
-    },
-    // From https://github.com/picturepan2/instagram.css/blob/master/dist/instagram.css#L433
-    {
-        name: 'X-Pro II',
-        values: {
-            ...defaultFilterValues,
-            ...{
-                [FILTER_FIELDS.SEPIA]: 0.45,
-                [FILTER_FIELDS.CONTRAST]: 1.25,
-                [FILTER_FIELDS.BRIGHTNESS]: 1.75,
-                [FILTER_FIELDS.SATURATE]: 1.3,
-                [FILTER_FIELDS.HUE_ROTATE]: -5
             }
         }
     }

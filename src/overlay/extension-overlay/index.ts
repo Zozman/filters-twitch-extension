@@ -251,9 +251,15 @@ export default class ExtensionOverlay extends LitElement {
     @query('.editorHolderSafe')
     private editorToggleDragArea!: HTMLDivElement;
 
+    /**
+     * Represents the `sl-card` element contining the editor
+     */
     @query('.editorCard')
     private editorCard!: SlCard;
 
+    /**
+     * Represents the `<form>` element with customization settings inside the editor
+     */
     @query('.editorForm')
     private editorForm!: HTMLFormElement;
 
