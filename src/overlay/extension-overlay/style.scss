@@ -9,6 +9,9 @@
     --divider-handle-icon-color: #fff;
     --divider-handle-percentage-from-top: 10rem;
     --editor-unsafe-y-size: 5rem;
+    --filter-tint: transparent;
+    --filter-tint-opacity: 0;
+    --filter-tint-blend-mode: normal;
 }
 
 .base {
@@ -102,6 +105,16 @@
 .filter {
     z-index: 400;
     pointer-events: none;
+    mix-blend-mode: var(--filter-tint-blend-mode);
+
+    &::before {
+        display: block;
+        height: 100%;
+        width: 100%;
+        background: var(--filter-tint);
+        opacity: var(--filter-tint-opacity);
+        content: "";
+    }
 }
 
 .editorHolder {
@@ -174,10 +187,13 @@
             border-bottom-width: 0;
         }
 
+        .formRow {
+            margin-bottom: 1rem;
+        }
+
         sl-range {
-            &:not(:last-of-type) {
-                margin-bottom: 1rem;
-            }
+            margin-bottom: 1rem;
+
             &::part(form-control-label) {
                 margin-bottom: 0.5rem;
             }
@@ -223,11 +239,21 @@
         padding: 0;
     }
 
-    .filterPreview {
+    .filterPreview::before {
+        display: block;
+        height: 100px;
+        width: 100px;
+        position: absolute;
+        background: var(--filter-tint);
+        opacity: var(--filter-tint-opacity);
+        content: "";
+        mix-blend-mode: var(--filter-tint-blend-mode);
+    }
+
+    .filterPreviewNoEmote {
         width: 100px;
         height: 100px;
         background-color: #e5e5f7;
-        opacity: 0.8;
         background-image:  linear-gradient(30deg, #6441A4 12%, transparent 12.5%, transparent 87%, #6441A4 87.5%, #6441A4), linear-gradient(150deg, #6441A4 12%, transparent 12.5%, transparent 87%, #6441A4 87.5%, #6441A4), linear-gradient(30deg, #6441A4 12%, transparent 12.5%, transparent 87%, #6441A4 87.5%, #6441A4), linear-gradient(150deg, #6441A4 12%, transparent 12.5%, transparent 87%, #6441A4 87.5%, #6441A4), linear-gradient(60deg, #6441A477 25%, transparent 25.5%, transparent 75%, #6441A477 75%, #6441A477), linear-gradient(60deg, #6441A477 25%, transparent 25.5%, transparent 75%, #6441A477 75%, #6441A477);
         background-size: 20px 35px;
         background-position: 0 0, 0 0, 10px 18px, 10px 18px, 0 0, 10px 18px;
@@ -236,7 +262,6 @@
     .filterEmotePreview {
         width: 100px;
         background-color: #e5e5f7;
-        opacity: 0.8;
         background-image: radial-gradient(circle at center center, #6441A4, #e5e5f7), repeating-radial-gradient(circle at center center, #6441A4, #6441A4, 10px, transparent 20px, transparent 10px);
         background-blend-mode: multiply;
     }

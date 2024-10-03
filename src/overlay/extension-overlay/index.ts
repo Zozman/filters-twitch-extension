@@ -4,6 +4,7 @@ import {styleMap} from 'lit-html/directives/style-map.js';
 import {classMap} from 'lit-html/directives/class-map.js';
 import {msg, str} from '@lit/localize';
 import {Task} from '@lit/task';
+import { serialize } from '@shoelace-style/shoelace/dist/utilities/form.js';
 
 import {drag} from '../../utils/drag';
 import {clamp} from '../../utils/clamp';
@@ -177,6 +178,28 @@ export default class ExtensionOverlay extends LitElement {
     @state()
     private filterSepia = defaultFilterValues.sepia;
 
+    /**
+     * Falue for the tint color for the currently applied filter.
+     * 
+     * Can be either an empty string or a valid rgba color
+     */
+    @state()
+    private filterTintColor = defaultFilterValues.tintColor;
+
+    /**
+     * Opacity of the tint color for the currently applied filter
+     */
+    @state()
+    private tintOpacity = defaultFilterValues.tintOpacity;
+
+    /**
+     * Blend mode for the currently applied filter
+     * 
+     * https://developer.mozilla.org/en-US/docs/Web/CSS/mix-blend-mode
+     */
+    @state()
+    private filterTintBlendMode = defaultFilterValues.tintBlendMode;
+
     // ----------------------------- End Filter Values -----------------------------
 
     /**
@@ -230,6 +253,9 @@ export default class ExtensionOverlay extends LitElement {
 
     @query('.editorCard')
     private editorCard!: SlCard;
+
+    @query('.editorForm')
+    private editorForm!: HTMLFormElement;
 
     /**
      * Language value from the urlParameters.  If the provided language is a supported language by the extension, load its locale files.  Else load the source locale.
@@ -523,36 +549,21 @@ export default class ExtensionOverlay extends LitElement {
     }
 
     /**
-     * Function to update a value attached to a range input
-     * @param field `FILTER_FILED` being updated
-     * @param event Input event
+     * Action handler to update filter data on form update
      */
-    private updateRangeValue(field:string, event:SlInputEvent):void {
-        const value = (event.target as SlRange).value;
-        if (field === FILTER_FIELDS.BLUR) {
-            this.filterBlur = value;
-        }
-        if (field === FILTER_FIELDS.BRIGHTNESS) {
-            this.filterBrightness = value;
-        }
-        if (field === FILTER_FIELDS.CONTRAST) {
-            this.filterContrast = value;
-        }
-        if (field === FILTER_FIELDS.GRAYSCALE) {
-            this.filterGrayscale = value;
-        }
-        if (field === FILTER_FIELDS.HUE_ROTATE) {
-            this.filterHueRotate = value;
-        }
-        if (field === FILTER_FIELDS.INVERT) {
-            this.filterInvert = value;
-        }
-        if (field === FILTER_FIELDS.SATURATE) {
-            this.filterSaturate = value;
-        }
-        if (field === FILTER_FIELDS.SEPIA) {
-            this.filterSepia = value;
-        }
+    private updateFilterData():void {
+        const formValues = serialize(this.editorForm) as Record<string, FILTER_FIELDS>;
+        this.filterBlur = parseFloat(formValues.blur) || defaultFilterValues.blur;
+        this.filterBrightness = parseFloat(formValues.brightness) || defaultFilterValues.brightness;
+        this.filterContrast = parseFloat(formValues.contrast) || defaultFilterValues.contrast;
+        this.filterGrayscale = parseFloat(formValues.grayscale) || defaultFilterValues.grayscale;
+        this.filterHueRotate = parseInt(formValues.hueRotate) || defaultFilterValues.hueRotate;
+        this.filterInvert = parseFloat(formValues.invert) || defaultFilterValues.invert;
+        this.filterSaturate = parseFloat(formValues.saturate) || defaultFilterValues.saturate;
+        this.filterSepia = parseFloat(formValues.sepia) || defaultFilterValues.sepia;
+        this.filterTintColor = formValues.tint || defaultFilterValues.tintColor;
+        this.tintOpacity = parseFloat(formValues.tintOpacity) || defaultFilterValues.tintOpacity;
+        this.filterTintBlendMode = formValues.tintBlendMode || defaultFilterValues.tintBlendMode;
     }
 
     /**
@@ -577,6 +588,9 @@ export default class ExtensionOverlay extends LitElement {
         this.filterInvert = filter.invert;
         this.filterSaturate = filter.saturate;
         this.filterSepia = filter.sepia;
+        this.filterTintColor = filter.tintColor;
+        this.tintOpacity = filter.tintOpacity;
+        this.filterTintBlendMode = filter.tintBlendMode;
     }
 
     /**
@@ -624,15 +638,6 @@ export default class ExtensionOverlay extends LitElement {
             ...(this.editorTogglePositionY > 50 && {bottom: `0`})
         };
 
-        const blurChange = this.updateRangeValue.bind(this, FILTER_FIELDS.BLUR);
-        const brightnessChange = this.updateRangeValue.bind(this, FILTER_FIELDS.BRIGHTNESS);
-        const contrastChange = this.updateRangeValue.bind(this, FILTER_FIELDS.CONTRAST);
-        const grayscaleChange = this.updateRangeValue.bind(this, FILTER_FIELDS.GRAYSCALE);
-        const hueRotateChange = this.updateRangeValue.bind(this, FILTER_FIELDS.HUE_ROTATE);
-        const invertChange = this.updateRangeValue.bind(this, FILTER_FIELDS.INVERT);
-        const saturateChange = this.updateRangeValue.bind(this, FILTER_FIELDS.SATURATE);
-        const sepiaChange = this.updateRangeValue.bind(this, FILTER_FIELDS.SEPIA);
-
         return html`
             <div class="editorHolder">
                 <div class="editorHolderUnsafeY"></div>
@@ -673,62 +678,116 @@ export default class ExtensionOverlay extends LitElement {
                                     </div>
                                 </sl-details>
                                 <sl-details summary="${msg('Customize')}">
-                                    <sl-range
-                                        label="${msg('Blur')}"
-                                        min="0"
-                                        max="10"
-                                        step="1"
-                                        value="${this.filterBlur}"
-                                        @sl-input="${blurChange}"></sl-range>
-                                    <sl-range
-                                        label="${msg('Brightness')}"
-                                        min="0"
-                                        max="3"
-                                        step="0.01"
-                                        value="${this.filterBrightness}"
-                                        @sl-input="${brightnessChange}"></sl-range>
-                                    <sl-range
-                                        label="${msg('Contrast')}"
-                                        min="0"
-                                        max="3"
-                                        step="0.01"
-                                        value="${this.filterContrast}"
-                                        @sl-input="${contrastChange}"></sl-range>
+                                    <form class="editorForm">
                                         <sl-range
-                                        label="${msg('Grayscale')}"
-                                        min="0"
-                                        max="1"
-                                        step="0.01"
-                                        value="${this.filterGrayscale}"
-                                        @sl-input="${grayscaleChange}"></sl-range>
-                                    <sl-range
-                                        label="${msg('Hue Rotate')}"
-                                        min="-360"
-                                        max="360"
-                                        step="1"
-                                        value="${this.filterHueRotate}"
-                                        @sl-input="${hueRotateChange}"></sl-range>
-                                    <sl-range
-                                        label="${msg('Invert')}"
-                                        min="0"
-                                        max="1"
-                                        step="0.01"
-                                        value="${this.filterInvert}"
-                                        @sl-input="${invertChange}"></sl-range>
-                                    <sl-range
-                                        label="${msg('Saturate')}"
-                                        min="0"
-                                        max="3"
-                                        step="0.01"
-                                        value="${this.filterSaturate}"
-                                        @sl-input="${saturateChange}"></sl-range>
-                                    <sl-range
-                                        label="${msg('Sepia')}"
-                                        min="0"
-                                        max="1"
-                                        step="0.01"
-                                        value="${this.filterSepia}"
-                                        @sl-input="${sepiaChange}"></sl-range>
+                                            label="${msg('Blur')}"
+                                            name="blur"
+                                            min="0"
+                                            max="10"
+                                            step="1"
+                                            value="${this.filterBlur}"
+                                            @sl-input="${this.updateFilterData}"></sl-range>
+                                        <sl-range
+                                            label="${msg('Brightness')}"
+                                            name="brightness"
+                                            min="0"
+                                            max="3"
+                                            step="0.01"
+                                            value="${this.filterBrightness}"
+                                            @sl-input="${this.updateFilterData}"></sl-range>
+                                        <sl-range
+                                            label="${msg('Contrast')}"
+                                            name="contrast"
+                                            min="0"
+                                            max="3"
+                                            step="0.01"
+                                            value="${this.filterContrast}"
+                                            @sl-input="${this.updateFilterData}"></sl-range>
+                                        <sl-range
+                                            label="${msg('Grayscale')}"
+                                            name="grayscale"
+                                            min="0"
+                                            max="1"
+                                            step="0.01"
+                                            value="${this.filterGrayscale}"
+                                            @sl-input="${this.updateFilterData}"></sl-range>
+                                        <sl-range
+                                            label="${msg('Hue Rotate')}"
+                                            name="hueRotate"
+                                            min="-360"
+                                            max="360"
+                                            step="1"
+                                            value="${this.filterHueRotate}"
+                                            @sl-input="${this.updateFilterData}"></sl-range>
+                                        <sl-range
+                                            label="${msg('Invert')}"
+                                            name="invert"
+                                            min="0"
+                                            max="1"
+                                            step="0.01"
+                                            value="${this.filterInvert}"
+                                            @sl-input="${this.updateFilterData}"></sl-range>
+                                        <sl-range
+                                            label="${msg('Saturate')}"
+                                            name="saturate"
+                                            min="0"
+                                            max="3"
+                                            step="0.01"
+                                            value="${this.filterSaturate}"
+                                            @sl-input="${this.updateFilterData}"></sl-range>
+                                        <sl-range
+                                            label="${msg('Sepia')}"
+                                            name="sepia"
+                                            min="0"
+                                            max="1"
+                                            step="0.01"
+                                            value="${this.filterSepia}"
+                                            @sl-input="${this.updateFilterData}"></sl-range>
+                                        <div class="formRow">
+                                            <label for="tint">${msg('Tint')}</label>
+                                            <sl-color-picker
+                                                .value="${this.filterTintColor}"
+                                                size="small"
+                                                format="rgb"
+                                                name="tint"
+                                                no-format-toggle
+                                                label="${msg('Tint Selector')}"
+                                                @sl-input="${this.updateFilterData}"></sl-color-picker>
+                                        </div>
+                                        <sl-range
+                                            label="${msg('Tint Opacity')}"
+                                            name="tintOpacity"
+                                            min="0"
+                                            max="1"
+                                            step="0.01"
+                                            value="${this.tintOpacity}"
+                                            @sl-input="${this.updateFilterData}">
+                                        </sl-range>
+                                        <sl-select
+                                            name="tintBlendMode"
+                                            value="${this.filterTintBlendMode}"
+                                            label="${msg('Blend Mode')}"
+                                            @sl-input="${this.updateFilterData}">
+                                                <sl-option value="normal">${msg('Normal')}</sl-option>
+                                                <sl-option value="multiply">${msg('Multiply')}</sl-option>
+                                                <sl-option value="screen">${msg('Screen')}</sl-option>
+                                                <sl-option value="overlay">${msg('Overlay')}</sl-option>
+                                                <sl-option value="darken">${msg('Darken')}</sl-option>
+                                                <sl-option value="lighten">${msg('Lighten')}</sl-option>
+                                                <sl-option value="color-dodge">${msg('Color Dodge')}</sl-option>
+                                                <sl-option value="color-burn">${msg('Color Burn')}</sl-option>
+                                                <sl-option value="hard-light">${msg('Hard Light')}</sl-option>
+                                                <sl-option value="soft-light">${msg('Soft Light')}</sl-option>
+                                                <sl-option value="difference">${msg('Difference')}</sl-option>
+                                                <sl-option value="exclusion">${msg('Exclusion')}</sl-option>
+                                                <sl-option value="hue">${msg('Hue')}</sl-option>
+                                                <sl-option value="saturation">${msg('Saturation')}</sl-option>
+                                                <sl-option value="color">${msg('Color')}</sl-option>
+                                                <sl-option value="luminosity">${msg('Luminosity')}</sl-option>
+                                                <sl-option value="plus-darker">${msg('Plus Darker')}</sl-option>
+                                                <sl-option value="plus-lighter">${msg('Plus Lighter')}</sl-option>
+                                        </sl-select>
+                                    </form>
                                 </sl-details>
                                 <div class="editorControlsFooter" slot="footer">
                                     <sl-switch
@@ -783,6 +842,9 @@ export default class ExtensionOverlay extends LitElement {
                 && this.filterInvert === filter.values.invert
                 && this.filterSaturate === filter.values.saturate
                 && this.filterSepia === filter.values.sepia
+                && this.filterTintColor === filter.values.tintColor
+                && this.tintOpacity === filter.values.tintOpacity
+                && this.filterTintBlendMode === filter.values.tintBlendMode
         };
         const filterStyle = {
             filter: `blur(${filter.values.blur}px)
@@ -792,20 +854,26 @@ export default class ExtensionOverlay extends LitElement {
                      hue-rotate(${filter.values.hueRotate}deg)
                      invert(${filter.values.invert})
                      saturate(${filter.values.saturate})
-                     sepia(${filter.values.sepia})`
+                     sepia(${filter.values.sepia})`,
+            '--filter-tint': filter.values.tintColor || 'transparent',
+            '--filter-tint-opacity': filter.values.tintOpacity,
+            '--filter-tint-blend-mode': filter.values.tintBlendMode
         };
         const applyFilterBound = this.applyFilter.bind(this, filter.values);
         return html`
             <sl-card class="${classMap(filterClasses)}" @click="${applyFilterBound}">
-                ${filterEmoteUrl ? html`
-                    <img
-                        class="filterEmotePreview"
-                        style="${styleMap(filterStyle)}"
-                        src="${filterEmoteUrl}"
-                        alt="${msg(str`${ExtensionOverlay.filterExampleEmoteName} Twitch Emote With ${filter.name} Filter Applied`)}"
-                    />
-                ` : html`
-                    <div class="filterPreview" style="${styleMap(filterStyle)}"></div>
+                ${html`
+                    <div class="filterPreview" style="${styleMap(filterStyle)}">
+                        ${filterEmoteUrl ? html`
+                            <img
+                                class="filterEmotePreview"
+                                src="${filterEmoteUrl}"
+                                alt="${msg(str`${ExtensionOverlay.filterExampleEmoteName} Twitch Emote With ${filter.name} Filter Applied`)}"
+                            />
+                        ` : html`
+                            <div class="filterPreviewNoEmote" style="${styleMap(filterStyle)}"></div>
+                        `}
+                    </div>
                 `}
                 <div slot="footer">
                     ${filter.name}
@@ -900,6 +968,9 @@ export default class ExtensionOverlay extends LitElement {
                                 invert(${this.filterInvert})
                                 saturate(${this.filterSaturate})
                                 sepia(${this.filterSepia})`,
+            '--filter-tint': this.filterTintColor || 'transparent',
+            '--filter-tint-opacity': this.tintOpacity,
+            '--filter-tint-blend-mode': this.filterTintBlendMode,
             // Only clip if divider is enabled, else apply filter to entire view
             ...(this.dividerActive && {'clip-path': dividerClipPath})
         };

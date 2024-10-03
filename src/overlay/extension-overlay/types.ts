@@ -63,7 +63,18 @@ export enum FILTER_FIELDS {
      * 
      * https://developer.mozilla.org/en-US/docs/Web/CSS/filter-function/sepia
      */
-    SEPIA = 'sepia'
+    SEPIA = 'sepia',
+    /**
+     * Tint color to apply to the element.
+     * 
+     * Can be either an empty string or a valid RGBA color value.
+     */
+    TINT_COLOR = 'tintColor',
+    /**
+     * Opacity of the tint color.
+     */
+    TINT_OPACITY = 'tintOpacity',
+    TINT_BLEND_MODE = 'tintBlendMode'
 }
 
 /**
@@ -77,7 +88,10 @@ export interface FilterData {
     [FILTER_FIELDS.HUE_ROTATE]: number,
     [FILTER_FIELDS.INVERT]: number,
     [FILTER_FIELDS.SATURATE]: number,
-    [FILTER_FIELDS.SEPIA]: number
+    [FILTER_FIELDS.SEPIA]: number,
+    [FILTER_FIELDS.TINT_COLOR]: string,
+    [FILTER_FIELDS.TINT_OPACITY]: number,
+    [FILTER_FIELDS.TINT_BLEND_MODE]: string
 }
 
 /**

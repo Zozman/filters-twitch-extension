@@ -11,7 +11,10 @@ export const defaultFilterValues:FilterData = {
     hueRotate: 0,
     invert: 0,
     saturate: 1,
-    sepia: 0
+    sepia: 0,
+    tintColor: '',
+    tintOpacity: 0,
+    tintBlendMode: 'normal'
 };
 
 /**
@@ -35,7 +38,9 @@ export const filtersArray: Array<Filter> = [
             ...{
                 sepia: 0.5,
                 hueRotate: -30,
-                saturate: 1.4
+                saturate: 1.4,
+                tintColor: 'rgb(125, 105, 24)',
+                tintOpacity: 0.1
             }
         }
     },
@@ -47,7 +52,9 @@ export const filtersArray: Array<Filter> = [
             ...{
                 sepia: 0.2,
                 brightness: 1.15,
-                saturate: 1.4
+                saturate: 1.4,
+                tintColor: 'rgb(125, 105, 24)',
+                tintOpacity: 0.1
             }
         }
     },
@@ -60,7 +67,9 @@ export const filtersArray: Array<Filter> = [
                 sepia: 0.35,
                 contrast: 1.1,
                 brightness: 1.2,
-                saturate: 1.3
+                saturate: 1.3,
+                tintColor: 'rgb(125, 105, 24)',
+                tintOpacity: 0.2
             }
         }
     },
@@ -320,7 +329,10 @@ export const filtersArray: Array<Filter> = [
                 sepia: 0.35,
                 contrast: 1.05,
                 brightness: 1.05,
-                saturate: 1.75
+                saturate: 1.75,
+                tintColor: 'rgb(158, 175, 30)',
+                tintOpacity: 0.25,
+                tintBlendMode: 'darken'
             }
         }
     },
