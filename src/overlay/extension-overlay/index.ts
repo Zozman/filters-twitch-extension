@@ -861,14 +861,14 @@ export default class ExtensionOverlay extends LitElement {
                 && this.filterBlendMode === filter.values[FILTER_FIELDS.BLEND_MODE]
         };
         const filterStyle = {
-            filter: `blur(${filter.values[FILTER_FIELDS.BLUR]}px)
-                     brightness(${filter.values[FILTER_FIELDS.BRIGHTNESS]})
-                     contrast(${filter.values[FILTER_FIELDS.CONTRAST]})
-                     grayscale(${filter.values[FILTER_FIELDS.GRAYSCALE]})
-                     hue-rotate(${filter.values[FILTER_FIELDS.HUE_ROTATE]}deg)
-                     invert(${filter.values[FILTER_FIELDS.INVERT]})
-                     saturate(${filter.values[FILTER_FIELDS.SATURATE]})
-                     sepia(${filter.values[FILTER_FIELDS.SEPIA]})`,
+            filter: `${FILTER_FIELDS.BLUR}(${filter.values[FILTER_FIELDS.BLUR]}px)
+                     ${FILTER_FIELDS.BRIGHTNESS}(${filter.values[FILTER_FIELDS.BRIGHTNESS]})
+                     ${FILTER_FIELDS.CONTRAST}(${filter.values[FILTER_FIELDS.CONTRAST]})
+                     ${FILTER_FIELDS.GRAYSCALE}(${filter.values[FILTER_FIELDS.GRAYSCALE]})
+                     ${FILTER_FIELDS.HUE_ROTATE}(${filter.values[FILTER_FIELDS.HUE_ROTATE]}deg)
+                     ${FILTER_FIELDS.INVERT}(${filter.values[FILTER_FIELDS.INVERT]})
+                     ${FILTER_FIELDS.SATURATE}(${filter.values[FILTER_FIELDS.SATURATE]})
+                     ${FILTER_FIELDS.SEPIA}(${filter.values[FILTER_FIELDS.SEPIA]})`,
             '--filter-tint': filter.values[FILTER_FIELDS.TINT] || 'transparent',
             '--filter-tint-opacity': filter.values[FILTER_FIELDS.OPACITY],
             '--filter-blend-mode': filter.values[FILTER_FIELDS.BLEND_MODE]
@@ -974,14 +974,14 @@ export default class ExtensionOverlay extends LitElement {
             light: this.theme === TWITCH_THEMES.LIGHT
         };
         const filterStyle = {
-            'backdrop-filter': `blur(${this.filterBlur}px)
-                                brightness(${this.filterBrightness})
-                                contrast(${this.filterContrast})
-                                grayscale(${this.filterGrayscale})
-                                hue-rotate(${this.filterHueRotate}deg)
-                                invert(${this.filterInvert})
-                                saturate(${this.filterSaturate})
-                                sepia(${this.filterSepia})`,
+            'backdrop-filter': `${FILTER_FIELDS.BLUR}(${this.filterBlur}px)
+                                ${FILTER_FIELDS.BRIGHTNESS}(${this.filterBrightness})
+                                ${FILTER_FIELDS.CONTRAST}(${this.filterContrast})
+                                ${FILTER_FIELDS.GRAYSCALE}(${this.filterGrayscale})
+                                ${FILTER_FIELDS.HUE_ROTATE}(${this.filterHueRotate}deg)
+                                ${FILTER_FIELDS.INVERT}(${this.filterInvert})
+                                ${FILTER_FIELDS.SATURATE}(${this.filterSaturate})
+                                ${FILTER_FIELDS.SEPIA}(${this.filterSepia})`,
             '--filter-tint': this.filterTint || 'transparent',
             '--filter-tint-opacity': this.filterOpacity,
             '--filter-blend-mode': this.filterBlendMode,

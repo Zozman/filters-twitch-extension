@@ -71,7 +71,7 @@ export enum FILTER_FIELDS {
      * 
      * https://developer.mozilla.org/en-US/docs/Web/CSS/filter-function/hue-rotate
      */
-    HUE_ROTATE = 'hueRotate',
+    HUE_ROTATE = 'hue-rotate',
     /**
      * Inverts the color sample in the input element.
      * 
@@ -94,16 +94,22 @@ export enum FILTER_FIELDS {
      * Tint color to apply to the element.
      * 
      * Can be either an empty string or a valid RGBA color value.
+     * 
+     * Used in `background-color` CSS fields.
      */
     TINT = 'tint',
     /**
      * Opacity of the filter.
+     * 
+     * Used in `opacity` CSS fields.
      */
     OPACITY = 'opacity',
     /**
-     * Blend mode used by the filter
+     * Blend mode used by the filter.
+     * 
+     * Used in `mix-blend-mode` CSS fields
      */
-    BLEND_MODE = 'blendMode'
+    BLEND_MODE = 'blend-mode'
 }
 
 /**
