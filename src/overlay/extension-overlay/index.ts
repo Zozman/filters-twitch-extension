@@ -274,6 +274,13 @@ export default class ExtensionOverlay extends ExtensionBase {
         this.getEmotes()
     ];
 
+    /**
+     * List of promises to resolve when the Twitch extension context changes
+     */
+    protected onTwitchExtensionContext = (context:TwitchExtensionContext) => [
+       this.twitchExtensionContextUpdate(context)
+    ]
+
     connectedCallback():void {
         super.connectedCallback();
         // When the context changes, update the theme
@@ -295,32 +302,21 @@ export default class ExtensionOverlay extends ExtensionBase {
         }, 100);
     }
 
-    // After a property has updated
-    updated(changedProperties:Map<string, any>):void {
-        super.updated(changedProperties);
-        // Set theme details in DOM when theme changes
-        if (changedProperties.has("theme")) {
-            this.applyTheme(this.theme);
-        }
-    }
-
     disconnectedCallback(): void {
         this.editorControlsResizeObserver?.disconnect();
         super.disconnectedCallback();
     }
 
     /**
-     * Function to apply the theme class to the body of the DOM
-     * @param targetTheme Theme to apply
+     * Function to run when the Twitch extension context changes
+     * @param context `TwitchExtensionContext` object
+     * @returns 
      */
-    private applyTheme(targetTheme:string) {
-        if (targetTheme === 'light') {
-            document.body.classList.add("sl-theme-light");
-            document.body.classList.remove("sl-theme-dark");
-        } else {
-            document.body.classList.add("sl-theme-dark");
-            document.body.classList.remove("sl-theme-light");
+    private twitchExtensionContextUpdate(context:TwitchExtensionContext):Promise<void> {
+        if (!this.hasOverriddenTheme) {
+            this.theme = context.theme as TWITCH_THEMES;
         }
+        return Promise.resolve();
     }
 
     /**
@@ -341,7 +337,8 @@ export default class ExtensionOverlay extends ExtensionBase {
      * Get all the emote sets we care about
      * @returns Emote data
      */
-    private getEmotes():Promise<any> {
+    private getEmotes(s?:string):Promise<any> {
+        console.log(s);
         return Promise.all(ExtensionOverlay.twitchEmoteSetsToLoad.map(setId => {
             // Global emotes have a different endpoint
             if (setId === 'global') {
