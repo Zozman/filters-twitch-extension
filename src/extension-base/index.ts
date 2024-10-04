@@ -49,4 +49,31 @@ export abstract class ExtensionBase extends LitElement {
                         && targetLocales.indexOf(ExtensionBase.urlParameters.get('language') as any) !== -1 
                         ? ExtensionBase.urlParameters.get('language') as string
                         : sourceLocale;
+
+    /**
+     * List of promises to resolve when the mock server is setup
+     */
+    protected onMockServerSetup:(() => Array<Promise<unknown>>) = () => [];
+
+    connectedCallback():void {
+        super.connectedCallback();
+        // If locally testing, load and setup mock server
+        if (ExtensionBase.isLocalhost) {
+            this.setupMockDevServer();
+        }
+    }
+
+    /**
+     * Sets up the mock dev server for local testing
+     * @returns `Promise` that resolves when the mock server is setup
+     */
+    private setupMockDevServer():Promise<unknown> {
+        return import(
+            /* webpackChunkName: "mock-server" */
+            '../mockServer'
+        ).then(({setupMockDevServer}) => {
+            setupMockDevServer();
+            return Promise.all(this.onMockServerSetup());
+        });
+    }
 }

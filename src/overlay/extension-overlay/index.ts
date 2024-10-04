@@ -263,6 +263,11 @@ export default class ExtensionOverlay extends ExtensionBase {
      */
     private hasOverriddenTheme = false;
 
+    protected onMockServerSetup = () => [
+        // After the mock server is setup, load the emotes
+        this.getEmotes()
+    ];
+
     connectedCallback():void {
         super.connectedCallback();
         // Get the Twitch Auth info when we get it
@@ -276,16 +281,6 @@ export default class ExtensionOverlay extends ExtensionBase {
                 this.theme = ctx.theme as TWITCH_THEMES;
             }
         });
-        // If locally testing, load and setup mock server and manually trigger emote calls
-        if (ExtensionOverlay.isLocalhost) {
-            import(
-                /* webpackChunkName: "mock-server" */
-                '../../mockServer'
-            ).then(({setupMockDevServer}) => {
-                setupMockDevServer();
-                this.getEmotes();
-            });
-        }
     }
 
     firstUpdated():void {
