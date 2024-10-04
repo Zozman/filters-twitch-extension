@@ -1,4 +1,4 @@
-import { html, LitElement, nothing, TemplateResult } from 'lit';
+import { html, nothing, TemplateResult } from 'lit';
 import {customElement, state, query} from 'lit/decorators.js';
 import {styleMap} from 'lit-html/directives/style-map.js';
 import {classMap} from 'lit-html/directives/class-map.js';
@@ -12,7 +12,7 @@ import {clamp} from '../../utils/clamp';
 
 import { defaultFilterValues, filtersArray } from './filters';
 
-import type { TwitchExtensionAuth, TwitchExtensionContext } from '../../types/twitch';
+import type { TwitchExtensionContext } from '../../types/twitch';
 
 import style from './style.scss';
 
