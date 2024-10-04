@@ -12,7 +12,8 @@ module.exports = (env, argv) => {
   return {
     mode: argv.mode,
     entry: {
-      extension: [path.resolve(__dirname, "./src/overlay/index.ts")]
+      extension: [path.resolve(__dirname, "./src/overlay/index.ts")],
+      config: [path.resolve(__dirname, "./src/config/index.ts")]
     },
     output: {
       path: path.resolve(__dirname, "./dist"),
@@ -86,6 +87,13 @@ module.exports = (env, argv) => {
         hash: true,
         inject: "head",
         chunks: ["extension"],
+      }),
+      new HtmlWebpackPlugin({
+        template: "./src/config/index.html",
+        filename: "config.html",
+        hash: true,
+        inject: "head",
+        chunks: ["config"],
       }),
       new CopyWebpackPlugin({
         patterns: [
