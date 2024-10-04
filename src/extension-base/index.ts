@@ -62,7 +62,7 @@ export abstract class ExtensionBase extends LitElement {
     protected onMockServerSetup:(() => Array<Promise<() => unknown>>) = () => [];
 
     /**
-     * List of promises to resolve when the Twitch extension is authorized
+     * List of promises to resolve when the Twitch extension is authorized in addition to the default behavior (saving the auth object)
      */
     protected onTwitchExtensionAuthorized:((auth:TwitchExtensionAuth) => Array<Promise<(auth:TwitchExtensionAuth) => unknown>>) = () => [];
 

@@ -267,7 +267,7 @@ export default class ExtensionOverlay extends ExtensionBase {
     ];
 
     /**
-     * List of promises to resolve when the Twitch extension is authorized
+     * List of promises to resolve when the Twitch extension is authorized in addition to the default behavior (saving the auth object)
      */
     protected onTwitchExtensionAuthorized = () => [
         // After we have auth, load the emotes
