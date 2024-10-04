@@ -1,0 +1,52 @@
+import { LitElement } from 'lit';
+import { state} from 'lit/decorators.js';
+import { Task } from '@lit/task';
+
+import { TWITCH_THEMES } from '../overlay/extension-overlay/types';
+
+import { sourceLocale ,targetLocales } from '../generated/locale-codes';
+import { setLocale } from '../utils/localization';
+
+/**
+ * Base class for all extension views.
+ * 
+ * Contains shared logic and functionality.
+ */
+export abstract class ExtensionBase extends LitElement {
+    /**
+     * Parsed URL search parameters from the `window` provided by the Extension loader.
+     */
+    static urlParameters = new URLSearchParams(window.location.search);
+
+    /**
+     * Used to detect if the extension is running on localhost
+     */
+    static isLocalhost = window.location.hostname === 'localhost';
+
+    /**
+     * Indicates if the extension is in light or dark theme
+     * 
+     * Is determined by the theme the viewer is using in Twitch
+    */
+    @state()
+    protected theme = ExtensionBase.urlParameters.has('theme')
+                        ? ExtensionBase.urlParameters.get('theme') as TWITCH_THEMES
+                        : TWITCH_THEMES.LIGHT;
+
+    /**
+     * Async task to load the correct locale bundle before rendering anything
+     */
+    @state()
+    protected loadLocaleTask = new Task(this, {
+        task: ([language]) => setLocale(language),
+        args: () => [this.language]
+    });
+
+    /**
+     * Language value from the urlParameters.  If the provided language is a supported language by the extension, load its locale files.  Else load the source locale.
+     */
+    protected language = ExtensionBase.urlParameters.has('language')
+                        && targetLocales.indexOf(ExtensionBase.urlParameters.get('language') as any) !== -1 
+                        ? ExtensionBase.urlParameters.get('language') as string
+                        : sourceLocale;
+}

@@ -2,16 +2,13 @@ import { html, LitElement, nothing, TemplateResult } from 'lit';
 import {customElement, state, query} from 'lit/decorators.js';
 import {styleMap} from 'lit-html/directives/style-map.js';
 import {classMap} from 'lit-html/directives/class-map.js';
-import { createRef, ref } from 'lit/directives/ref.js';
 import {msg, str} from '@lit/localize';
-import {Task} from '@lit/task';
 import { serialize } from '@shoelace-style/shoelace/dist/utilities/form.js';
+
+import { ExtensionBase } from '../../extension-base';
 
 import {drag} from '../../utils/drag';
 import {clamp} from '../../utils/clamp';
-
-import { sourceLocale ,targetLocales } from '../../generated/locale-codes';
-import { setLocale } from '../../utils/localization';
 
 import { defaultFilterValues, filtersArray } from './filters';
 
@@ -26,24 +23,14 @@ import { SlCard, SlChangeEvent, SlInput, SlInputEvent, SlRadioGroup } from '@sho
  * Main component for the application
  */
 @customElement('extension-overlay')
-export default class ExtensionOverlay extends LitElement {
+export default class ExtensionOverlay extends ExtensionBase {
     // ----------------------------- Static Values -----------------------------
     static styles = style;
-
-    /**
-     * Used for local development to show content for the left side
-     */
-    static isLocalhost = window.location.hostname === 'localhost';
 
     /**
      * Test stream channel to show in the overlay
      */
     static testStreamChannel = 'qa_partner_sirhype';
-
-    /**
-     * Parsed URL search parameters from the `window` provided by the Extension loader.
-     */
-    static urlParameters = new URLSearchParams(window.location.search);
 
     /**
      * List of emote sets to load into `this.emoteMap`
@@ -204,16 +191,6 @@ export default class ExtensionOverlay extends LitElement {
     // ----------------------------- End Filter Values -----------------------------
 
     /**
-     * Indicates if the extension is in light or dark theme
-     * 
-     * Is determined by the theme the viewer is using in Twitch
-    */
-    @state()
-    private theme = ExtensionOverlay.urlParameters.has('theme')
-                        ? ExtensionOverlay.urlParameters.get('theme') as TWITCH_THEMES
-                        : TWITCH_THEMES.LIGHT;
-
-    /**
      * Indicates if currently the divider is being added or removed via animation
      */
     @state()
@@ -230,15 +207,6 @@ export default class ExtensionOverlay extends LitElement {
      */
     @state()
     private emoteMap:Map<string, EmoteMapItem> = new Map();
-
-    /**
-     * Async task to load the correct locale bundle before rendering anything
-     */
-    @state()
-    private loadLocaleTask = new Task(this, {
-        task: ([language]) => setLocale(language),
-        args: () => [this.language]
-    });
 
     /**
      * Current height of the editor controls
@@ -282,14 +250,6 @@ export default class ExtensionOverlay extends LitElement {
      * Used to set `this.editorControlsHeight`
      */
     private editorControlsResizeObserver: ResizeObserver | undefined;
-
-    /**
-     * Language value from the urlParameters.  If the provided language is a supported language by the extension, load its locale files.  Else load the source locale.
-     */
-    private language = ExtensionOverlay.urlParameters.has('language')
-                        && targetLocales.indexOf(ExtensionOverlay.urlParameters.get('language') as any) !== -1 
-                        ? ExtensionOverlay.urlParameters.get('language') as string
-                        : sourceLocale;
 
     /**
      * Auth object returned by window.Twitch.ext.onAuthorized that is used to authenticate Twitch API calls
