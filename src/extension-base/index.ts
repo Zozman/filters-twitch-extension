@@ -68,9 +68,14 @@ export abstract class ExtensionBase extends LitElement {
 
     /**
      * List of promises to resolve when the Twitch extension is authorized in addition to the default behavior (saving the auth object)
+     * @returns List of promises to resolve when the Twitch auth is retrieved
      */
     protected onTwitchExtensionAuthorized:(auth:TwitchExtensionAuth) => Array<Promise<unknown>> = () => [];
 
+    /**
+     * List of promises to resolve when the Twitch extension context changes
+     * @returns List of promises to resolve when the Twitch extension context changes
+     */
     protected onTwitchExtensionContext:(context:TwitchExtensionContext) => Array<Promise<unknown>> = () => [];
     
     connectedCallback():void {
