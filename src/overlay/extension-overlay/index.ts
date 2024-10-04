@@ -252,29 +252,30 @@ export default class ExtensionOverlay extends ExtensionBase {
     private editorControlsResizeObserver: ResizeObserver | undefined;
 
     /**
-     * Auth object returned by window.Twitch.ext.onAuthorized that is used to authenticate Twitch API calls
-    */
-    private auth!: TwitchExtensionAuth;
-
-    /**
      * Indicates if the user has overridden the theme using the theme toggle.
      * 
      * If so, we don't want to override it with what's coming from the `window.Twitch.ext.onAuthorized` event.
      */
     private hasOverriddenTheme = false;
 
+    /**
+     * List of promises to resolve when the mock server is setup
+     */
     protected onMockServerSetup = () => [
         // After the mock server is setup, load the emotes
         this.getEmotes()
     ];
 
+    /**
+     * List of promises to resolve when the Twitch extension is authorized
+     */
+    protected onTwitchExtensionAuthorized = () => [
+        // After we have auth, load the emotes
+        this.getEmotes()
+    ];
+
     connectedCallback():void {
         super.connectedCallback();
-        // Get the Twitch Auth info when we get it
-        window.Twitch.ext.onAuthorized((auth:TwitchExtensionAuth) => {
-            this.auth = auth;
-            this.getEmotes();
-        });
         // When the context changes, update the theme
         window.Twitch.ext.onContext((ctx:TwitchExtensionContext) => {
             if (!this.hasOverriddenTheme) {
@@ -312,7 +313,7 @@ export default class ExtensionOverlay extends ExtensionBase {
      * Function to apply the theme class to the body of the DOM
      * @param targetTheme Theme to apply
      */
-    applyTheme(targetTheme:string) {
+    private applyTheme(targetTheme:string) {
         if (targetTheme === 'light') {
             document.body.classList.add("sl-theme-light");
             document.body.classList.remove("sl-theme-dark");

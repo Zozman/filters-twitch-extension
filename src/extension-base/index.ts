@@ -6,6 +6,7 @@ import { TWITCH_THEMES } from '../overlay/extension-overlay/types';
 
 import { sourceLocale ,targetLocales } from '../generated/locale-codes';
 import { setLocale } from '../utils/localization';
+import { TwitchExtensionAuth } from '../types/twitch';
 
 /**
  * Base class for all extension views.
@@ -51,12 +52,28 @@ export abstract class ExtensionBase extends LitElement {
                         : sourceLocale;
 
     /**
+     * Auth object returned by window.Twitch.ext.onAuthorized that is used to authenticate Twitch API calls
+    */
+    protected auth!: TwitchExtensionAuth;
+
+    /**
      * List of promises to resolve when the mock server is setup
      */
-    protected onMockServerSetup:(() => Array<Promise<unknown>>) = () => [];
+    protected onMockServerSetup:(() => Array<Promise<() => unknown>>) = () => [];
+
+    /**
+     * List of promises to resolve when the Twitch extension is authorized
+     */
+    protected onTwitchExtensionAuthorized:((auth:TwitchExtensionAuth) => Array<Promise<(auth:TwitchExtensionAuth) => unknown>>) = () => [];
 
     connectedCallback():void {
         super.connectedCallback();
+        // Get the Twitch Auth info when we get it
+        window.Twitch.ext.onAuthorized((auth:TwitchExtensionAuth) => {
+            this.auth = auth;
+            // Perform any actions that need to be done when the extension is authorized
+            Promise.all(this.onTwitchExtensionAuthorized(auth));
+        });
         // If locally testing, load and setup mock server
         if (ExtensionBase.isLocalhost) {
             this.setupMockDevServer();
