@@ -2,6 +2,7 @@ import { html, LitElement, nothing, TemplateResult } from 'lit';
 import {customElement, state, query} from 'lit/decorators.js';
 import {styleMap} from 'lit-html/directives/style-map.js';
 import {classMap} from 'lit-html/directives/class-map.js';
+import { createRef, ref } from 'lit/directives/ref.js';
 import {msg, str} from '@lit/localize';
 import {Task} from '@lit/task';
 import { serialize } from '@shoelace-style/shoelace/dist/utilities/form.js';
@@ -240,6 +241,12 @@ export default class ExtensionOverlay extends LitElement {
     });
 
     /**
+     * Current height of the editor controls
+     */
+    @state()
+    private editorControlsHeight = 0;
+
+    /**
      * Represents the base `<div>` element of the extension
      */
     @query('.base')
@@ -262,6 +269,19 @@ export default class ExtensionOverlay extends LitElement {
      */
     @query('.editorForm')
     private editorForm!: HTMLFormElement;
+
+    /**
+     * Represents the `<div>` element of the editor controls
+     */
+    @query('.editorControls')
+    private editorControls!: HTMLDivElement;
+
+    /**
+     * `ResizeObserver` used to observe the height of the editor controls.
+     * 
+     * Used to set `this.editorControlsHeight`
+     */
+    private editorControlsResizeObserver: ResizeObserver | undefined;
 
     /**
      * Language value from the urlParameters.  If the provided language is a supported language by the extension, load its locale files.  Else load the source locale.
@@ -308,13 +328,29 @@ export default class ExtensionOverlay extends LitElement {
         }
     }
 
+    firstUpdated():void {
+        // Done with timeout to ensure the controls are in the DOM before attaching the observer
+        setTimeout(() => {
+            // Setup observer so that we can use the editorControlsHeight in its own positioning calculation
+            this.editorControlsResizeObserver = new ResizeObserver(() => {
+                this.editorControlsHeight = this.editorCard.scrollHeight;
+            });
+            this.editorControlsResizeObserver.observe(this.editorControls);
+        }, 100);
+    }
+
     // After a property has updated
-    updated(changedProperties:Map<string, any>) {
+    updated(changedProperties:Map<string, any>):void {
         super.updated(changedProperties);
         // Set theme details in DOM when theme changes
         if (changedProperties.has("theme")) {
             this.applyTheme(this.theme);
         }
+    }
+
+    disconnectedCallback(): void {
+        this.editorControlsResizeObserver?.disconnect();
+        super.disconnectedCallback();
     }
 
     /**
@@ -647,8 +683,8 @@ export default class ExtensionOverlay extends LitElement {
             left: this.editorTogglePositionX <= 50
                 ? `calc(${this.editorTogglePositionX}% + 2rem)`
                 : `calc(${this.editorTogglePositionX}% - 36rem - 20px)`,
-            ...(this.editorTogglePositionY <= 50 && {top: `0`}),
-            ...(this.editorTogglePositionY > 50 && {bottom: `0`})
+            ...(this.editorTogglePositionY <= 50 && {top: `clamp(0px, ${this.editorTogglePositionY}%, 100% - ${this.editorControlsHeight}px)`}),
+            ...(this.editorTogglePositionY > 50 && {bottom: `clamp(0px, ${100 - this.editorTogglePositionY}%, 100% - ${this.editorControlsHeight}px)`})
         };
 
         return html`
