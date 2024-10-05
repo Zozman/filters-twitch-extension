@@ -9,8 +9,8 @@
     "package": "(cd dist && zip -r $npm_package_name-$npm_package_version.zip * && mv $npm_package_name-$npm_package_version.zip ..)",
     "clean": "rm -f $npm_package_name-*.zip && rm -rf dist",
     "prod": "npm run clean && npm run build && npm run package",
-    "localize-extract": "lit-localize extract",
-    "localize-build": "lit-localize build"
+    "localize:extract": "lit-localize extract",
+    "localize:build": "lit-localize build"
   },
   "author": "Zac Lovoy @zwlovoy",
   "license": "MIT",
