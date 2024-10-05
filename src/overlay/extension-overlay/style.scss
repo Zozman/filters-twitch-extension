@@ -160,6 +160,10 @@
     cursor: move;
 }
 
+sl-details::part(header) {
+    font-weight: var(--sl-font-weight-semibold);
+}
+
 .editorControls {
     position: absolute;
     z-index: 600;
@@ -233,6 +237,8 @@
 
         &::part(footer) {
             border-top-width: 0px;
+            text-align: center;
+            font-weight: var(--sl-font-weight-semibold);
         }
 
         &:hover {
@@ -279,5 +285,11 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+    }
+
+    .editorFiltersHolderNoFilters {
+        width: 100%;
+        margin-top: 0.5rem;
+        text-align: center;
     }
 }

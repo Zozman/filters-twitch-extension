@@ -640,6 +640,8 @@ export default class ExtensionOverlay extends ExtensionBase {
             ...(this.editorTogglePositionY > 50 && {bottom: `clamp(0px, ${100 - this.editorTogglePositionY}%, 100% - ${this.editorControlsHeight}px)`})
         };
 
+        const atLeast1FilterMatchesSearch = filtersArray.some(filter => filter.name.toLowerCase().indexOf(this.filterSearchTerm.toLowerCase()) !== -1);
+
         return html`
             <div class="editorHolder">
                 <div class="editorHolderUnsafeY"></div>
@@ -677,6 +679,11 @@ export default class ExtensionOverlay extends ExtensionBase {
                                     </sl-input>
                                     <div class="editorFiltersHolder">
                                         ${filtersArray.map(filter => this.renderFilter(filter))}
+                                        ${!atLeast1FilterMatchesSearch ? html`
+                                            <div class="editorFiltersHolderNoFilters">
+                                                <div>${msg('No Filters Match Your Search')}</div>
+                                            </div>    
+                                        ` : nothing}
                                     </div>
                                 </sl-details>
                                 <sl-details summary="${msg('Customize')}">
