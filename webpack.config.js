@@ -21,7 +21,7 @@ module.exports = (env, argv) => {
       publicPath: "",
     },
     optimization: {
-      minimize: devtool ? true : false,
+      minimize: devtool,
     },
     module: {
       rules: [
