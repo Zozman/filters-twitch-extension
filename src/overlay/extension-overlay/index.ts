@@ -656,9 +656,9 @@ export default class ExtensionOverlay extends ExtensionBase {
                             circle
                             @mousedown="${this.handleEditorButtonDrag}"
                             @touchstart="${this.handleEditorButtonDrag}">
-                                <sl-icon library="system" name="filters" label="${msg('Settings')}"></sl-icon>
+                                <sl-icon library="system" name="filters" label="${msg(str`${this.editorActive ? 'Hide' : 'Show'} Filter Settings`)}"></sl-icon>
                         </sl-button>
-                        <div class="${classMap(editorControlsClasses)}" style="${styleMap(editorStyles)}">
+                        <div class="${classMap(editorControlsClasses)}" style="${styleMap(editorStyles)}" aria-label="${msg('Filter Settings')}">
                             <sl-card class="editorCard">
                                 <div slot="header">
                                     <sl-icon-button
@@ -847,20 +847,22 @@ export default class ExtensionOverlay extends ExtensionBase {
         // Attempt to get an emote URL to use
         const filterEmoteUrl = this.computeEmoteUrl(ExtensionOverlay.filterExampleEmoteName, this.theme);
 
+        const filterIsSelected = this.filterBlur === filter.values[FILTER_FIELDS.BLUR]
+            && this.filterBrightness === filter.values[FILTER_FIELDS.BRIGHTNESS]
+            && this.filterContrast === filter.values[FILTER_FIELDS.CONTRAST]
+            && this.filterGrayscale === filter.values[FILTER_FIELDS.GRAYSCALE]
+            && this.filterHueRotate === filter.values[FILTER_FIELDS.HUE_ROTATE]
+            && this.filterInvert === filter.values[FILTER_FIELDS.INVERT]
+            && this.filterSaturate === filter.values[FILTER_FIELDS.SATURATE]
+            && this.filterSepia === filter.values[FILTER_FIELDS.SEPIA]
+            && this.filterBackground === filter.values[FILTER_FIELDS.BACKGROUND]
+            && this.filterOpacity === filter.values[FILTER_FIELDS.OPACITY]
+            && this.filterMixBlendMode === filter.values[FILTER_FIELDS.MIX_BLEND_MODE];
+
         const filterClasses = {
             filterCard: true,
             filterCardShown: filter.name.toLowerCase().indexOf(this.filterSearchTerm.toLowerCase()) !== -1,
-            filterCardSelected: this.filterBlur === filter.values[FILTER_FIELDS.BLUR]
-                && this.filterBrightness === filter.values[FILTER_FIELDS.BRIGHTNESS]
-                && this.filterContrast === filter.values[FILTER_FIELDS.CONTRAST]
-                && this.filterGrayscale === filter.values[FILTER_FIELDS.GRAYSCALE]
-                && this.filterHueRotate === filter.values[FILTER_FIELDS.HUE_ROTATE]
-                && this.filterInvert === filter.values[FILTER_FIELDS.INVERT]
-                && this.filterSaturate === filter.values[FILTER_FIELDS.SATURATE]
-                && this.filterSepia === filter.values[FILTER_FIELDS.SEPIA]
-                && this.filterBackground === filter.values[FILTER_FIELDS.BACKGROUND]
-                && this.filterOpacity === filter.values[FILTER_FIELDS.OPACITY]
-                && this.filterMixBlendMode === filter.values[FILTER_FIELDS.MIX_BLEND_MODE]
+            filterCardSelected: filterIsSelected
         };
         const filterStyle = {
             filter: `${FILTER_FIELDS.BLUR}(${filter.values[FILTER_FIELDS.BLUR]}px)
@@ -877,23 +879,27 @@ export default class ExtensionOverlay extends ExtensionBase {
         };
         const applyFilterBound = this.applyFilter.bind(this, filter.values);
         return html`
-            <sl-card class="${classMap(filterClasses)}" @click="${applyFilterBound}">
-                ${html`
-                    <div class="filterPreview" style="${styleMap(filterStyle)}">
-                        ${filterEmoteUrl ? html`
-                            <img
-                                class="filterEmotePreview"
-                                src="${filterEmoteUrl}"
-                                alt="${msg(str`${ExtensionOverlay.filterExampleEmoteName} Twitch Emote With ${filter.name} Filter Applied`)}"
-                            />
-                        ` : html`
-                            <div class="filterPreviewNoEmote" style="${styleMap(filterStyle)}"></div>
-                        `}
+            <sl-card
+                aria-label="${msg(str`${filter.name} Filter Selector`)}"
+                aria-selected="${filterIsSelected}"
+                class="${classMap(filterClasses)}"
+                @click="${applyFilterBound}">
+                    ${html`
+                        <div class="filterPreview" style="${styleMap(filterStyle)}">
+                            ${filterEmoteUrl ? html`
+                                <img
+                                    class="filterEmotePreview"
+                                    src="${filterEmoteUrl}"
+                                    alt="${msg(str`${ExtensionOverlay.filterExampleEmoteName} Twitch Emote With ${filter.name} Filter Applied`)}"
+                                />
+                            ` : html`
+                                <div class="filterPreviewNoEmote" style="${styleMap(filterStyle)}"></div>
+                            `}
+                        </div>
+                    `}
+                    <div slot="footer">
+                        ${filter.name}
                     </div>
-                `}
-                <div slot="footer">
-                    ${filter.name}
-                </div>
             </sl-card>
         `;
     }
@@ -917,6 +923,7 @@ export default class ExtensionOverlay extends ExtensionBase {
         };
         return html`
             <div
+                aria-label="${msg('Filter Slider')}"
                 style="${styleMap(dividerStyle)}"
                 class="${classMap(dividerClasses)}">
                     <div
@@ -926,6 +933,7 @@ export default class ExtensionOverlay extends ExtensionBase {
                     </div>
                     <div
                         class="dividerHandle"
+                        aria-label="${msg('Filter Slider Handle')}"
                         @mousedown=${this.handleDrag}
                         @touchstart=${this.handleDrag}>
                         <sl-icon
