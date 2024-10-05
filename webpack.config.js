@@ -21,14 +21,21 @@ module.exports = (env, argv) => {
       publicPath: "",
     },
     optimization: {
-      minimize: false,
+      minimize: devtool ? true : false,
     },
     module: {
       rules: [
         // Loading TypeScript
         {
           test: /\.ts?$/,
-          use: "ts-loader",
+          use: [
+            {
+              loader: 'minify-html-literals-loader'
+            },
+            {
+              loader: 'ts-loader'
+            }
+          ],
           exclude: /node_modules/,
         },
         // Used for loading scss files
