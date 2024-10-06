@@ -668,7 +668,7 @@ export default class ExtensionOverlay extends ExtensionBase {
                             <sl-card class="editorCard">
                                 <div slot="header">
                                     <sl-icon-button
-                                        name="${this.theme === TWITCH_THEMES.LIGHT ? 'sun' : 'moon'}"
+                                        name="${this.theme === TWITCH_THEMES.LIGHT ? 'moon' : 'sun'}"
                                         library="system"
                                         label="${msg('Toggle Theme')}"
                                         @click="${this.onThemeToggleClick}"></sl-icon-button>
