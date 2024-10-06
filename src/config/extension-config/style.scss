@@ -11,17 +11,19 @@
 
 .holderCard {
     margin: auto;
-    font-size: var(--sl-font-size-2x-large);
+    max-width: 1000px;
 
-    .cardBody {
+    .holderCardHeader {
+        font-size: var(--sl-font-size-large);
+        text-align: center;
+    }
+
+    .holderFooter {
+        min-height: calc(var(--sl-font-size-large) * 3);
+        font-size: var(--sl-font-size-large);
+        text-align: center;
         display: flex;
         flex-direction: column;
-        align-items: center;
-        margin: 5rem;
-        gap: 3rem;
-
-        sl-icon {
-            font-size: var(--sl-font-size-4x-large);
-        }
+        justify-content: center;
     }
 }

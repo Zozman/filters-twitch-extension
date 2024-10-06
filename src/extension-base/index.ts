@@ -2,11 +2,9 @@ import { LitElement } from 'lit';
 import { state} from 'lit/decorators.js';
 import { Task } from '@lit/task';
 
-import { TWITCH_THEMES } from '../overlay/extension-overlay/types';
-
 import { sourceLocale ,targetLocales } from '../generated/locale-codes';
 import { setLocale } from '../utils/localization';
-import { TwitchExtensionAuth, TwitchExtensionContext } from '../types/twitch';
+import { TWITCH_THEMES, TwitchExtensionAuth, TwitchExtensionContext } from '../types/twitch';
 
 /**
  * Base class for all extension views.

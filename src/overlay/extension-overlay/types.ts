@@ -1,3 +1,5 @@
+import { TWITCH_THEMES } from "../../types/twitch";
+
 /**
  * Enum representing what side the filter is on when the divider is enabled
  */
@@ -211,16 +213,6 @@ export enum TWITCH_EMOTE_SCALE {
      * A large version (112px x 112px) is available.
      */
     LARGE = '3.0'
-}
-
-/**
- * The themes supported by Twitch
- * 
- * See https://dev.twitch.tv/docs/api/reference/#get-emote-sets -> `Response Body` -> `theme_mode` for reference.
- */
-export enum TWITCH_THEMES {
-    LIGHT = 'light',
-    DARK = 'dark'
 }
 
 /**

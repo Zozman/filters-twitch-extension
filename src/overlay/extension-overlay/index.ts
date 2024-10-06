@@ -12,11 +12,11 @@ import {clamp} from '../../utils/clamp';
 
 import { defaultFilterValues, filtersArray } from './filters';
 
-import type { TwitchExtensionContext } from '../../types/twitch';
+import { TWITCH_THEMES, TwitchExtensionContext } from '../../types/twitch';
 
 import style from './style.scss';
 
-import { MIX_BLEND_MODE, EmoteMapItem, Filter, FILTER_FIELDS, FILTER_SIDE, FilterData, TWITCH_EMOTE_FORMATS, TWITCH_EMOTE_SCALE, TWITCH_THEMES, TwitchEmote } from './types';
+import { MIX_BLEND_MODE, EmoteMapItem, Filter, FILTER_FIELDS, FILTER_SIDE, FilterData, TWITCH_EMOTE_FORMATS, TWITCH_EMOTE_SCALE, TwitchEmote } from './types';
 import { SlCard, SlChangeEvent, SlInput, SlInputEvent, SlRadioGroup } from '@shoelace-style/shoelace';
 
 /**

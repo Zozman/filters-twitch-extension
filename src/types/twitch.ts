@@ -111,3 +111,13 @@ export interface TwitchExtensionContext {
      */
     volume: number;
 }
+
+/**
+ * The themes supported by Twitch
+ * 
+ * See https://dev.twitch.tv/docs/api/reference/#get-emote-sets -> `Response Body` -> `theme_mode` for reference.
+ */
+export enum TWITCH_THEMES {
+    LIGHT = 'light',
+    DARK = 'dark'
+}
