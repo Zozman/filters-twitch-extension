@@ -296,6 +296,7 @@ export default class ExtensionOverlay extends ExtensionBase {
         setTimeout(() => {
             // Setup observer so that we can use the editorControlsHeight in its own positioning calculation
             this.editorControlsResizeObserver = new ResizeObserver((entries: ResizeObserverEntry[]) => {
+                // Error handler logic from https://stackoverflow.com/questions/76187282/react-resizeobserver-loop-completed-with-undelivered-notifications
                 window.requestAnimationFrame((): void | undefined => {
                     if (!Array.isArray(entries) || !entries.length) {
                       return;
