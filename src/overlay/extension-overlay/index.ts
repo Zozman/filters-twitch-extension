@@ -295,8 +295,13 @@ export default class ExtensionOverlay extends ExtensionBase {
         // Done with timeout to ensure the controls are in the DOM before attaching the observer
         setTimeout(() => {
             // Setup observer so that we can use the editorControlsHeight in its own positioning calculation
-            this.editorControlsResizeObserver = new ResizeObserver(() => {
-                this.editorControlsHeight = this.editorCard.scrollHeight;
+            this.editorControlsResizeObserver = new ResizeObserver((entries: ResizeObserverEntry[]) => {
+                window.requestAnimationFrame((): void | undefined => {
+                    if (!Array.isArray(entries) || !entries.length) {
+                      return;
+                    }
+                    this.editorControlsHeight = this.editorCard.scrollHeight;
+                });
             });
             this.editorControlsResizeObserver.observe(this.editorControls);
         }, 100);
