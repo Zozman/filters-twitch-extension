@@ -4,7 +4,8 @@
   "description": "Twitch Extension for adding filters to streams.",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack serve --open --mode=development",
+    "dev": "webpack serve --mode=development",
+    "dev:config": "webpack serve --mode=development --env page='config.html'",
     "build": "webpack --mode=production",
     "package": "(cd dist && zip -r $npm_package_name-$npm_package_version.zip * && mv $npm_package_name-$npm_package_version.zip ..)",
     "clean": "rm -f $npm_package_name-*.zip && rm -rf dist",

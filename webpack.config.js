@@ -77,6 +77,7 @@ module.exports = (env, argv) => {
       port: 8083,
       host: "localhost",
       hot: true,
+      open: env.page ? [`/${env.page}`] : ['/'],
       compress: true,
       devMiddleware: {
         index: "index.html",
