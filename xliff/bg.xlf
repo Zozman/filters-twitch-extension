@@ -1,81 +1,207 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-    <file target-language="bg" source-language="en" original="lit-localize-inputs" datatype="plaintext" date="2024-09-28T22:6:29Z">
-        <body>
-            <trans-unit id="s5d929ff1619ac0c9">
-                <source>Search</source>
-                <target>Търсене</target>
-            </trans-unit>
-            <trans-unit id="se9eb6976f93dfb18">
-                <source>Customize</source>
-                <target>Персонализирайте</target>
-            </trans-unit>
-            <trans-unit id="secf3bca7c1691718">
-                <source>Blur</source>
-                <target>Замъгляване</target>
-            </trans-unit>
-            <trans-unit id="sf7ef7bd814fbaa8a">
-                <source>Brightness</source>
-                <target>Яркост</target>
-            </trans-unit>
-            <trans-unit id="sda9eb7b6b70799f3">
-                <source>Contrast</source>
-                <target>Контраст</target>
-            </trans-unit>
-            <trans-unit id="s82caaf657b01a4d0">
-                <source>Grayscale</source>
-                <target>Сиви скали</target>
-            </trans-unit>
-            <trans-unit id="s5c4aef4e5aa84518">
-                <source>Hue Rotate</source>
-                <target>Оттенък се върти</target>
-            </trans-unit>
-            <trans-unit id="s93b38b71b79d98c1">
-                <source>Invert</source>
-                <target>Обърнете</target>
-            </trans-unit>
-            <trans-unit id="s8a5c7b0f9d26a384">
-                <source>Saturate</source>
-                <target>Насищайте</target>
-            </trans-unit>
-            <trans-unit id="scf92ea96f389a5e9">
-                <source>Sepia</source>
-                <target>Сепия</target>
-            </trans-unit>
-            <trans-unit id="s73f77bbec41c24cc">
-                <source>Filter Slider</source>
-                <target>Филтър плъзгач</target>
-            </trans-unit>
-            <trans-unit id="sa43fa88ea2159d40">
-                <source>Filter Left</source>
-                <target>Филтър вляво</target>
-            </trans-unit>
-            <trans-unit id="saf93ec81e566ad55">
-                <source>Filter Right</source>
-                <target>Филтрирайте правилно</target>
-            </trans-unit>
-            <trans-unit id="s255857544a9d5ec0">
-                <source>Reset</source>
-                <target>Нулиране</target>
-            </trans-unit>
-            <trans-unit id="s9d8b8aa2b404c2c8">
-                <source>Settings</source>
-                <target>Настройки</target>
-            </trans-unit>
-            <trans-unit id="sadf4fddccc26746d">
-                <source>
-                    <x id="0" equiv-text="${this.filterExampleEmoteName}"/> Twitch Emote With 
-                    <x id="1" equiv-text="${filter.name}"/> Filter Applied
-                </source>
-                <target>
-                    <x id="0" equiv-text="${this.filterExampleEmoteName}"/>Twitch Emote с
-                    <x id="1" equiv-text="${filter.name}"/>Приложен филтър
-                </target>
-            </trans-unit>
-            <trans-unit id="sa8beb6b1182241ac">
-                <source>Filters</source>
-                <target>Филтри</target>
-            </trans-unit>
-        </body>
-    </file>
+<file target-language="bg" source-language="en" original="lit-localize-inputs" datatype="plaintext">
+<body>
+<trans-unit id="sf3c9367a587441b5">
+  <source>Click the button to open the filter menu and select a filter to apply it.</source>
+  <target state="needs-l10n">Щракнете върху бутона, за да отворите менюто за филтриране, и изберете филтър, за да го приложите.</target>
+</trans-unit>
+<trans-unit id="sc211240133beea65">
+  <source>Enable the Filter Slider to adjust what side of the screen is filtered, and feel free to move around the menu by dragging the button.</source>
+  <target state="needs-l10n">Активирайте плъзгача за филтриране, за да настроите коя страна на екрана да бъде филтрирана, и не се колебайте да се движите из менюто, като плъзгате бутона.</target>
+</trans-unit>
+<trans-unit id="s12d19e4d8b9aa14e">
+  <source>No configuration required, so here's how to use Filters.</source>
+  <target state="needs-l10n">Не е необходима конфигурация, затова ето как да използвате филтрите.</target>
+</trans-unit>
+<trans-unit id="scdda3715cf670b1e">
+  <source>Demo step <x id="0" equiv-text="${index + 1}"/> using the <x id="1" equiv-text="${this.theme}"/> theme</source>
+  <target state="needs-l10n">Демонстрационна стъпка <x id="0" equiv-text="${index + 1}"/> с използване на темата <x id="1" equiv-text="${this.theme}"/></target>
+</trans-unit>
+<trans-unit id="sea66e6dc404ad61a">
+  <source><x id="0" equiv-text="${this.editorActive ? 'Hide' : 'Show'}"/> Filter Settings</source>
+  <target state="needs-l10n"><x id="0" equiv-text="${this.editorActive ? 'Hide' : 'Show'}"/> Настройки на филтъра</target>
+</trans-unit>
+<trans-unit id="sbbe3fc658541fb58">
+  <source>Filter Settings</source>
+  <target state="needs-l10n">Настройки на филтъра</target>
+</trans-unit>
+<trans-unit id="s18e8b71ff7db49f0">
+  <source>Toggle Theme</source>
+  <target state="needs-l10n">Превключване на темата</target>
+</trans-unit>
+<trans-unit id="sa8beb6b1182241ac">
+  <source>Filters</source>
+  <target state="translated">Филтри</target>
+</trans-unit>
+<trans-unit id="s5d929ff1619ac0c9">
+  <source>Search</source>
+  <target state="translated">Търсене</target>
+</trans-unit>
+<trans-unit id="s6630496438b2c2e9">
+  <source>No Filters Match Your Search</source>
+  <target state="needs-l10n">Няма филтри, които да съответстват на Вашето търсене</target>
+</trans-unit>
+<trans-unit id="se9eb6976f93dfb18">
+  <source>Customize</source>
+  <target state="translated">Персонализирайте</target>
+</trans-unit>
+<trans-unit id="secf3bca7c1691718">
+  <source>Blur</source>
+  <target state="translated">Размазване</target>
+</trans-unit>
+<trans-unit id="sf7ef7bd814fbaa8a">
+  <source>Brightness</source>
+  <target state="translated">Яркост</target>
+</trans-unit>
+<trans-unit id="sda9eb7b6b70799f3">
+  <source>Contrast</source>
+  <target state="translated">Контраст</target>
+</trans-unit>
+<trans-unit id="s82caaf657b01a4d0">
+  <source>Grayscale</source>
+  <target state="translated">Ниво на сивото</target>
+</trans-unit>
+<trans-unit id="s5c4aef4e5aa84518">
+  <source>Hue Rotate</source>
+  <target state="needs-l10n">Завъртане на нюанса</target>
+</trans-unit>
+<trans-unit id="s93b38b71b79d98c1">
+  <source>Invert</source>
+  <target state="translated">Инвертно</target>
+</trans-unit>
+<trans-unit id="s8a5c7b0f9d26a384">
+  <source>Saturate</source>
+  <target state="needs-l10n">Насищане</target>
+</trans-unit>
+<trans-unit id="scf92ea96f389a5e9">
+  <source>Sepia</source>
+  <target state="needs-l10n">Сепия</target>
+</trans-unit>
+<trans-unit id="s1efbfc3937d565bd">
+  <source>Background</source>
+  <target state="translated">Фон</target>
+</trans-unit>
+<trans-unit id="s4771754365720ac1">
+  <source>Tint Selector</source>
+  <target state="needs-l10n">Избирател на нюанси</target>
+</trans-unit>
+<trans-unit id="s5210113c2dde3fee">
+  <source>Clear Background</source>
+  <target state="needs-l10n">Ясен фон</target>
+</trans-unit>
+<trans-unit id="sba64d8954d027206">
+  <source>Opacity</source>
+  <target state="translated">Прозрачност</target>
+</trans-unit>
+<trans-unit id="s713f8ac3f21647cd">
+  <source>Mix Blend Mode</source>
+  <target state="needs-l10n">Смесен режим на смесване</target>
+</trans-unit>
+<trans-unit id="s9ff3121d30f88d52">
+  <source>Normal</source>
+  <target state="translated">Нормално</target>
+</trans-unit>
+<trans-unit id="sf9929e2d356260c5">
+  <source>Multiply</source>
+  <target state="translated">1 - Фиксирана сума: Това е плоско увеличение или намаление, добавено към цената на продукта. 2 - Процент от първоначалната цена: Това е процентно увеличение или намаление на първоначалната цена на продукта. 3- Процент от първоначалната цена + опции: Това е процентно увеличение или намаление на първоначалната цена на продукта плюс всички други опции, които не са от този тип. 4- Текуща стойност * цена: Това ще умножи стойността на полето с цената, която сте задали</target>
+</trans-unit>
+<trans-unit id="s744d993d03f29851">
+  <source>Screen</source>
+  <target state="translated">Екран</target>
+</trans-unit>
+<trans-unit id="s7ed13ccddb1bf3c3">
+  <source>Overlay</source>
+  <target state="translated">Наслагване</target>
+</trans-unit>
+<trans-unit id="s69fbbdb8ad2a084a">
+  <source>Darken</source>
+  <target state="needs-l10n">Потъмняване</target>
+</trans-unit>
+<trans-unit id="s27056379e0acfdb0">
+  <source>Lighten</source>
+  <target state="needs-l10n">Облекчете</target>
+</trans-unit>
+<trans-unit id="s50b7a935c233f307">
+  <source>Color Dodge</source>
+  <target state="translated">Цветен дъжд</target>
+</trans-unit>
+<trans-unit id="s296ec239b0f24a15">
+  <source>Color Burn</source>
+  <target state="translated">Цветен огън</target>
+</trans-unit>
+<trans-unit id="s37f902723b049138">
+  <source>Hard Light</source>
+  <target state="translated">Силна светлина</target>
+</trans-unit>
+<trans-unit id="s6116dc9ee0ad2ea9">
+  <source>Soft Light</source>
+  <target state="needs-l10n">Мека светлина</target>
+</trans-unit>
+<trans-unit id="sb67e0e7c0869f982">
+  <source>Difference</source>
+  <target state="translated">Разлика</target>
+</trans-unit>
+<trans-unit id="sd88076d2994ee0fb">
+  <source>Exclusion</source>
+  <target state="needs-l10n">Изключване</target>
+</trans-unit>
+<trans-unit id="s491d2919cd6ec3d9">
+  <source>Hue</source>
+  <target state="translated">Нюанс</target>
+</trans-unit>
+<trans-unit id="s086e6c267ade2609">
+  <source>Saturation</source>
+  <target state="translated">Насищане</target>
+</trans-unit>
+<trans-unit id="s344ea8f4939cdc98">
+  <source>Color</source>
+  <target state="translated">Цвят</target>
+</trans-unit>
+<trans-unit id="sb8f610a0e8df91fc">
+  <source>Luminosity</source>
+  <target state="needs-l10n">Светлинност</target>
+</trans-unit>
+<trans-unit id="sd09d06f291d4b24c">
+  <source>Plus Darker</source>
+  <target state="needs-l10n">Плюс по-тъмно</target>
+</trans-unit>
+<trans-unit id="s2428fd2603e728e2">
+  <source>Plus Lighter</source>
+  <target state="needs-l10n">Запалка Plus</target>
+</trans-unit>
+<trans-unit id="s73f77bbec41c24cc">
+  <source>Filter Slider</source>
+  <target state="needs-l10n">Плъзгач за филтриране</target>
+</trans-unit>
+<trans-unit id="sa43fa88ea2159d40">
+  <source>Filter Left</source>
+  <target state="needs-l10n">Филтър наляво</target>
+</trans-unit>
+<trans-unit id="saf93ec81e566ad55">
+  <source>Filter Right</source>
+  <target state="needs-l10n">Десен филтър</target>
+</trans-unit>
+<trans-unit id="s255857544a9d5ec0">
+  <source>Reset</source>
+  <target state="translated">Нулиране</target>
+</trans-unit>
+<trans-unit id="sa6bc00b74fafc29e">
+  <source><x id="0" equiv-text="${filter.name}"/> Filter Selector</source>
+  <target state="needs-l10n"><x id="0" equiv-text="${filter.name}"/> Селектор за филтриране</target>
+</trans-unit>
+<trans-unit id="sadf4fddccc26746d">
+  <source><x id="0" equiv-text="${ExtensionOverlay.filterExampleEmoteName}"/> Twitch Emote With <x id="1" equiv-text="${filter.name}"/> Filter Applied</source>
+  <target state="needs-l10n"><x id="0" equiv-text="${ExtensionOverlay.filterExampleEmoteName}"/> Емот на Twitch с <x id="1" equiv-text="${filter.name}"/> Приложен филтър</target>
+</trans-unit>
+<trans-unit id="s63cac58dc8ed50ea">
+  <source>Filter Slider Handle</source>
+  <target state="needs-l10n">Дръжка на плъзгача на филтъра</target>
+</trans-unit>
+<trans-unit id="s5cc1e842f13a85b9">
+  <source>Use the Customize menu to adjust your filter or make one from scratch.</source>
+  <target state="translated">Използвайте менюто Персонализиране, за да настроите филтъра си или да го създадете от нулата.</target>
+</trans-unit>
+</body>
+</file>
 </xliff>

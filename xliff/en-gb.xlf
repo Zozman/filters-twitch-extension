@@ -1,58 +1,207 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-    <file target-language="en-gb" source-language="en" original="lit-localize-inputs" datatype="plaintext" date="2024-09-28T21:44:39Z">
-        <body>
-            <trans-unit id="s5d929ff1619ac0c9">
-                <source>Search</source>
-            </trans-unit>
-            <trans-unit id="se9eb6976f93dfb18">
-                <source>Customize</source>
-            </trans-unit>
-            <trans-unit id="secf3bca7c1691718">
-                <source>Blur</source>
-            </trans-unit>
-            <trans-unit id="sf7ef7bd814fbaa8a">
-                <source>Brightness</source>
-            </trans-unit>
-            <trans-unit id="sda9eb7b6b70799f3">
-                <source>Contrast</source>
-            </trans-unit>
-            <trans-unit id="s82caaf657b01a4d0">
-                <source>Grayscale</source>
-            </trans-unit>
-            <trans-unit id="s5c4aef4e5aa84518">
-                <source>Hue Rotate</source>
-            </trans-unit>
-            <trans-unit id="s93b38b71b79d98c1">
-                <source>Invert</source>
-            </trans-unit>
-            <trans-unit id="s8a5c7b0f9d26a384">
-                <source>Saturate</source>
-            </trans-unit>
-            <trans-unit id="scf92ea96f389a5e9">
-                <source>Sepia</source>
-            </trans-unit>
-            <trans-unit id="s73f77bbec41c24cc">
-                <source>Filter Slider</source>
-            </trans-unit>
-            <trans-unit id="sa43fa88ea2159d40">
-                <source>Filter Left</source>
-            </trans-unit>
-            <trans-unit id="saf93ec81e566ad55">
-                <source>Filter Right</source>
-            </trans-unit>
-            <trans-unit id="s255857544a9d5ec0">
-                <source>Reset</source>
-            </trans-unit>
-            <trans-unit id="s9d8b8aa2b404c2c8">
-                <source>Settings</source>
-            </trans-unit>
-            <trans-unit id="sadf4fddccc26746d">
-                <source><x id="0" equiv-text="${this.filterExampleEmoteName}"/> Twitch Emote With <x id="1" equiv-text="${filter.name}"/> Filter Applied</source>
-            </trans-unit>
+<file target-language="en-gb" source-language="en" original="lit-localize-inputs" datatype="plaintext">
+<body>
+<trans-unit id="sf3c9367a587441b5">
+  <source>Click the button to open the filter menu and select a filter to apply it.</source>
+  <target state="needs-l10n">Click the button to open the filter menu and select a filter to apply it.</target>
+</trans-unit>
+<trans-unit id="sc211240133beea65">
+  <source>Enable the Filter Slider to adjust what side of the screen is filtered, and feel free to move around the menu by dragging the button.</source>
+  <target state="needs-l10n">Enable the Filter Slider to adjust what side of the screen is filtered, and feel free to move around the menu by dragging the button.</target>
+</trans-unit>
+<trans-unit id="s12d19e4d8b9aa14e">
+  <source>No configuration required, so here's how to use Filters.</source>
+  <target state="needs-l10n">No configuration required, so here's how to use Filters.</target>
+</trans-unit>
+<trans-unit id="scdda3715cf670b1e">
+  <source>Demo step <x id="0" equiv-text="${index + 1}"/> using the <x id="1" equiv-text="${this.theme}"/> theme</source>
+  <target state="needs-l10n">Demo step <x id="0" equiv-text="${index + 1}"/> using the <x id="1" equiv-text="${this.theme}"/> theme</target>
+</trans-unit>
+<trans-unit id="sea66e6dc404ad61a">
+  <source><x id="0" equiv-text="${this.editorActive ? 'Hide' : 'Show'}"/> Filter Settings</source>
+  <target state="needs-l10n"><x id="0" equiv-text="${this.editorActive ? 'Hide' : 'Show'}"/> Filter Settings</target>
+</trans-unit>
+<trans-unit id="sbbe3fc658541fb58">
+  <source>Filter Settings</source>
+  <target state="needs-l10n">Filter Settings</target>
+</trans-unit>
+<trans-unit id="s18e8b71ff7db49f0">
+  <source>Toggle Theme</source>
+  <target state="needs-l10n">Toggle Theme</target>
+</trans-unit>
 <trans-unit id="sa8beb6b1182241ac">
   <source>Filters</source>
+  <target state="needs-l10n">Filters</target>
 </trans-unit>
-        </body>
-    </file>
+<trans-unit id="s5d929ff1619ac0c9">
+  <source>Search</source>
+  <target state="needs-l10n">Search</target>
+</trans-unit>
+<trans-unit id="s6630496438b2c2e9">
+  <source>No Filters Match Your Search</source>
+  <target state="needs-l10n">No Filters Match Your Search</target>
+</trans-unit>
+<trans-unit id="se9eb6976f93dfb18">
+  <source>Customize</source>
+  <target state="needs-l10n">Customize</target>
+</trans-unit>
+<trans-unit id="secf3bca7c1691718">
+  <source>Blur</source>
+  <target state="needs-l10n">Blur</target>
+</trans-unit>
+<trans-unit id="sf7ef7bd814fbaa8a">
+  <source>Brightness</source>
+  <target state="needs-l10n">Brightness</target>
+</trans-unit>
+<trans-unit id="sda9eb7b6b70799f3">
+  <source>Contrast</source>
+  <target state="needs-l10n">Contrast</target>
+</trans-unit>
+<trans-unit id="s82caaf657b01a4d0">
+  <source>Grayscale</source>
+  <target state="needs-l10n">Grayscale</target>
+</trans-unit>
+<trans-unit id="s5c4aef4e5aa84518">
+  <source>Hue Rotate</source>
+  <target state="needs-l10n">Hue Rotate</target>
+</trans-unit>
+<trans-unit id="s93b38b71b79d98c1">
+  <source>Invert</source>
+  <target state="needs-l10n">Invert</target>
+</trans-unit>
+<trans-unit id="s8a5c7b0f9d26a384">
+  <source>Saturate</source>
+  <target state="needs-l10n">Saturate</target>
+</trans-unit>
+<trans-unit id="scf92ea96f389a5e9">
+  <source>Sepia</source>
+  <target state="needs-l10n">Sepia</target>
+</trans-unit>
+<trans-unit id="s1efbfc3937d565bd">
+  <source>Background</source>
+  <target state="needs-l10n">Background</target>
+</trans-unit>
+<trans-unit id="s4771754365720ac1">
+  <source>Tint Selector</source>
+  <target state="needs-l10n">Tint Selector</target>
+</trans-unit>
+<trans-unit id="s5210113c2dde3fee">
+  <source>Clear Background</source>
+  <target state="needs-l10n">Clear Background</target>
+</trans-unit>
+<trans-unit id="sba64d8954d027206">
+  <source>Opacity</source>
+  <target state="needs-l10n">Opacity</target>
+</trans-unit>
+<trans-unit id="s713f8ac3f21647cd">
+  <source>Mix Blend Mode</source>
+  <target state="needs-l10n">Mix Blend Mode</target>
+</trans-unit>
+<trans-unit id="s9ff3121d30f88d52">
+  <source>Normal</source>
+  <target state="needs-l10n">Normal</target>
+</trans-unit>
+<trans-unit id="sf9929e2d356260c5">
+  <source>Multiply</source>
+  <target state="needs-l10n">Multiply</target>
+</trans-unit>
+<trans-unit id="s744d993d03f29851">
+  <source>Screen</source>
+  <target state="needs-l10n">Screen</target>
+</trans-unit>
+<trans-unit id="s7ed13ccddb1bf3c3">
+  <source>Overlay</source>
+  <target state="needs-l10n">Overlay</target>
+</trans-unit>
+<trans-unit id="s69fbbdb8ad2a084a">
+  <source>Darken</source>
+  <target state="needs-l10n">Darken</target>
+</trans-unit>
+<trans-unit id="s27056379e0acfdb0">
+  <source>Lighten</source>
+  <target state="needs-l10n">Lighten</target>
+</trans-unit>
+<trans-unit id="s50b7a935c233f307">
+  <source>Color Dodge</source>
+  <target state="needs-l10n">Color Dodge</target>
+</trans-unit>
+<trans-unit id="s296ec239b0f24a15">
+  <source>Color Burn</source>
+  <target state="needs-l10n">Color Burn</target>
+</trans-unit>
+<trans-unit id="s37f902723b049138">
+  <source>Hard Light</source>
+  <target state="needs-l10n">Hard Light</target>
+</trans-unit>
+<trans-unit id="s6116dc9ee0ad2ea9">
+  <source>Soft Light</source>
+  <target state="needs-l10n">Soft Light</target>
+</trans-unit>
+<trans-unit id="sb67e0e7c0869f982">
+  <source>Difference</source>
+  <target state="needs-l10n">Difference</target>
+</trans-unit>
+<trans-unit id="sd88076d2994ee0fb">
+  <source>Exclusion</source>
+  <target state="needs-l10n">Exclusion</target>
+</trans-unit>
+<trans-unit id="s491d2919cd6ec3d9">
+  <source>Hue</source>
+  <target state="needs-l10n">Hue</target>
+</trans-unit>
+<trans-unit id="s086e6c267ade2609">
+  <source>Saturation</source>
+  <target state="needs-l10n">Saturation</target>
+</trans-unit>
+<trans-unit id="s344ea8f4939cdc98">
+  <source>Color</source>
+  <target state="needs-l10n">Color</target>
+</trans-unit>
+<trans-unit id="sb8f610a0e8df91fc">
+  <source>Luminosity</source>
+  <target state="needs-l10n">Luminosity</target>
+</trans-unit>
+<trans-unit id="sd09d06f291d4b24c">
+  <source>Plus Darker</source>
+  <target state="needs-l10n">Plus Darker</target>
+</trans-unit>
+<trans-unit id="s2428fd2603e728e2">
+  <source>Plus Lighter</source>
+  <target state="needs-l10n">Plus Lighter</target>
+</trans-unit>
+<trans-unit id="s73f77bbec41c24cc">
+  <source>Filter Slider</source>
+  <target state="needs-l10n">Filter Slider</target>
+</trans-unit>
+<trans-unit id="sa43fa88ea2159d40">
+  <source>Filter Left</source>
+  <target state="needs-l10n">Filter Left</target>
+</trans-unit>
+<trans-unit id="saf93ec81e566ad55">
+  <source>Filter Right</source>
+  <target state="needs-l10n">Filter Right</target>
+</trans-unit>
+<trans-unit id="s255857544a9d5ec0">
+  <source>Reset</source>
+  <target state="needs-l10n">Reset</target>
+</trans-unit>
+<trans-unit id="sa6bc00b74fafc29e">
+  <source><x id="0" equiv-text="${filter.name}"/> Filter Selector</source>
+  <target state="needs-l10n"><x id="0" equiv-text="${filter.name}"/> Filter Selector</target>
+</trans-unit>
+<trans-unit id="sadf4fddccc26746d">
+  <source><x id="0" equiv-text="${ExtensionOverlay.filterExampleEmoteName}"/> Twitch Emote With <x id="1" equiv-text="${filter.name}"/> Filter Applied</source>
+  <target state="needs-l10n"><x id="0" equiv-text="${ExtensionOverlay.filterExampleEmoteName}"/> Twitch Emote With <x id="1" equiv-text="${filter.name}"/> Filter Applied</target>
+</trans-unit>
+<trans-unit id="s63cac58dc8ed50ea">
+  <source>Filter Slider Handle</source>
+  <target state="needs-l10n">Filter Slider Handle</target>
+</trans-unit>
+<trans-unit id="s5cc1e842f13a85b9">
+  <source>Use the Customize menu to adjust your filter or make one from scratch.</source>
+  <target state="translated">Use the Customize menu to adjust your filter or make one from scratch.</target>
+</trans-unit>
+</body>
+</file>
 </xliff>
