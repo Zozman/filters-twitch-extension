@@ -618,6 +618,14 @@ export default class ExtensionOverlay extends ExtensionBase {
     }
 
     /**
+     * Function to handle double-clicks so the Twitch player's actions are not invoked when interracting with the extension
+     * @param event `MouseEvent` received
+     */
+    private stopPropagationOfDoubleClick(event:MouseEvent) {
+        event.stopPropagation();
+    }
+
+    /**
      * Renders the editor
      * @returns Rendered template of the editor
      */
@@ -660,180 +668,183 @@ export default class ExtensionOverlay extends ExtensionBase {
                             variant="default"
                             size="medium"
                             circle
+                            @dblclick="${this.stopPropagationOfDoubleClick}"
                             @mousedown="${this.handleEditorButtonDrag}"
                             @touchstart="${this.handleEditorButtonDrag}">
                                 <sl-icon library="system" name="filters" label="${msg(str`${this.editorActive ? 'Hide' : 'Show'} Filter Settings`)}"></sl-icon>
                         </sl-button>
                         <div class="${classMap(editorControlsClasses)}" style="${styleMap(editorStyles)}" aria-label="${msg('Filter Settings')}">
-                            <sl-card class="editorCard">
-                                <div slot="header">
-                                    <sl-icon-button
-                                        name="${this.theme === TWITCH_THEMES.LIGHT ? 'moon' : 'sun'}"
-                                        library="system"
-                                        label="${msg('Toggle Theme')}"
-                                        @click="${this.onThemeToggleClick}"></sl-icon-button>
-                                </div>
-                                <sl-details summary="${msg('Filters')}" open>
-                                    <sl-input
-                                        .value="${this.filterSearchTerm}"
-                                        placeholder="${msg('Search')}"
-                                        size="small"
-                                        pill
-                                        clearable
-                                        @sl-input="${this.updateFilterSearch}">
-                                            <sl-icon name="search" library="system" slot="prefix"></sl-icon>
-                                    </sl-input>
-                                    <div class="editorFiltersHolder">
-                                        ${filtersArray.map(filter => this.renderFilter(filter))}
-                                        ${!atLeast1FilterMatchesSearch ? html`
-                                            <div class="editorFiltersHolderNoFilters">
-                                                <div>${msg('No Filters Match Your Search')}</div>
-                                            </div>    
-                                        ` : nothing}
+                            <sl-card
+                                class="editorCard"
+                                @dblclick="${this.stopPropagationOfDoubleClick}">
+                                    <div slot="header">
+                                        <sl-icon-button
+                                            name="${this.theme === TWITCH_THEMES.LIGHT ? 'moon' : 'sun'}"
+                                            library="system"
+                                            label="${msg('Toggle Theme')}"
+                                            @click="${this.onThemeToggleClick}"></sl-icon-button>
                                     </div>
-                                </sl-details>
-                                <sl-details summary="${msg('Customize')}">
-                                    <form class="editorForm">
-                                        <sl-range
-                                            label="${msg('Blur')}"
-                                            name="${FILTER_FIELDS.BLUR}"
-                                            min="0"
-                                            max="10"
-                                            step="1"
-                                            value="${this.filterBlur}"
-                                            @sl-input="${this.updateFilterData}"></sl-range>
-                                        <sl-range
-                                            label="${msg('Brightness')}"
-                                            name="${FILTER_FIELDS.BRIGHTNESS}"
-                                            min="0"
-                                            max="3"
-                                            step="0.01"
-                                            value="${this.filterBrightness}"
-                                            @sl-input="${this.updateFilterData}"></sl-range>
-                                        <sl-range
-                                            label="${msg('Contrast')}"
-                                            name="${FILTER_FIELDS.CONTRAST}"
-                                            min="0"
-                                            max="3"
-                                            step="0.01"
-                                            value="${this.filterContrast}"
-                                            @sl-input="${this.updateFilterData}"></sl-range>
-                                        <sl-range
-                                            label="${msg('Grayscale')}"
-                                            name="${FILTER_FIELDS.GRAYSCALE}"
-                                            min="0"
-                                            max="1"
-                                            step="0.01"
-                                            value="${this.filterGrayscale}"
-                                            @sl-input="${this.updateFilterData}"></sl-range>
-                                        <sl-range
-                                            label="${msg('Hue Rotate')}"
-                                            name="${FILTER_FIELDS.HUE_ROTATE}"
-                                            min="-360"
-                                            max="360"
-                                            step="1"
-                                            value="${this.filterHueRotate}"
-                                            @sl-input="${this.updateFilterData}"></sl-range>
-                                        <sl-range
-                                            label="${msg('Invert')}"
-                                            name="${FILTER_FIELDS.INVERT}"
-                                            min="0"
-                                            max="1"
-                                            step="0.01"
-                                            value="${this.filterInvert}"
-                                            @sl-input="${this.updateFilterData}"></sl-range>
-                                        <sl-range
-                                            label="${msg('Saturate')}"
-                                            name="${FILTER_FIELDS.SATURATE}"
-                                            min="0"
-                                            max="3"
-                                            step="0.01"
-                                            value="${this.filterSaturate}"
-                                            @sl-input="${this.updateFilterData}"></sl-range>
-                                        <sl-range
-                                            label="${msg('Sepia')}"
-                                            name="${FILTER_FIELDS.SEPIA}"
-                                            min="0"
-                                            max="1"
-                                            step="0.01"
-                                            value="${this.filterSepia}"
-                                            @sl-input="${this.updateFilterData}"></sl-range>
-                                        <div class="formRow">
-                                            <label for="${FILTER_FIELDS.BACKGROUND}">${msg('Background')}</label>
-                                            <sl-color-picker
-                                                .value="${this.filterBackground}"
-                                                size="small"
-                                                format="rgb"
-                                                name="${FILTER_FIELDS.BACKGROUND}"
-                                                no-format-toggle
-                                                label="${msg('Tint Selector')}"
-                                                @sl-input="${this.updateFilterData}"></sl-color-picker>
-                                        ${this.filterBackground != '' ? html`
-                                            <sl-icon-button
-                                                library="system"
-                                                name="x-circle-fill"
-                                                label="${msg('Clear Background')}"
-                                                @click="${this.clearBackground}"></sl-icon-button>
-                                        ` : nothing}
+                                    <sl-details summary="${msg('Filters')}" open>
+                                        <sl-input
+                                            .value="${this.filterSearchTerm}"
+                                            placeholder="${msg('Search')}"
+                                            size="small"
+                                            pill
+                                            clearable
+                                            @sl-input="${this.updateFilterSearch}">
+                                                <sl-icon name="search" library="system" slot="prefix"></sl-icon>
+                                        </sl-input>
+                                        <div class="editorFiltersHolder">
+                                            ${filtersArray.map(filter => this.renderFilter(filter))}
+                                            ${!atLeast1FilterMatchesSearch ? html`
+                                                <div class="editorFiltersHolderNoFilters">
+                                                    <div>${msg('No Filters Match Your Search')}</div>
+                                                </div>    
+                                            ` : nothing}
                                         </div>
-                                        <sl-range
-                                            label="${msg('Opacity')}"
-                                            name="${FILTER_FIELDS.OPACITY}"
-                                            min="0"
-                                            max="1"
-                                            step="0.01"
-                                            value="${this.filterOpacity}"
-                                            @sl-input="${this.updateFilterData}">
-                                        </sl-range>
-                                        <sl-select
-                                            name="${FILTER_FIELDS.MIX_BLEND_MODE}"
-                                            value="${this.filterMixBlendMode}"
-                                            label="${msg('Mix Blend Mode')}"
-                                            @sl-input="${this.updateFilterData}">
-                                                <sl-option value="${MIX_BLEND_MODE.NORMAL}">${msg('Normal')}</sl-option>
-                                                <sl-option value="${MIX_BLEND_MODE.MULTIPLY}">${msg('Multiply')}</sl-option>
-                                                <sl-option value="${MIX_BLEND_MODE.SCREEN}">${msg('Screen')}</sl-option>
-                                                <sl-option value="${MIX_BLEND_MODE.OVERLAY}">${msg('Overlay')}</sl-option>
-                                                <sl-option value="${MIX_BLEND_MODE.DARKEN}">${msg('Darken')}</sl-option>
-                                                <sl-option value="${MIX_BLEND_MODE.LIGHTEN}">${msg('Lighten')}</sl-option>
-                                                <sl-option value="${MIX_BLEND_MODE.COLOR_DODGE}">${msg('Color Dodge')}</sl-option>
-                                                <sl-option value="${MIX_BLEND_MODE.COLOR_BURN}">${msg('Color Burn')}</sl-option>
-                                                <sl-option value="${MIX_BLEND_MODE.HARD_LIGHT}">${msg('Hard Light')}</sl-option>
-                                                <sl-option value="${MIX_BLEND_MODE.SOFT_LIGHT}">${msg('Soft Light')}</sl-option>
-                                                <sl-option value="${MIX_BLEND_MODE.DIFFERENCE}">${msg('Difference')}</sl-option>
-                                                <sl-option value="${MIX_BLEND_MODE.EXCLUSION}">${msg('Exclusion')}</sl-option>
-                                                <sl-option value="${MIX_BLEND_MODE.HUE}">${msg('Hue')}</sl-option>
-                                                <sl-option value="${MIX_BLEND_MODE.SATURATION}">${msg('Saturation')}</sl-option>
-                                                <sl-option value="${MIX_BLEND_MODE.COLOR}">${msg('Color')}</sl-option>
-                                                <sl-option value="${MIX_BLEND_MODE.LUMINOSITY}">${msg('Luminosity')}</sl-option>
-                                                <sl-option value="${MIX_BLEND_MODE.PLUS_DARKER}">${msg('Plus Darker')}</sl-option>
-                                                <sl-option value="${MIX_BLEND_MODE.PLUS_LIGHTER}">${msg('Plus Lighter')}</sl-option>
-                                        </sl-select>
-                                    </form>
-                                </sl-details>
-                                <div class="editorControlsFooter" slot="footer">
-                                    <sl-switch
-                                        .disabled="${this.isAnimatingDivider}"
-                                        @sl-change="${this.toggleDivider}"
-                                        >${msg('Filter Slider')}</sl-switch>
-                                    <sl-radio-group
-                                        size="small"
-                                        name="Filter Side"
-                                        .value="${this.filterSide}"
-                                        @sl-change="${this.toggleFilterSide}">
-                                            <sl-radio-button
-                                                pill
-                                                .disabled="${this.isAnimatingDivider || !this.dividerActive}"
-                                                value="left">${msg('Filter Left')}</sl-radio-button>
-                                            <sl-radio-button
-                                                pill
-                                                .disabled="${this.isAnimatingDivider || !this.dividerActive}"
-                                                value="right">${msg('Filter Right')}</sl-radio-button>
-                                    </sl-radio-group>
-                                    <sl-button
-                                        variant="default"
-                                        @click="${this.reset}">${msg('Reset')}</sl-button>
-                                </div>
+                                    </sl-details>
+                                    <sl-details summary="${msg('Customize')}">
+                                        <form class="editorForm">
+                                            <sl-range
+                                                label="${msg('Blur')}"
+                                                name="${FILTER_FIELDS.BLUR}"
+                                                min="0"
+                                                max="10"
+                                                step="1"
+                                                value="${this.filterBlur}"
+                                                @sl-input="${this.updateFilterData}"></sl-range>
+                                            <sl-range
+                                                label="${msg('Brightness')}"
+                                                name="${FILTER_FIELDS.BRIGHTNESS}"
+                                                min="0"
+                                                max="3"
+                                                step="0.01"
+                                                value="${this.filterBrightness}"
+                                                @sl-input="${this.updateFilterData}"></sl-range>
+                                            <sl-range
+                                                label="${msg('Contrast')}"
+                                                name="${FILTER_FIELDS.CONTRAST}"
+                                                min="0"
+                                                max="3"
+                                                step="0.01"
+                                                value="${this.filterContrast}"
+                                                @sl-input="${this.updateFilterData}"></sl-range>
+                                            <sl-range
+                                                label="${msg('Grayscale')}"
+                                                name="${FILTER_FIELDS.GRAYSCALE}"
+                                                min="0"
+                                                max="1"
+                                                step="0.01"
+                                                value="${this.filterGrayscale}"
+                                                @sl-input="${this.updateFilterData}"></sl-range>
+                                            <sl-range
+                                                label="${msg('Hue Rotate')}"
+                                                name="${FILTER_FIELDS.HUE_ROTATE}"
+                                                min="-360"
+                                                max="360"
+                                                step="1"
+                                                value="${this.filterHueRotate}"
+                                                @sl-input="${this.updateFilterData}"></sl-range>
+                                            <sl-range
+                                                label="${msg('Invert')}"
+                                                name="${FILTER_FIELDS.INVERT}"
+                                                min="0"
+                                                max="1"
+                                                step="0.01"
+                                                value="${this.filterInvert}"
+                                                @sl-input="${this.updateFilterData}"></sl-range>
+                                            <sl-range
+                                                label="${msg('Saturate')}"
+                                                name="${FILTER_FIELDS.SATURATE}"
+                                                min="0"
+                                                max="3"
+                                                step="0.01"
+                                                value="${this.filterSaturate}"
+                                                @sl-input="${this.updateFilterData}"></sl-range>
+                                            <sl-range
+                                                label="${msg('Sepia')}"
+                                                name="${FILTER_FIELDS.SEPIA}"
+                                                min="0"
+                                                max="1"
+                                                step="0.01"
+                                                value="${this.filterSepia}"
+                                                @sl-input="${this.updateFilterData}"></sl-range>
+                                            <div class="formRow">
+                                                <label for="${FILTER_FIELDS.BACKGROUND}">${msg('Background')}</label>
+                                                <sl-color-picker
+                                                    .value="${this.filterBackground}"
+                                                    size="small"
+                                                    format="rgb"
+                                                    name="${FILTER_FIELDS.BACKGROUND}"
+                                                    no-format-toggle
+                                                    label="${msg('Tint Selector')}"
+                                                    @sl-input="${this.updateFilterData}"></sl-color-picker>
+                                            ${this.filterBackground != '' ? html`
+                                                <sl-icon-button
+                                                    library="system"
+                                                    name="x-circle-fill"
+                                                    label="${msg('Clear Background')}"
+                                                    @click="${this.clearBackground}"></sl-icon-button>
+                                            ` : nothing}
+                                            </div>
+                                            <sl-range
+                                                label="${msg('Opacity')}"
+                                                name="${FILTER_FIELDS.OPACITY}"
+                                                min="0"
+                                                max="1"
+                                                step="0.01"
+                                                value="${this.filterOpacity}"
+                                                @sl-input="${this.updateFilterData}">
+                                            </sl-range>
+                                            <sl-select
+                                                name="${FILTER_FIELDS.MIX_BLEND_MODE}"
+                                                value="${this.filterMixBlendMode}"
+                                                label="${msg('Mix Blend Mode')}"
+                                                @sl-input="${this.updateFilterData}">
+                                                    <sl-option value="${MIX_BLEND_MODE.NORMAL}">${msg('Normal')}</sl-option>
+                                                    <sl-option value="${MIX_BLEND_MODE.MULTIPLY}">${msg('Multiply')}</sl-option>
+                                                    <sl-option value="${MIX_BLEND_MODE.SCREEN}">${msg('Screen')}</sl-option>
+                                                    <sl-option value="${MIX_BLEND_MODE.OVERLAY}">${msg('Overlay')}</sl-option>
+                                                    <sl-option value="${MIX_BLEND_MODE.DARKEN}">${msg('Darken')}</sl-option>
+                                                    <sl-option value="${MIX_BLEND_MODE.LIGHTEN}">${msg('Lighten')}</sl-option>
+                                                    <sl-option value="${MIX_BLEND_MODE.COLOR_DODGE}">${msg('Color Dodge')}</sl-option>
+                                                    <sl-option value="${MIX_BLEND_MODE.COLOR_BURN}">${msg('Color Burn')}</sl-option>
+                                                    <sl-option value="${MIX_BLEND_MODE.HARD_LIGHT}">${msg('Hard Light')}</sl-option>
+                                                    <sl-option value="${MIX_BLEND_MODE.SOFT_LIGHT}">${msg('Soft Light')}</sl-option>
+                                                    <sl-option value="${MIX_BLEND_MODE.DIFFERENCE}">${msg('Difference')}</sl-option>
+                                                    <sl-option value="${MIX_BLEND_MODE.EXCLUSION}">${msg('Exclusion')}</sl-option>
+                                                    <sl-option value="${MIX_BLEND_MODE.HUE}">${msg('Hue')}</sl-option>
+                                                    <sl-option value="${MIX_BLEND_MODE.SATURATION}">${msg('Saturation')}</sl-option>
+                                                    <sl-option value="${MIX_BLEND_MODE.COLOR}">${msg('Color')}</sl-option>
+                                                    <sl-option value="${MIX_BLEND_MODE.LUMINOSITY}">${msg('Luminosity')}</sl-option>
+                                                    <sl-option value="${MIX_BLEND_MODE.PLUS_DARKER}">${msg('Plus Darker')}</sl-option>
+                                                    <sl-option value="${MIX_BLEND_MODE.PLUS_LIGHTER}">${msg('Plus Lighter')}</sl-option>
+                                            </sl-select>
+                                        </form>
+                                    </sl-details>
+                                    <div class="editorControlsFooter" slot="footer">
+                                        <sl-switch
+                                            .disabled="${this.isAnimatingDivider}"
+                                            @sl-change="${this.toggleDivider}"
+                                            >${msg('Filter Slider')}</sl-switch>
+                                        <sl-radio-group
+                                            size="small"
+                                            name="Filter Side"
+                                            .value="${this.filterSide}"
+                                            @sl-change="${this.toggleFilterSide}">
+                                                <sl-radio-button
+                                                    pill
+                                                    .disabled="${this.isAnimatingDivider || !this.dividerActive}"
+                                                    value="left">${msg('Filter Left')}</sl-radio-button>
+                                                <sl-radio-button
+                                                    pill
+                                                    .disabled="${this.isAnimatingDivider || !this.dividerActive}"
+                                                    value="right">${msg('Filter Right')}</sl-radio-button>
+                                        </sl-radio-group>
+                                        <sl-button
+                                            variant="default"
+                                            @click="${this.reset}">${msg('Reset')}</sl-button>
+                                    </div>
                             </sl-card>
                         </div>
                     </div>
