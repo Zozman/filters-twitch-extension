@@ -10,7 +10,7 @@ import { ExtensionBase } from '../../extension-base';
 import {drag} from '../../utils/drag';
 import {clamp} from '../../utils/clamp';
 
-import { defaultFilterValues, filtersArray } from './filters';
+import { defaultFilterValues, filterDefault, filtersArray } from './filters';
 
 import { TWITCH_THEMES, TwitchExtensionContext } from '../../types/twitch';
 
@@ -626,6 +626,25 @@ export default class ExtensionOverlay extends ExtensionBase {
     }
 
     /**
+     * 
+     * @param filter The filter being checked
+     * @returns True if the passed in filter matches the current values
+     */
+    private currentFilterIsFilter(filter:Filter) {
+        return this.filterBlur === filter.values[FILTER_FIELDS.BLUR]
+            && this.filterBrightness === filter.values[FILTER_FIELDS.BRIGHTNESS]
+            && this.filterContrast === filter.values[FILTER_FIELDS.CONTRAST]
+            && this.filterGrayscale === filter.values[FILTER_FIELDS.GRAYSCALE]
+            && this.filterHueRotate === filter.values[FILTER_FIELDS.HUE_ROTATE]
+            && this.filterInvert === filter.values[FILTER_FIELDS.INVERT]
+            && this.filterSaturate === filter.values[FILTER_FIELDS.SATURATE]
+            && this.filterSepia === filter.values[FILTER_FIELDS.SEPIA]
+            && this.filterBackground === filter.values[FILTER_FIELDS.BACKGROUND]
+            && this.filterOpacity === filter.values[FILTER_FIELDS.OPACITY]
+            && this.filterMixBlendMode === filter.values[FILTER_FIELDS.MIX_BLEND_MODE];
+    }
+
+    /**
      * Renders the editor
      * @returns Rendered template of the editor
      */
@@ -864,17 +883,7 @@ export default class ExtensionOverlay extends ExtensionBase {
         // Attempt to get an emote URL to use
         const filterEmoteUrl = this.computeEmoteUrl(ExtensionOverlay.filterExampleEmoteName, this.theme);
 
-        const filterIsSelected = this.filterBlur === filter.values[FILTER_FIELDS.BLUR]
-            && this.filterBrightness === filter.values[FILTER_FIELDS.BRIGHTNESS]
-            && this.filterContrast === filter.values[FILTER_FIELDS.CONTRAST]
-            && this.filterGrayscale === filter.values[FILTER_FIELDS.GRAYSCALE]
-            && this.filterHueRotate === filter.values[FILTER_FIELDS.HUE_ROTATE]
-            && this.filterInvert === filter.values[FILTER_FIELDS.INVERT]
-            && this.filterSaturate === filter.values[FILTER_FIELDS.SATURATE]
-            && this.filterSepia === filter.values[FILTER_FIELDS.SEPIA]
-            && this.filterBackground === filter.values[FILTER_FIELDS.BACKGROUND]
-            && this.filterOpacity === filter.values[FILTER_FIELDS.OPACITY]
-            && this.filterMixBlendMode === filter.values[FILTER_FIELDS.MIX_BLEND_MODE];
+        const filterIsSelected = this.currentFilterIsFilter(filter);
 
         const filterClasses = {
             filterCard: true,
@@ -945,12 +954,14 @@ export default class ExtensionOverlay extends ExtensionBase {
                 class="${classMap(dividerClasses)}">
                     <div
                         class="dividerLine dividerLineTop"
+                        @dblclick="${this.stopPropagationOfDoubleClick}"
                         @mousedown=${this.handleDrag}
                         @touchstart=${this.handleDrag}>
                     </div>
                     <div
                         class="dividerHandle"
                         aria-label="${msg('Filter Slider Handle')}"
+                        @dblclick="${this.stopPropagationOfDoubleClick}"
                         @mousedown=${this.handleDrag}
                         @touchstart=${this.handleDrag}>
                         <sl-icon
@@ -961,6 +972,7 @@ export default class ExtensionOverlay extends ExtensionBase {
                     </div>
                     <div
                         class="dividerLine dividerLineBottom"
+                        @dblclick="${this.stopPropagationOfDoubleClick}"
                         @mousedown=${this.handleDrag}
                         @touchstart=${this.handleDrag}>
                     </div>
@@ -1000,15 +1012,18 @@ export default class ExtensionOverlay extends ExtensionBase {
             dark: this.theme === TWITCH_THEMES.DARK,
             light: this.theme === TWITCH_THEMES.LIGHT
         };
+        const currentFilterIsDefault = this.currentFilterIsFilter(filterDefault);
         const filterStyle = {
-            'backdrop-filter': `${FILTER_FIELDS.BLUR}(${this.filterBlur}px)
-                                ${FILTER_FIELDS.BRIGHTNESS}(${this.filterBrightness})
-                                ${FILTER_FIELDS.CONTRAST}(${this.filterContrast})
-                                ${FILTER_FIELDS.GRAYSCALE}(${this.filterGrayscale})
-                                ${FILTER_FIELDS.HUE_ROTATE}(${this.filterHueRotate}deg)
-                                ${FILTER_FIELDS.INVERT}(${this.filterInvert})
-                                ${FILTER_FIELDS.SATURATE}(${this.filterSaturate})
-                                ${FILTER_FIELDS.SEPIA}(${this.filterSepia})`,
+            'backdrop-filter': !currentFilterIsDefault
+                ? `${FILTER_FIELDS.BLUR}(${this.filterBlur}px)
+                   ${FILTER_FIELDS.BRIGHTNESS}(${this.filterBrightness})
+                   ${FILTER_FIELDS.CONTRAST}(${this.filterContrast})
+                   ${FILTER_FIELDS.GRAYSCALE}(${this.filterGrayscale})
+                   ${FILTER_FIELDS.HUE_ROTATE}(${this.filterHueRotate}deg)
+                   ${FILTER_FIELDS.INVERT}(${this.filterInvert})
+                   ${FILTER_FIELDS.SATURATE}(${this.filterSaturate})
+                   ${FILTER_FIELDS.SEPIA}(${this.filterSepia})`
+                : 'none',
             '--filter-background': this.filterBackground || 'transparent',
             '--filter-opacity': this.filterOpacity,
             '--filter-mix-blend-mode': this.filterMixBlendMode,
