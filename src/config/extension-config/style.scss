@@ -12,10 +12,8 @@
 .holderCard {
     margin: auto;
     max-width: 1000px;
-
-    .demoCarousel {
-        height: min(50vh, 500px);
-    }
+    max-height: 100vh;
+    overflow: auto;
 
     .holderCardHeader, .holderFooter {
         min-height: calc(var(--sl-font-size-large)* 3);
