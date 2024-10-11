@@ -1,4 +1,4 @@
-# On pushes to master, create a new "master" release
+# On pushes to main, build extension
 name: ci
 
 on:
@@ -29,10 +29,3 @@ jobs:
 
             - name: Build Extension
               run: npm run prod
-
-            - name: Update ${{github.ref_name}} Release
-              uses: ncipollo/release-action@v1
-              with:
-                allowUpdates: true
-                artifacts: "filters-twitch-extension-*.zip"
-                tag: ${{github.ref_name}}
