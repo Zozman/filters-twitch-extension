@@ -1,0 +1,38 @@
+# On pushes to master, create a new "master" release
+name: ci
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout Repo
+              uses: actions/checkout@v4
+              with:
+                fetch-depth: "0"
+                
+            - name: Setup NodeJs
+              uses: actions/setup-node@v4.0.4
+              with:
+                node-version: "20"
+
+            - name: Install zip
+              run: sudo apt-get install -y zip
+
+            - name: Install npm Dependencies
+              run: npm install
+
+            - name: Build Extension
+              run: npm run prod
+
+            - name: Update ${{github.ref_name}} Release
+              uses: ncipollo/release-action@v1
+              with:
+                allowUpdates: true
+                artifacts: "filters-twitch-extension-*.zip"
+                tag: ${{github.ref_name}}
