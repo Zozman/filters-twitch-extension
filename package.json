@@ -2,7 +2,7 @@
   "name": "filters-twitch-extension",
   "version": "1.0.0",
   "description": "Twitch Extension for adding filters to streams.",
-  "main": "index.js",
+  "homepage": "https://github.com/Zozman/filters-twitch-extension",
   "scripts": {
     "dev": "webpack serve --mode=development",
     "dev:config": "webpack serve --mode=development --env page='config.html'",
@@ -15,6 +15,13 @@
   },
   "author": "Zac Lovoy @zwlovoy",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Zozman/filters-twitch-extension.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Zozman/filters-twitch-extension/issues"
+  },
   "devDependencies": {
     "@lit/localize-tools": "0.8.0",
     "clean-webpack-plugin": "4.0.0",
@@ -23,10 +30,10 @@
     "html-webpack-plugin": "5.6.0",
     "lit-css-loader": "3.0.0",
     "minify-html-literals-loader": "1.1.1",
-    "sass": "1.79.4",
+    "sass": "1.79.5",
     "sass-loader": "16.0.2",
     "ts-loader": "9.5.1",
-    "typescript": "5.6.2",
+    "typescript": "5.6.3",
     "webpack": "5.95.0",
     "webpack-cli": "5.1.4",
     "webpack-dev-server": "5.1.0"
@@ -36,7 +43,7 @@
     "@lit/task": "^1.0.1",
     "@shoelace-style/shoelace": "2.17.1",
     "@webcomponents/webcomponentsjs": "2.8.0",
-    "lit": "3.2.0",
+    "lit": "3.2.1",
     "miragejs": "0.2.0-alpha.3"
   }
 }

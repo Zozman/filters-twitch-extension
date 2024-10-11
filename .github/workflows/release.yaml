@@ -23,6 +23,9 @@ jobs:
               with:
                 node-version: "20"
 
+            - name: Set Version In package.json
+              run: npm --no-git-tag-version version ${{github.ref_name}}
+
             - name: Install zip
               run: sudo apt-get install -y zip
 
