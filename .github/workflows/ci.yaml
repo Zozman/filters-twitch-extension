@@ -1,8 +1,11 @@
-# On pushes to main, build extension
+# Basic ci pipeline to ensure the extension can be built
 name: ci
 
 on:
   push:
+    branches:
+      - main
+  pull_request:
     branches:
       - main
 
