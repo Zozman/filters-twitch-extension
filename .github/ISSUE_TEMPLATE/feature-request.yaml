@@ -1,0 +1,14 @@
+name: Feature Request
+description: Request a new feature for the Extension.
+
+body:
+  - type: textarea
+    id: description
+    validations:
+      required: true
+    attributes:
+      label: Description
+      description: |
+        Please describe the feature request in as much detail as possible, including examples of how you would use the new feature.
+      placeholder: |
+        It would be nice if the Extension was Good and not Bad.

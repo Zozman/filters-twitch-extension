@@ -1,0 +1,33 @@
+name: Bug Report
+description: Report a bug in the Extension
+
+body:
+  - type: textarea
+    id: description
+    validations:
+      required: true
+    attributes:
+      label: Description
+      description: |
+        Please describe the bug in as much detail as possible.  Include what you expected to happen, and what actually happened.
+
+  - type: textarea
+    id: reproduction
+    validations:
+      required: true
+    attributes:
+      label: Reproduction
+      description: |
+        Please explain exactly how to reporduce the issue.  Please include as much detail as possible to help debug the issue (videos are awesome).
+
+  - type: textarea
+    id: environment
+    validations:
+      required: true
+    attributes:
+      label: Browser/OS environment
+      description: |
+        Please list which browser and operating system combination(s) you are using.
+      placeholder: |
+        Browser: Chrome 103.0.5060.53
+        OS: macOS 12.4
