@@ -1,7 +1,7 @@
 <p align="center">
   <a href="#">
     <picture>
-      <img src="images/listingAssets/screenshots/screenshot1.gif">
+      <img src="images/listingAssets/screenshots/screenshot1.gif" alt="Animated gif of the Filters Extension in use">
     </picture>
   </a>
 </p>
@@ -15,6 +15,10 @@ Releases can be found on the [Releases Page](https://github.com/Zozman/filters-t
 ## Issues / Bugs / Things People Are Mad About
 
 Issues and bug reports can be filed on the [GitHub Issues Page](https://github.com/Zozman/filters-twitch-extension/issues).
+
+## Contributing
+
+Contributions are welcome!  Get started by [forking the repo](https://github.com/Zozman/filters-twitch-extension/fork), working on your contribution, and [filing a pull request](https://github.com/Zozman/filters-twitch-extension/compare) when you're ready.
 
 ## Development
 
@@ -60,7 +64,7 @@ This extension uses [Webpack](https://webpack.js.org/) to handle building and pa
 
 ## License
 
-The source code is [licensed under The MIT License](./LICENSE.md).  The [Filters image](./images/filters/filtersOriginal.svg) isused under a purchased Royalty-Free Commercial License from [The Noun Project](https://thenounproject.com/icon/video-effect-3554427/).
+The source code is [licensed under The MIT License](./LICENSE.md).  The [Filters image](./images/filters/filtersOriginal.svg) is used under a purchased Royalty-Free Commercial License from [The Noun Project](https://thenounproject.com/icon/video-effect-3554427/).
 
 ## About
 
