@@ -60,7 +60,7 @@ This extension uses [Webpack](https://webpack.js.org/) to handle building and pa
 
 ## License
 
-The source code is licensed under The MIT License.  The [Filters image](./images/filters/filtersOriginal.svg) isused under a purchased Royalty-Free Commercial License from [The Noun Project](https://thenounproject.com/icon/video-effect-3554427/).
+The source code is [licensed under The MIT License](./LICENSE.md).  The [Filters image](./images/filters/filtersOriginal.svg) isused under a purchased Royalty-Free Commercial License from [The Noun Project](https://thenounproject.com/icon/video-effect-3554427/).
 
 ## About
 
