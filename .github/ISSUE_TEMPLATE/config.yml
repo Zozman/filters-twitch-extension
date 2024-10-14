@@ -1,8 +1,5 @@
 blank_issues_enabled: true
 contact_links:
-  - name: TwitchDev Discord Server
-    url: https://link.twitch.tv/devchat
-    about: Questions about Twitch Extension development (aka NOT questions about this Extension)?  Want answers from more competent people than the maintainers of this repo?  Come check out the TwitchDev Discord server.
   - name: Problems With Twitch (aka not Extension stuff)
     url: https://help.twitch.tv/s/contactsupport
     about: We can't help you with Twitch Malarky so reach out to Twitch Support for help with that.
