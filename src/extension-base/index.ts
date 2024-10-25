@@ -3,7 +3,7 @@ import { state} from 'lit/decorators.js';
 import { Task } from '@lit/task';
 
 import { sourceLocale ,targetLocales } from '../generated/locale-codes';
-import { setLocale } from '../utils/localization';
+import { loadShoelaceLocale, setLocale } from '../utils/localization';
 import { TWITCH_THEMES, TwitchExtensionAuth, TwitchExtensionContext } from '../types/twitch';
 
 /**
@@ -37,7 +37,7 @@ export abstract class ExtensionBase extends LitElement {
      */
     @state()
     protected loadLocaleTask = new Task(this, {
-        task: ([language]) => setLocale(language),
+        task: ([language]) => Promise.all([setLocale(language), loadShoelaceLocale(language)]),
         args: () => [this.language]
     });
 
@@ -78,6 +78,8 @@ export abstract class ExtensionBase extends LitElement {
     
     connectedCallback():void {
         super.connectedCallback();
+        // Set the language in the DOM so Shoelace can use it
+        document.documentElement.setAttribute('lang', this.language);
         // Get the Twitch Auth info when we get it
         window.Twitch.ext.onAuthorized((auth:TwitchExtensionAuth) => {
             this.auth = auth;

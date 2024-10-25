@@ -1,8 +1,19 @@
+const fs = require('fs');
 const path = require('path');
 const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+
+// We need to generate a list of locales that Shoelace supports for out localization logic
+const shoelaceLocalesDirectory = path.resolve(__dirname, "./node_modules/@shoelace-style/shoelace/dist/translations");
+const shoelaceLocales = [];
+fs.readdirSync(shoelaceLocalesDirectory).forEach(file => {
+  if (file.endsWith('.js')) {
+    const locale = file.split('.')[0];
+    shoelaceLocales.push(locale);
+  }
+});
 
 module.exports = (env, argv) => {
   let devtool = false;
@@ -88,6 +99,7 @@ module.exports = (env, argv) => {
       new CleanWebpackPlugin(),
       new webpack.DefinePlugin({
         VERSION: JSON.stringify(process.env.npm_package_version),
+        SHOELACE_LOCALES: JSON.stringify(shoelaceLocales)
       }),
       new HtmlWebpackPlugin({
         template: "./src/overlay/index.html",
