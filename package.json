@@ -31,7 +31,7 @@
     "lit-css-loader": "3.0.0",
     "minify-html-literals-loader": "1.1.1",
     "sass": "1.81.1",
-    "sass-loader": "16.0.3",
+    "sass-loader": "16.0.4",
     "ts-loader": "9.5.1",
     "typescript": "5.7.2",
     "webpack": "5.96.1",
