@@ -1,6 +1,6 @@
 {
   "name": "filters-twitch-extension",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Twitch Extension for adding filters to streams.",
   "homepage": "https://github.com/Zozman/filters-twitch-extension",
   "scripts": {
