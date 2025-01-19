@@ -30,7 +30,7 @@ export default class ExtensionOverlay extends ExtensionBase {
     /**
      * Test stream channel to show in the overlay
      */
-    static testStreamChannel = 'qa_partner_sirhype';
+    static testStreamChannel = 'qa_partner';
 
     /**
      * List of emote sets to load into `this.emoteMap`

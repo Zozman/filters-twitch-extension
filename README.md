@@ -29,7 +29,7 @@ Contributions are welcome!  Get started by [forking the repo](https://github.com
 
 ### Running The Local Dev Server
 
-Local development uses [Webpack Dev Server](https://webpack.js.org/configuration/dev-server/) to allow for local development and uses [Mirage JS](https://miragejs.com/) for locally mocking calls to the [Twitch API](https://dev.twitch.tv/docs/api/).  The following commands are available:
+Local development uses [Rspack Dev Server](https://rspack.dev/guide/features/dev-server) to allow for local development and uses [Mirage JS](https://miragejs.com/) for locally mocking calls to the [Twitch API](https://dev.twitch.tv/docs/api/).  The following commands are available:
 
 - `npm run dev`
     - Spins up a local development server and have the [overlay](./src/overlay/) open in the browser.
@@ -48,7 +48,7 @@ This extension uses [@lit/localize](https://lit.dev/docs/localization/overview/)
 
 ### Build
 
-This extension uses [Webpack](https://webpack.js.org/) to handle building and packaging the extension and the following commands are available:
+This extension uses [Rspack](https://rspack.dev) to handle building and packaging the extension and the following commands are available:
 
 - `npm run build`
     - Builds the extension and puts the resulting build in the `dist` directory.
