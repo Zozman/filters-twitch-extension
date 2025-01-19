@@ -13,7 +13,8 @@
       "allowSyntheticDefaultImports": true,
       "experimentalDecorators": true,
       "forceConsistentCasingInFileNames": true,
-      "resolveJsonModule": true
+      "resolveJsonModule": true,
+      "useDefineForClassFields": false
     },
     "include": [
       "**/*.ts",

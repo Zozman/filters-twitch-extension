@@ -1,8 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const webpack = require("webpack");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const CopyWebpackPlugin = require("copy-webpack-plugin");
+const { rspack } = require('@rspack/core');
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
 // We need to generate a list of locales that Shoelace supports for out localization logic
@@ -20,7 +18,8 @@ module.exports = (env, argv) => {
   if (argv.mode && argv.mode === 'development') {
     devtool = 'eval';
   }
-  return {
+  /** @type {import('@rspack/cli').Configuration} */
+  const config = {
     mode: argv.mode,
     entry: {
       extension: [path.resolve(__dirname, "./src/overlay/index.ts")],
@@ -30,6 +29,7 @@ module.exports = (env, argv) => {
       path: path.resolve(__dirname, "./dist"),
       filename: "[name].[contenthash].bundle.js",
       publicPath: "",
+      assetModuleFilename: "assets/[name].[contenthash].[ext]"
     },
     optimization: {
       minimize: devtool ? true : false,
@@ -39,12 +39,26 @@ module.exports = (env, argv) => {
         // Loading TypeScript
         {
           test: /\.ts?$/,
+          type: 'javascript/auto',
           use: [
             {
               loader: 'minify-html-literals-loader'
             },
             {
-              loader: 'ts-loader'
+              loader: 'builtin:swc-loader',
+              /** @type {import('@rspack/core').SwcLoaderOptions} */
+              options: {
+                jsc: {
+                  parser: {
+                    syntax: 'typescript',
+                    decorators: true,
+                  },
+                  transform: {
+                    legacyDecorator: true,
+                    useDefineForClassFields: false
+                  },
+                },
+              }
             }
           ],
           exclude: /node_modules/,
@@ -62,6 +76,8 @@ module.exports = (env, argv) => {
               options: {
                 sassOptions: {
                   outputStyle: "compressed",
+                  api: 'modern-compiler',
+                  implementation: require.resolve('sass-embedded')
                 },
               },
             },
@@ -70,14 +86,7 @@ module.exports = (env, argv) => {
         // Loading images
         {
           test: /\.(png|svg|jpg|gif|ico|webp)$/,
-          use: [
-            {
-              loader: 'file-loader',
-              options: {
-                name: 'assets/[name].[contenthash].[ext]',
-              },
-            }
-          ],
+          type: 'asset/resource',
         }
       ],
     },
@@ -95,29 +104,28 @@ module.exports = (env, argv) => {
       },
     },
     plugins: [
-      new webpack.ProgressPlugin(),
       new CleanWebpackPlugin(),
-      new webpack.DefinePlugin({
+      new rspack.DefinePlugin({
         VERSION: JSON.stringify(process.env.npm_package_version),
         SHOELACE_LOCALES: JSON.stringify(shoelaceLocales)
       }),
-      new HtmlWebpackPlugin({
+      new rspack.HtmlRspackPlugin({
         template: "./src/overlay/index.html",
         filename: "index.html",
         hash: true,
         inject: "head",
         chunks: ["extension"],
       }),
-      new HtmlWebpackPlugin({
+      new rspack.HtmlRspackPlugin({
         template: "./src/config/index.html",
         filename: "config.html",
         hash: true,
         inject: "head",
         chunks: ["config"],
       }),
-      new CopyWebpackPlugin({
+      new rspack.CopyRspackPlugin({
         patterns: [
-          // Used to ensure Webcomponent compatibility for older borwsers
+          // Used to ensure Webcomponent compatibility for older browsers
           {
             context: "node_modules/@webcomponents/webcomponentsjs",
             from: "webcomponents-loader.js",
@@ -134,4 +142,5 @@ module.exports = (env, argv) => {
     ],
     devtool,
   };
+  return config;
 };
