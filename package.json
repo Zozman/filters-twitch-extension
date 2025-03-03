@@ -32,7 +32,7 @@
     "sass": "1.84.0",
     "sass-embedded": "1.83.4",
     "sass-loader": "16.0.4",
-    "typescript": "5.7.3"
+    "typescript": "5.8.2"
   },
   "dependencies": {
     "@lit/localize": "0.12.2",
