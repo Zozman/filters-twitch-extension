@@ -24,15 +24,15 @@
   },
   "devDependencies": {
     "@lit/localize-tools": "0.8.0",
-    "@rspack/cli": "1.2.3",
-    "@rspack/core": "1.2.3",
+    "@rspack/cli": "1.2.7",
+    "@rspack/core": "1.2.7",
     "clean-webpack-plugin": "4.0.0",
     "lit-css-loader": "3.0.1",
     "minify-html-literals-loader": "1.1.1",
-    "sass": "1.84.0",
-    "sass-embedded": "1.83.4",
-    "sass-loader": "16.0.4",
-    "typescript": "5.7.3"
+    "sass": "1.85.1",
+    "sass-embedded": "1.85.1",
+    "sass-loader": "16.0.5",
+    "typescript": "5.8.2"
   },
   "dependencies": {
     "@lit/localize": "0.12.2",
