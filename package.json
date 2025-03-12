@@ -37,7 +37,7 @@
   "dependencies": {
     "@lit/localize": "0.12.2",
     "@lit/task": "1.0.2",
-    "@shoelace-style/shoelace": "2.20.0",
+    "@shoelace-style/shoelace": "2.20.1",
     "@webcomponents/webcomponentsjs": "2.8.0",
     "lit": "3.2.1",
     "miragejs": "0.2.0-alpha.3"
