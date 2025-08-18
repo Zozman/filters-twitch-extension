@@ -27,7 +27,7 @@
     "@rspack/cli": "1.4.6",
     "@rspack/core": "1.4.6",
     "clean-webpack-plugin": "4.0.0",
-    "lit-css-loader": "3.0.1",
+    "lit-css-loader": "4.0.0",
     "minify-html-literals-loader": "1.1.1",
     "sass": "1.89.2",
     "sass-embedded": "1.89.2",
