@@ -24,13 +24,13 @@
   },
   "devDependencies": {
     "@lit/localize-tools": "0.8.0",
-    "@rspack/cli": "1.4.11",
-    "@rspack/core": "1.4.11",
+    "@rspack/cli": "1.5.8",
+    "@rspack/core": "1.5.8",
     "clean-webpack-plugin": "4.0.0",
     "lit-css-loader": "4.0.0",
     "minify-html-literals-loader": "1.1.1",
-    "sass": "1.90.0",
-    "sass-embedded": "1.90.0",
+    "sass": "1.93.2",
+    "sass-embedded": "1.93.2",
     "sass-loader": "16.0.5",
     "typescript": "5.9.2"
   },
