@@ -23,7 +23,7 @@
     "url": "https://github.com/Zozman/filters-twitch-extension/issues"
   },
   "devDependencies": {
-    "@lit/localize-tools": "0.8.0",
+    "@lit/localize-tools": "0.8.2",
     "@rspack/cli": "1.5.8",
     "@rspack/core": "1.5.8",
     "clean-webpack-plugin": "4.0.0",
